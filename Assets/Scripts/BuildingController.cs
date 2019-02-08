@@ -29,7 +29,7 @@ public class BuildingController : MonoBehaviour
         {
             Vector3 gridPosition = map.CalculateGridPosition(hit.point); //this line calls the method that rounds the position values
 
-            if (map.isPositionAvailable(gridPosition)) //if positioin is empty
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() &&  map.isPositionAvailable(gridPosition)) //if positioin is empty
             {
                 if(gs.Money >= selectedBuilding.cost) //and we have enough money
                 {
