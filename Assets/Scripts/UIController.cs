@@ -31,6 +31,6 @@ public class UIController : MonoBehaviour
             "Money: {2}\n" +
             "Pop: {3}/{4}\n" +
             "Food: {5}",
-            gs.UnitsCurrent, gs.UnitsMax, gs.Money, gs.PopulationCurrent, gs.PopulationMax, gs.Food);
+            gs.UnitsCurrent, gs.UnitsMax, (int)gs.Money, (int)gs.PopulationCurrent, gs.PopulationMax, (int)gs.Food);
     }
 }
