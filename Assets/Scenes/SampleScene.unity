@@ -1338,13 +1338,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Money: 200
+  m_text: 'Money: 10000
 
-    Population: 0/20
+    Population: 0/10
 
-    Food: 10
+    Food: 6
 
-    Military Units: 1/10
+    Military Units: 0/10
 
 '
   m_isRightToLeft: 0
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 756158446}
-    characterCount: 58
+    characterCount: 59
     spriteCount: 0
     spaceCount: 9
     wordCount: 11
