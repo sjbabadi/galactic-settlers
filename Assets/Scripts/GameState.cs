@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public int Money { get; set; }
-    public int Day { get; set; }
+    public int Turn { get; set; }
     public float PopulationCurrent { get; set; }
     public float PopulationMax { get; set; }
     public int UnitsCurrent { get; set; }
@@ -14,10 +14,12 @@ public class GameState : MonoBehaviour
 
     //buildings ID'd by index. current order: Farm[0], Barracks[1], House[2], Mine[3]
     public int[] buildingCounts = new int[4];
+    private UIController uiController;
 
     // Start is called before the first frame update
     void Start()
     {
+        uiController = FindObjectOfType<UIController>();
         buildingCounts[0] = 4;
         buildingCounts[1] = 4;
         buildingCounts[2] = 4;
@@ -31,17 +33,14 @@ public class GameState : MonoBehaviour
     //methods for calculating each stat (we can change these accordingly), these are run when end turn is clicked
     public void EndTurn()
     {
-        Day++;
+        Turn++;
         CalculateCash();
         CalculateFood();
         CalcuateUnitsMax();
         CalculatePopulationMax();
-        Debug.Log("Day ended");
-        Debug.LogFormat("Jobs: {0}/{1}" +
-        	"Money: {2}" +
-        	"Pop: {3}/{4}" +
-            "Food: {5}",
-            UnitsCurrent, UnitsMax, Money, PopulationCurrent, PopulationMax, Food);
+        uiController.UpdateTurnCount();
+        uiController.UpdatePlayerData();
+      
     }
 
     void CalcuateUnitsMax()
