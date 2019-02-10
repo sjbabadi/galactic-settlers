@@ -40,6 +40,11 @@ public class GameState : MonoBehaviour
         CalculatePopulationMax();
         uiController.UpdateTurnCount();
         uiController.UpdatePlayerData();
+
+        foreach (Soldier soldier in GetComponents<Soldier>())
+        {
+            soldier.TakeAction();
+        }
       
     }
 

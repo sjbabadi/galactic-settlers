@@ -7,6 +7,8 @@ public class Map : MonoBehaviour
     //define 2D array to store building placement info
     private Building[,] buildings = new Building[100, 100];
 
+    public GameObject[,] pieces = new GameObject[100, 100];
+
     public void AddBuilding(Building building, Vector3 position)
     {
         Building toAdd = Instantiate(building, position, Quaternion.identity);
@@ -22,5 +24,24 @@ public class Map : MonoBehaviour
     public Vector3 CalculateGridPosition(Vector3 position)
     {
         return new Vector3(Mathf.Round(position.x), 1f, Mathf.Round(position.z));
+    }
+
+    public void AddPiece(GameObject gamePiece, Vector3 position)
+    {
+        GameObject toAdd = Instantiate(gamePiece, position, Quaternion.identity);
+        //buildings[(int)position.x, (int)position.z] = toAdd;
+
+        pieces[(int)position.x, (int)position.z] = toAdd.gameObject;
+    }
+
+    public void movePiece(Vector3 currentPosition, Vector3 newPosition)
+    {
+        pieces[(int)newPosition.x, (int)newPosition.z] = pieces[(int)currentPosition.x, (int)currentPosition.z];
+        pieces[(int)currentPosition.x, (int)currentPosition.z] = null;
+    }
+
+    public void deletePiece(Vector3 position)
+    {
+        pieces[(int)position.x, (int)position.z] = null;
     }
 }
