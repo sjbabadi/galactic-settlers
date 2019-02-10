@@ -16,6 +16,10 @@ public class GameState : MonoBehaviour
     public int[] buildingCounts = new int[4];
     private UIController uiController;
 
+    //keep track of all enemies and allies, objects add themselves when created
+    public Enemy[] enemies = new Enemy[10];
+    public Soldier[] allies = new Soldier[100];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +31,8 @@ public class GameState : MonoBehaviour
 
         Money = 10000;
         Food = 6;
-        UnitsMax = 10;   
+        UnitsMax = 10;
+        PopulationCurrent = 0;
     }
 
     //methods for calculating each stat (we can change these accordingly), these are run when end turn is clicked
@@ -40,7 +45,23 @@ public class GameState : MonoBehaviour
         CalculatePopulationMax();
         uiController.UpdateTurnCount();
         uiController.UpdatePlayerData();
-      
+
+        // used to move or attack surrounding tiles for every ally/enemy
+        foreach (Soldier ally in allies)
+        {
+            if (ally != null)
+            {
+                ally.TakeAction();
+            }
+        }
+        
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                enemy.TakeAction();
+            }
+        }
     }
 
     void CalcuateUnitsMax()
@@ -68,11 +89,11 @@ public class GameState : MonoBehaviour
         if(Food >= PopulationCurrent && PopulationCurrent < PopulationMax)
         {
             Food -= PopulationCurrent * .5f;
-            PopulationCurrent = Mathf.Min(PopulationCurrent += Food * .5f, PopulationMax);
+            //PopulationCurrent = Mathf.Min(PopulationCurrent += Food * .5f, PopulationMax);
         } else if(Food < PopulationCurrent)
         {
             //if we didn't have enough food, some people die - this formula is arbitrary
-            PopulationCurrent -= (PopulationCurrent - Food) * .5f;
+            //PopulationCurrent -= (PopulationCurrent - Food) * .5f;
         }
     }
 }
