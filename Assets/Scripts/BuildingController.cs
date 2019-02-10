@@ -74,12 +74,13 @@ public class BuildingController : MonoBehaviour
 
             if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && map.isPositionAvailable(gridPosition)) //if positioin is empty
             {
-                if (gs.Money >= soldier.cost) //and we have enough money
+                if (gs.Money >= soldier.cost && gs.PopulationCurrent < gs.PopulationMax) //and we have enough money
                 {
                     gs.Money -= soldier.cost;
+                    gs.PopulationCurrent++;
                     uiController.UpdatePlayerData();
                     map.AddPiece(soldier.gameObject, gridPosition);
-                    //map.AddBuilding(selectedBuilding, gridPosition);
+                    map.AddBuilding(selectedBuilding, gridPosition);
                 }
             }
 

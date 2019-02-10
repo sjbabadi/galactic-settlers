@@ -27,10 +27,10 @@ public class UIController : MonoBehaviour
 
     public void UpdatePlayerData()
     {
-        dataText.text = string.Format("Jobs: {0}/{1}\n" +
-            "Money: {2}\n" +
-            "Pop: {3}/{4}\n" +
-            "Food: {5}",
+        dataText.text = string.Format("Money: {2}\n" +
+            "Population: {3}/{4}\n" +
+            "Food: {5}"\n+
+            "Military Units: {0}/{1}\n",
             gs.UnitsCurrent, gs.UnitsMax, (int)gs.Money, (int)gs.PopulationCurrent, gs.PopulationMax, (int)gs.Food);
     }
 }
