@@ -17,8 +17,8 @@ public class GameState : MonoBehaviour
     private UIController uiController;
 
     //keep track of all enemies and allies, objects add themselves when created
-    public Enemy[] enemies = new Enemy[10];
-    public Soldier[] allies = new Soldier[100];
+    public List<Enemy> enemies = new List<Enemy>();
+    public List<Soldier> allies = new List<Soldier>();
 
     // Start is called before the first frame update
     void Start()
