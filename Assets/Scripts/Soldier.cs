@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : Character
+public class Soldier : MonoBehaviour
 {
     [SerializeField] private GameState gs;
     [SerializeField] private Map map;
@@ -20,7 +20,7 @@ public class Soldier : Character
         health = 100;
         power = 15;
 
-        Init();
+        //Init();
 
         gs.allies.Add(gameObject.GetComponent<Soldier>());
     }
@@ -28,7 +28,7 @@ public class Soldier : Character
     // Update is called once per frame
     void Update()
     {
-        base.Update();
+        //base.Update();
     }
 
 
