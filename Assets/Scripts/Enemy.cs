@@ -113,7 +113,10 @@ public class Enemy : MonoBehaviour
                 eUnitsMax += 10;
             } else if (building == eBarr)
             {
-                eMoney += 100;
+                ePopulationCurrent += 10;
+            } else
+            {
+                eMoney += 2000;
             }
 
             Debug.Log("built = " + building);
