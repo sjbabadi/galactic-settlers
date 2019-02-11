@@ -33,6 +33,7 @@ public class GameState : MonoBehaviour
         Food = 6;
         UnitsMax = 10;
         PopulationCurrent = 0;
+        Turn = 1;
     }
 
     //methods for calculating each stat (we can change these accordingly), these are run when end turn is clicked
