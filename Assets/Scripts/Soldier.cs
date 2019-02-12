@@ -34,10 +34,6 @@ public class Soldier : Character
             FindSelectableTiles();
             CheckMouse();
         }
-        else
-        {
-            Move();
-        }
 
     }
 

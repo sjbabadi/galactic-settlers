@@ -109,7 +109,7 @@ public class Character : MonoBehaviour
 
     public void Move()
     {
-        if (path.Count > 0)
+        while (path.Count > 0)
         {
             Tilemap t = path.Peek();
             Vector3 target = t.transform.position;
@@ -134,11 +134,8 @@ public class Character : MonoBehaviour
             }
 
         }
-        else
-        {
-            RemoveSelectableTiles();
-            moving = false;
-        }
+        RemoveSelectableTiles();
+        moving = false;
     }
 
     //remove the selectable tiles
