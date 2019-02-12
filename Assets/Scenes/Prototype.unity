@@ -12619,6 +12619,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DpadMultiplePieces
       objectReference: {fileID: 0}
+    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224150926742435176, guid: f85b4a2b127c8b844b3e08d59561124d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12722,26 +12742,6 @@ PrefabInstance:
     - target: {fileID: 224150926742435176, guid: f85b4a2b127c8b844b3e08d59561124d,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114242081434845528, guid: f85b4a2b127c8b844b3e08d59561124d,
-        type: 3}
-      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19032,7 +19032,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015131136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 1, z: 10}
+  m_LocalPosition: {x: 18, y: 1, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1344476975}
@@ -19054,6 +19054,16 @@ MonoBehaviour:
   map: {fileID: 1539545937}
   health: 0
   power: 0
+  eMoney: 0
+  eFood: 0
+  eUnitsMax: 0
+  ePopulationCurrent: 0
+  eFarm: {fileID: 1134087025501682721, guid: b11f2e6e6894e46378610ab00cee1c59, type: 3}
+  eHouse: {fileID: 1316228348452683442, guid: 3a48bb12d830d4df4a8527ab123caf07, type: 3}
+  eMine: {fileID: 8614359436646016402, guid: 86affd89e28854988bf074b37f8df308, type: 3}
+  eBarr: {fileID: 6435772225763128533, guid: 41b8881d43c4448b38919ffdf8124383, type: 3}
+  _buildRate: 5
+  _canBuild: 0
 --- !u!65 &1015131139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19246,10 +19256,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6435772225763128533, guid: 41b8881d43c4448b38919ffdf8124383,
+    - target: {fileID: 2079858848999506525, guid: 41b8881d43c4448b38919ffdf8124383,
         type: 3}
-      propertyPath: m_Name
-      value: Barracks
+      propertyPath: cost
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6435772225763128489, guid: 41b8881d43c4448b38919ffdf8124383,
         type: 3}
@@ -19306,10 +19316,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2079858848999506525, guid: 41b8881d43c4448b38919ffdf8124383,
+    - target: {fileID: 6435772225763128533, guid: 41b8881d43c4448b38919ffdf8124383,
         type: 3}
-      propertyPath: cost
-      value: 100
+      propertyPath: m_Name
+      value: Barracks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b8881d43c4448b38919ffdf8124383, type: 3}
