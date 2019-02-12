@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private GameState gs;
-    [SerializeField] private Map map;
+    [SerializeField] private Tilemap map;
 
     public float health;
     public float power;

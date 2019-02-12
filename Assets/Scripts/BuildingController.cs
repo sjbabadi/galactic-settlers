@@ -8,7 +8,7 @@ public class BuildingController : MonoBehaviour
     [SerializeField] private GameState gs;
     [SerializeField] private UIController uiController;
     [SerializeField] private Building[] buildings; //contains refs to the different building prefabs
-    [SerializeField] private Map map;
+    [SerializeField] private Tilemap map;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Soldier soldier;
 

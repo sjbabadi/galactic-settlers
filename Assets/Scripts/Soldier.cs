@@ -5,7 +5,7 @@ using UnityEngine;
 public class Soldier : Character
 {
     [SerializeField] private GameState gs;
-    [SerializeField] private Map map;
+    [SerializeField] private Tilemap map;
 
     public int cost;
     public float power;
@@ -17,21 +17,54 @@ public class Soldier : Character
 
     private void Start()
     {
+        Init();
+
         health = 100;
         power = 15;
 
-        Init();
-
+        
         gs.allies.Add(gameObject.GetComponent<Soldier>());
     }
 
     // Update is called once per frame
     void Update()
     {
-        base.Update();
+        if (!moving)
+        {
+            FindSelectableTiles();
+            CheckMouse();
+        }
+        else
+        {
+            Move();
+        }
     }
 
 
+    void CheckMouse()
+    {
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "Tile")
+                {
+                    Tilemap t = hit.collider.GetComponent<Tilemap>();
+
+                    if (t.selectable)
+                    {
+                        MoveToTile(t);
+                    }
+                }
+            }
+        }
+
+
+    }
 
 
     private void Attack()
