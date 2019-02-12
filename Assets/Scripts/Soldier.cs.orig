@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : Character
+public class Soldier : MonoBehaviour
 {
     [SerializeField] private GameState gs;
     [SerializeField] private Tilemap map;
@@ -22,13 +22,19 @@ public class Soldier : Character
         health = 100;
         power = 15;
 
+<<<<<<< HEAD
+        
+=======
+        //Init();
+
+>>>>>>> prototype
         gs.allies.Add(gameObject.GetComponent<Soldier>());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+<<<<<<< HEAD
         if (!moving)
         {
             FindSelectableTiles();
@@ -38,7 +44,9 @@ public class Soldier : Character
         {
             Move();
         }
-
+=======
+        //base.Update();
+>>>>>>> prototype
     }
 
 
