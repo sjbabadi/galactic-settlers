@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 
@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 1230657971
+    locked: 0
+  - name: Terrain
+    uniqueID: 2101346173
+    locked: 0
+  - name: Units
+    uniqueID: 2675410713
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
