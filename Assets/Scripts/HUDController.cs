@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class HUDController : MonoBehaviour
 {
-    //[SerializeField] private GameState gs
+    [SerializeField] private GameState gs;
     [SerializeField] private Text turnText;
     [SerializeField] private Text baseHealthText;
     [SerializeField] private Text moneyText;
