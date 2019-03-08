@@ -17,4 +17,17 @@ public class GameState : MonoBehaviour
     public int Units { get; set; }
 
     public int MaxPop { get; set; }
+
+    private HUDController HUDController;
+
+    private void Start()
+    {
+        HUDController = FindObjectOfType<HUDController>();
+    }
+
+    public void EndTurn()
+    {
+        Turn++;
+        //HUDController.UpdateStats();
+    }
 }

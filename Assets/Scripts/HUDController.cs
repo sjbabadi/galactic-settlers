@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class HUDController : MonoBehaviour
 {
     [SerializeField] private GameState gs;
-    [SerializeField] private Text turnText;
+    [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private Text baseHealthText;
     [SerializeField] private Text moneyText;
     [SerializeField] private Text unitsText;
@@ -45,11 +46,11 @@ public class HUDController : MonoBehaviour
 
     // Updates all text based on the values recoreded in the GameState object. Everything commented out as GameState object does not yet exist.
     public void UpdateStats() {
-        //turnText.text = string.Format("Turn: {0}", gs.Turn);
-        //baseHealthText.text = string.Format("Base Health: {0}", gs.BaseHealth);
-        //moneyText.text = string.Format("Money: {0}", gs.Money);
-        //unitstext = string.Format("Units: {0}", gs.Units);
-        //foodText.text = string.Format("Food: {0}", gs.Food);
-        //maxPopText.text = string.Format("Max. Pop.: {0}", gs.MaxPop);
+        turnText.text = string.Format("Turn: {0}", gs.Turn);
+        baseHealthText.text = string.Format("Base Health: {0}", gs.BaseHealth);
+        moneyText.text = string.Format("Money: {0}", gs.Money);
+        //unitsText = string.Format("Units: {0}", gs.Units);
+        foodText.text = string.Format("Food: {0}", gs.Food);
+        maxPopText.text = string.Format("Max. Pop.: {0}", gs.MaxPop);
     }
 }
