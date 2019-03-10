@@ -5,6 +5,15 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
 
+
+    /// <summary>
+    /// Make combat system in here..... this is the overall encompassing unit system.
+    /// </summary>
+
+
+    
+
+
     public int tileX;
     public int tileY;
     public Tile_map map;
@@ -13,7 +22,7 @@ public class Unit : MonoBehaviour
 
     int moveSpeed = 2;
 
-    private void Update()
+    void Update()
     {
         if(currentPath != null)
         {
@@ -32,16 +41,16 @@ public class Unit : MonoBehaviour
     }
 
 
-    public void MoveNextTile()
+    public void MoveNextTile(  )
     {
         float remainingMovement = moveSpeed;
         while(remainingMovement > 0)
         {
             if (currentPath == null)
-                return;
+                return ;
 
             remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y);
-
+          //  Debug.Log("Remaining movement left: " + remainingMovement);
             //move the unit to the next tile in the path
             tileX = currentPath[1].x;
             tileY = currentPath[1].y;
@@ -53,9 +62,10 @@ public class Unit : MonoBehaviour
             {
                 //lets clear the pathfinding data because we're reached the destination
                 currentPath = null;
+               // return (int)remainingMovement;
             }
         }
-        
+       // return 0;
     }
 
 }

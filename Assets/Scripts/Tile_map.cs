@@ -7,7 +7,7 @@ using System.Linq;
 public class Tile_map : MonoBehaviour
 {
     
-    //TODO figure out a script for selecting units
+    
     public GameObject selectedUnit;
 
     public TileType[] tileTypes;
