@@ -4,13 +4,40 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    // Unit stats
+    public float health = 100;
+    public float attackPower = 15;
+
+    // Potential targets
+    public Unit enemyUnit;
+    public Building enemyBuilding;
+    private string target = "";
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Attack()
+    {
+        if(target == "unit")
+        {
+            enemyUnit.TakeDamage(attackPower);
+        }
+        else if (target == "building")
+        {
+            enemyBuilding.TakeDamage(attackPower);
+        }
+    }
 
 
-    /// <summary>
-    /// Make combat system in here..... this is the overall encompassing unit system.
-    /// </summary>
 
-
+    
     
 
 
