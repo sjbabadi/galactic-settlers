@@ -85,7 +85,7 @@ public class Tile_map : MonoBehaviour
                 temptiles[j, 30 - 1 - i] = temp;
             }
         }
-
+        
         tiles = temptiles;
 
         // spawn the design here
@@ -107,8 +107,8 @@ public class Tile_map : MonoBehaviour
             //makes pathfinding smoother/ less cornering
             cost += 0.001f;
         }
-
-        return tt.movementCost;
+        
+        return cost;
     } 
 
 
@@ -135,28 +135,43 @@ public class Tile_map : MonoBehaviour
             for (int y = 0; y < mapSizeY; y++)
             {
 
-                if (x > 0)
+                // This is the 4-way connection version:
+     /*           if (x > 0)
+                    graph[x, y].neighbours.Add(graph[x - 1, y]);
+                if (x < mapSizeX - 1)
+                    graph[x, y].neighbours.Add(graph[x + 1, y]);
+                if (y > 0)
+                    graph[x, y].neighbours.Add(graph[x, y - 1]);
+                if (y < mapSizeY - 1)
+                    graph[x, y].neighbours.Add(graph[x, y + 1]);
+                
+    */
+                // This is the 8-way connection version (allows diagonal movement)
+				// Try left
+				if(x > 0)
                 {
                     graph[x, y].neighbours.Add(graph[x - 1, y]);
                     if (y > 0)
                         graph[x, y].neighbours.Add(graph[x - 1, y - 1]);
                     if (y < mapSizeY - 1)
                         graph[x, y].neighbours.Add(graph[x - 1, y + 1]);
-                }
-                if (x < mapSizeX - 1)
+				}
+
+				// Try Right
+				if(x < mapSizeX-1)
                 {
                     graph[x, y].neighbours.Add(graph[x + 1, y]);
                     if (y > 0)
                         graph[x, y].neighbours.Add(graph[x + 1, y - 1]);
                     if (y < mapSizeY - 1)
                         graph[x, y].neighbours.Add(graph[x + 1, y + 1]);
-                }
+				}
+
+                // Try straight up and down
                 if (y > 0)
-                    graph[x, y].neighbours.Add(graph[x , y - 1]);
+                    graph[x, y].neighbours.Add(graph[x, y - 1]);
                 if (y < mapSizeY - 1)
-                    graph[x, y].neighbours.Add(graph[x , y + 1]);
-
-
+                    graph[x, y].neighbours.Add(graph[x, y + 1]);
 
             }
         }
