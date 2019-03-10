@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
-{
-    private Vector3 mouseOriginPoint;
-    private Vector3 offset;
-    private bool dragging;
+{ 
+    public float speed = 5.0f;
 
     //change size to zoom in/out
     //clamp min/max values
@@ -17,23 +15,25 @@ public class CameraController : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize
             -= Input.GetAxis("Mouse ScrollWheel") * Camera.main.orthographicSize, 2.5f, 50f);
 
-        if (Input.GetMouseButton(0))
-        {
-            offset = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
-            if (!dragging)
-            {
-                dragging = true;
-                mouseOriginPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            }
 
-            if (dragging)
-            {
-                transform.position = mouseOriginPoint - offset;
-            }
-        }
-        else
+
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            dragging = false;
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
+        }
+
     }
+  
 }
