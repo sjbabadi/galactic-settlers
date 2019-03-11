@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlacementScript : MonoBehaviour
 {
+
+    public UnitGen generate;
+    //UnitGen generate = FindObjectOfType<UnitGen>();
+
     private int selectedObjectInArray;
     private GameObject currentlySelectedObject;
 
@@ -15,7 +19,7 @@ public class PlacementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //select an object
+        //select an object -- clean up these hotkeys
         if (Input.GetKeyDown("f"))
         {
             SelectObject(0);
@@ -45,18 +49,20 @@ public class PlacementScript : MonoBehaviour
             currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
             isAnObjectSelected = true;
 
-            //update building counts in gamestate's array
+            //update building counts in gamestate's array (Something is wonky here, need to fix bug after vert slice
             if (selectedObjectInArray == 0)
             {
                 GameState.buildingCounts[0]++;
             }
-            else if (selectedObjectInArray == 1)
-            {
-                GameState.buildingCounts[1]++;
-            } else
-            {
+            else if (selectedObjectInArray == 1) {
                 GameState.buildingCounts[2]++;
             }
+            else
+            {
+                //barracks
+                GameState.buildingCounts[1]++;
+                generate.Update();
+            } 
         }
 
     }

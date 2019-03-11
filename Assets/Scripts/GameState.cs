@@ -14,9 +14,9 @@ public class GameState : MonoBehaviour
 
     public int BaseHealth { get; set; }
 
-    public int Units { get; set; }
+    public static int Units { get; set; }
 
-    public int UnitMax { get; set; }
+    public static int UnitMax { get; set; }
 
     public int MaxPop { get; set; }
 
@@ -41,15 +41,6 @@ public class GameState : MonoBehaviour
         UnitMax = 0;
         Turn = 0;
     }
-
-    //for debugging----------------------------
-    private void Update()
-    {
-        Debug.Log(buildingCounts[(int)Buildings.Farm]);
-        Debug.Log(buildingCounts[(int)Buildings.Mine]);
-        Debug.Log(buildingCounts[(int)Buildings.Barracks]);
-    }
-    //end debuggine----------------------------
 
     public void EndTurn()
     {

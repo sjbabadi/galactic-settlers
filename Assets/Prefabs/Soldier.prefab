@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705924160454313972}
   - component: {fileID: 705924160454313971}
+  - component: {fileID: 9148138732304029896}
   - component: {fileID: 705924160454313973}
   m_Layer: 0
   m_Name: Soldier
@@ -80,6 +81,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &9148138732304029896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705924160454313970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f0e4474555648409237b9ff0a1488b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Soldier: {fileID: 705924160454313970}
+  waitTime: 5
 --- !u!114 &705924160454313973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +104,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 705924160454313970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d0aefa026390343a0724fa1c9b1fa8, type: 3}
+  m_Script: {fileID: 11500000, guid: 20f0e4474555648409237b9ff0a1488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Soldier: {fileID: 705924160454313970}
+  waitTime: 5
