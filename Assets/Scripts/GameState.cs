@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Buildings { Farm, Mine, Barracks };
+
 public class GameState : MonoBehaviour
 {
     [SerializeField] public int Turn { get; set; }
@@ -20,8 +22,6 @@ public class GameState : MonoBehaviour
     public int UnitMax { get; set; }
 
     public int MaxPop { get; set; }
-
-    public enum Buildings { Farm, Mine, Barracks };
 
     public int[] buildingCounts = new int[3];
 
