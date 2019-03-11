@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
             //check for win condition (base health to zero)
             isGameOver = IsWinner();
+
         }
     }
 
