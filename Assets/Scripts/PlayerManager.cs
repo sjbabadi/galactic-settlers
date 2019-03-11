@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerManager : TurnManager
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //if it's not the player's turn, immediately return / don't run anything
+        if(gm.CurrentTurn != Turn.Player)
+        {
+            return;
+        }
     }
 }

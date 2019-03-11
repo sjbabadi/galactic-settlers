@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
     {
         yield return StartCoroutine("StartGameRoutine");
         yield return StartCoroutine("PlayGameRoutine");
-        yield return StartCoroutine("EndGameRoutine");
+        //yield return StartCoroutine("EndGameRoutine");
+        //TODO: EnDGameRoutine will run the game over screen -- post vertical slice
     }
 
     IEnumerator StartGameRoutine()
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
             yield return null;
 
             //check for win condition (base health to zero)
-            isGameOver = IsWinner();
+            //isGameOver = IsWinner();
 
         }
     }
@@ -94,10 +95,10 @@ public class GameManager : MonoBehaviour
         currentTurn = Turn.Enemy;
     }
 
-    void IsWinner()
-    {
+    //bool IsWinner()
+    //{
 
-    }
+    //}
 
     public void UpdateTurn()
     {

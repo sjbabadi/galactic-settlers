@@ -11,9 +11,14 @@ public class EnemyManager : TurnManager
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayTurn()
     {
-        
+        StartCoroutine(PlayTurnRoutine());
+    }
+
+    IEnumerator PlayTurnRoutine()
+    {
+        //enemy's action sequence
+        yield return null;
     }
 }
