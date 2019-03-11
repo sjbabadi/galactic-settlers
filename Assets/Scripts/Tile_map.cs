@@ -20,11 +20,6 @@ public class Tile_map : MonoBehaviour
 
     private void Start()
     {
-        //setup the selected Unit's variable coordinates
-        selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
-        selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
-        selectedUnit.GetComponent<Unit>().map = this;
-
         GenerateMapData();
         GeneratePathFindingGraph();
         GenerateMapVisual();
@@ -211,6 +206,10 @@ public class Tile_map : MonoBehaviour
      
     public void GeneratePathTo(int x, int y)
     {
+        // Sets the selected units starting location
+        selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
+        selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
+
         //clear out old path
         selectedUnit.GetComponent<Unit>().currentPath = null;
 
