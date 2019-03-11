@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlacementScript : MonoBehaviour
 {
-    private int selectedObjectInArray;
-    private GameObject currentlySelectedObject;
-    [SerializeField] GameState gs;
+    private static int selectedObjectInArray;
+    private static GameObject currentlySelectedObject;
 
+    [SerializeField]
+    GameState gs;
+    
     [SerializeField]
     private GameObject[] selectableObjects;
 
-    private bool isAnObjectSelected = false;
+    private static bool isAnObjectSelected = false;
 
     // Update is called once per frame
     void Update()
@@ -25,9 +27,14 @@ public class PlacementScript : MonoBehaviour
         {
             SelectObject(1);
         }
+    }
 
-        //clear object selected by right mouse click
-        if (Input.GetMouseButtonDown(1) && isAnObjectSelected == true)
+    /// <summary>
+    /// Clear the currently selected object.
+    /// </summary>
+    public static void ClearSelection()
+    {
+        if (isAnObjectSelected)
         {
             Destroy(currentlySelectedObject);
             isAnObjectSelected = false;
@@ -35,7 +42,10 @@ public class PlacementScript : MonoBehaviour
         }
     }
 
-    //Instantiates the object based on key pressed or button clicked
+    /// <summary>
+    /// Instantiates the object based on key pressed or button clicked
+    /// </summary>
+    /// <param name="selectedObjectInArray"></param>
     public void SelectObject(int selectedObjectInArray)
     {
         if(isAnObjectSelected == false)
