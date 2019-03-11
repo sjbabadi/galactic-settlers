@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,5 +68,13 @@ public class GameState : MonoBehaviour
         UnitMax = 5 * buildingCounts[(int)Buildings.Barracks];
     }
 
+    //for debugging----------------------------
+    private void Update()
+    {
+        Debug.Log(buildingCounts[(int)Buildings.Farm]);
+        Debug.Log(buildingCounts[(int)Buildings.Mine]);
+        Debug.Log(buildingCounts[(int)Buildings.Barracks]);
+    }
+    //end debuggine----------------------------
 
 }
