@@ -27,7 +27,10 @@ public class TransScript : MonoBehaviour
             if (rayHit.collider == null)
             {
                 Instantiate(placeObject, transform.position, Quaternion.identity);
+                PlacementScript.ClearSelection();
+
             }
+
 
         }
     }
