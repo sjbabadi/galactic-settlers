@@ -52,6 +52,20 @@ public class PlacementScript : MonoBehaviour
 
             currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
             isAnObjectSelected = true;
+
+            //update building counts in gamestate's array
+            if (selectedObjectInArray == 0)
+            {
+                GameState.buildingCounts[0]++;
+            }
+            else if (selectedObjectInArray == 1)
+            {
+                GameState.buildingCounts[1]++;
+            } else
+            {
+                GameState.buildingCounts[2]++;
+            }
         }
+
     }
 }
