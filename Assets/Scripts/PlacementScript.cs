@@ -25,7 +25,7 @@ public class PlacementScript : MonoBehaviour
             SelectObject(1);
         }
 
-        //clear object selected my right mouse click
+        //clear object selected by right mouse click
         if (Input.GetMouseButtonDown(1) && isAnObjectSelected == true)
         {
             Destroy(currentlySelectedObject);
@@ -34,7 +34,7 @@ public class PlacementScript : MonoBehaviour
         }
     }
 
-    //Instatntiates the object based on key pressed or button clicked
+    //Instantiates the object based on key pressed or button clicked
     public void SelectObject(int selectedObjectInArray)
     {
         if(isAnObjectSelected == false)
@@ -44,6 +44,20 @@ public class PlacementScript : MonoBehaviour
 
             currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
             isAnObjectSelected = true;
+
+            //update building counts in gamestate's array
+            if (selectedObjectInArray == 0)
+            {
+                GameState.buildingCounts[0]++;
+            }
+            else if (selectedObjectInArray == 1)
+            {
+                GameState.buildingCounts[1]++;
+            } else
+            {
+                GameState.buildingCounts[2]++;
+            }
         }
+
     }
 }
