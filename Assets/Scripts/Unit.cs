@@ -163,4 +163,8 @@ public class Unit : MonoBehaviour
        // return 0;
     }
 
+    public void SelectUnit()
+    {
+        map.selectedUnit = gameObject;
+    }
 }
