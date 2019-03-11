@@ -10,8 +10,6 @@ public class TileSelection : MonoBehaviour
         Debug.Log(WorldCoord.x + " " + WorldCoord.y);
         gameObject.transform.position = newPos;
     }
-
-
 }
 
 
