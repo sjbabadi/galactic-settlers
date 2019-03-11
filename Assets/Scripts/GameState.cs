@@ -24,11 +24,10 @@ public class GameState : MonoBehaviour
 
     public int[] buildingCounts = new int[3];
 
-    private HUDController HUDController;
+    [SerializeField] private HUDController HUDController;
 
     private void Start()
     {
-        HUDController = FindObjectOfType<HUDController>();
         buildingCounts[(int)Buildings.Farm] = 0;
         buildingCounts[(int)Buildings.Mine] = 0;
         buildingCounts[(int)Buildings.Barracks] = 0;
