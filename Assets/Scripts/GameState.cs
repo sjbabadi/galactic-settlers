@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,13 +23,12 @@ public class GameState : MonoBehaviour
 
     public enum Buildings { Farm, Mine, Barracks };
 
-    public static int[] buildingCounts = new int[3];
+    public int[] buildingCounts = new int[3];
 
-    private HUDController HUDController;
+    [SerializeField] private HUDController HUDController;
 
     private void Start()
     {
-        HUDController = FindObjectOfType<HUDController>();
         buildingCounts[(int)Buildings.Farm] = 0;
         buildingCounts[(int)Buildings.Mine] = 0;
         buildingCounts[(int)Buildings.Barracks] = 0;
@@ -41,15 +41,6 @@ public class GameState : MonoBehaviour
         UnitMax = 0;
         Turn = 0;
     }
-
-    //for debugging----------------------------
-    private void Update()
-    {
-        Debug.Log(buildingCounts[(int)Buildings.Farm]);
-        Debug.Log(buildingCounts[(int)Buildings.Mine]);
-        Debug.Log(buildingCounts[(int)Buildings.Barracks]);
-    }
-    //end debuggine----------------------------
 
     public void EndTurn()
     {
@@ -77,5 +68,13 @@ public class GameState : MonoBehaviour
         UnitMax = 5 * buildingCounts[(int)Buildings.Barracks];
     }
 
+    //for debugging----------------------------
+    private void Update()
+    {
+        Debug.Log(buildingCounts[(int)Buildings.Farm]);
+        Debug.Log(buildingCounts[(int)Buildings.Mine]);
+        Debug.Log(buildingCounts[(int)Buildings.Barracks]);
+    }
+    //end debuggine----------------------------
 
 }
