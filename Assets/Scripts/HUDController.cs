@@ -8,7 +8,7 @@ using TMPro;
 public class HUDController : MonoBehaviour
 {
     [SerializeField] private GameState gs;
-    [SerializeField] private TextMeshProUGUI turnText;
+    [SerializeField] private Text turnText;
     [SerializeField] private Text baseHealthText;
     [SerializeField] private Text moneyText;
     [SerializeField] private Text unitsText;
@@ -44,13 +44,13 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    // Updates all text based on the values recoreded in the GameState object. Everything commented out as GameState object does not yet exist.
+    // Updates all text based on the values recoreded in the GameState Object
     public void UpdateStats() {
         turnText.text = string.Format("Turn: {0}", gs.Turn);
         baseHealthText.text = string.Format("Base Health: {0}", gs.BaseHealth);
         moneyText.text = string.Format("Money: {0}", gs.Money);
-        //unitsText = string.Format("Units: {0}", gs.Units);
+        unitsText.text = string.Format("Units: {0}/{1}", gs.Units, gs.UnitMax);
         foodText.text = string.Format("Food: {0}", gs.Food);
-        maxPopText.text = string.Format("Max. Pop.: {0}", gs.MaxPop);
+        maxPopText.text = string.Format("Pop: {0}/{1}", gs.Population, gs.MaxPop);
     }
 }
