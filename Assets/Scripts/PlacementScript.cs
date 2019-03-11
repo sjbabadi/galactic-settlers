@@ -8,6 +8,9 @@ public class PlacementScript : MonoBehaviour
     private static GameObject currentlySelectedObject;
 
     [SerializeField]
+    GameState gs;
+    
+    [SerializeField]
     private GameObject[] selectableObjects;
 
     private static bool isAnObjectSelected = false;
@@ -56,14 +59,14 @@ public class PlacementScript : MonoBehaviour
             //update building counts in gamestate's array
             if (selectedObjectInArray == 0)
             {
-                GameState.buildingCounts[0]++;
+                gs.buildingCounts[(int)Buildings.Farm]++;
             }
             else if (selectedObjectInArray == 1)
             {
-                GameState.buildingCounts[1]++;
+                gs.buildingCounts[(int)Buildings.Mine]++;
             } else
             {
-                GameState.buildingCounts[2]++;
+                gs.buildingCounts[(int)Buildings.Barracks]++;
             }
         }
 
