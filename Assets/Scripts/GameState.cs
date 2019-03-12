@@ -51,6 +51,11 @@ public class GameState : MonoBehaviour
         placement.UnitGen();
         HUDController.UpdateStats();
 
+        foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
+        {
+            unit.turnUsed = false;
+        }
+
     }
 
     public void CalculateFood()
