@@ -27,6 +27,8 @@ public class GameState : MonoBehaviour
 
     [SerializeField] private HUDController HUDController;
 
+    [SerializeField] public PlacementScript placement;
+
     private void Start()
     {
         buildingCounts[(int)Buildings.Farm] = 0;
@@ -46,9 +48,12 @@ public class GameState : MonoBehaviour
     {
         Turn++;
         HUDController.UpdateStats();
+        placement.UnitGen();
+        HUDController.UpdateStats();
+
     }
 
-    void CalculateFood()
+    public void CalculateFood()
     {
         Food += buildingCounts[(int)Buildings.Farm];
     }
@@ -58,23 +63,23 @@ public class GameState : MonoBehaviour
         Money += 25 * buildingCounts[(int)Buildings.Mine]; // 25 money per turn per mine
     }
 
-    void CalculateMaxPop()
+    public void CalculateMaxPop()
     {
         MaxPop = 5 * buildingCounts[(int)Buildings.Farm]; // 5 ppl allowed per farm
     }
 
-    void CalculateUnitMax()
+    public void CalculateUnitMax()
     {
         UnitMax = 5 * buildingCounts[(int)Buildings.Barracks];
     }
 
-    //for debugging----------------------------
+    /*for debugging----------------------------
     private void Update()
     {
         Debug.Log(buildingCounts[(int)Buildings.Farm]);
         Debug.Log(buildingCounts[(int)Buildings.Mine]);
         Debug.Log(buildingCounts[(int)Buildings.Barracks]);
     }
-    //end debuggine----------------------------
+    end debuggine----------------------------*/
 
 }

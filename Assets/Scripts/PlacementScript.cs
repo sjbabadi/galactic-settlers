@@ -15,6 +15,9 @@ public class PlacementScript : MonoBehaviour
 
     private static bool isAnObjectSelected = false;
 
+    //this is for UnitGen
+    public GameObject Soldier;
+
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +29,10 @@ public class PlacementScript : MonoBehaviour
         else if (Input.GetKeyDown("h"))
         {
             SelectObject(1);
+        }
+        else if (Input.GetKeyDown("b"))
+        {
+            SelectObject(2);
         }
     }
 
@@ -60,6 +67,8 @@ public class PlacementScript : MonoBehaviour
             if (selectedObjectInArray == 0)
             {
                 gs.buildingCounts[(int)Buildings.Farm]++;
+                gs.CalculateMaxPop();
+                gs.CalculateFood();
             }
             else if (selectedObjectInArray == 1)
             {
@@ -67,8 +76,58 @@ public class PlacementScript : MonoBehaviour
             } else
             {
                 gs.buildingCounts[(int)Buildings.Barracks]++;
+                gs.CalculateUnitMax();
             }
         }
 
     }
+
+    public void UnitGen()
+    {
+        
+        int numOfBarracks = gs.buildingCounts[(int)Buildings.Barracks];
+        int numUnits = gs.Units;
+        int numUnitsAllowed = gs.UnitMax;
+        int unitsDiff = numUnitsAllowed - numUnits;
+
+        //Debugging-------------------------------
+        Debug.Log("BEFORE CALCULATING");
+        Debug.Log("Num of farm " + gs.buildingCounts[(int)Buildings.Farm]);
+        Debug.Log("Num of barr " + numOfBarracks);
+        Debug.Log("Num of units " + numUnits);
+        Debug.Log("Num of units allowed " + numUnitsAllowed);
+        Debug.Log("Num diff " + unitsDiff);
+        //End Debugging-------------------------------
+
+
+        //if num of units allowed is greater than or equal to num of barracks built
+        if (unitsDiff >= numOfBarracks)
+        {
+            for (int i = 0; i < numOfBarracks; i++)
+            {
+                Instantiate(Soldier, new Vector2(i + 2.0f, 0), Quaternion.identity);
+                gs.Units++;
+                Debug.Log("AFTER CALCULATING");
+                Debug.Log("Num of barr" + numOfBarracks);
+                Debug.Log("Num of units" + numUnits);
+                Debug.Log("Num of units allowed" + numUnitsAllowed);
+                Debug.Log("Num diff" + unitsDiff);
+
+            }
+        }
+        else
+        {
+            //if num of units allowed is less than num of barracks built
+            for (int i = 0; i < numOfBarracks; i++)
+            {
+                Instantiate(Soldier, new Vector2(i + 2.0f, 0), Quaternion.identity);
+                gs.Units++;
+            }
+
+        }
+
+    }
+
 }
+
+
