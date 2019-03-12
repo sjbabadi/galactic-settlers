@@ -105,7 +105,7 @@ public class PlacementScript : MonoBehaviour
         {
             for (int i = 0; i < numOfBarracks; i++)
             {
-                Instantiate(Soldier, new Vector2(i + 2.0f, 0), Quaternion.identity);
+                Instantiate(Soldier, new Vector2(i + 5, 8), Quaternion.identity);
                 gs.Units++;
                 Debug.Log("AFTER CALCULATING");
                 Debug.Log("Num of barr" + numOfBarracks);
