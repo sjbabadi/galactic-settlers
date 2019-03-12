@@ -47,15 +47,24 @@ public class GameState : MonoBehaviour
     public void EndTurn()
     {
         Turn++;
-        HUDController.UpdateStats();
         placement.UnitGen();
-        HUDController.UpdateStats();
+        UpdateStats();
+        HUDController.UpdateStatText();
 
         foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
         {
             unit.turnUsed = false;
         }
 
+    }
+
+
+    void UpdateStats()
+    {
+        CalculateFood();
+        CalculateMoney();
+        CalculateMaxPop();
+        CalculateUnitMax();
     }
 
     public void CalculateFood()
