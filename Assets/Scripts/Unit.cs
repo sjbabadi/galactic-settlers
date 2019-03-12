@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
 
     public void Attack()
     {
-        //FindClosestEnemy();
+        FindClosestEnemy();
 
         // Targets units over buildings first as they can fight back
         if (enemyUnit)
@@ -80,6 +80,8 @@ public class Unit : MonoBehaviour
     // Finds the closest enemy of type Building and Unit
     private void FindClosestEnemy()
     {
+        enemyUnits = FindObjectsOfType<Unit>();
+
         float minDist = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
@@ -92,7 +94,7 @@ public class Unit : MonoBehaviour
                 minDist = dist;
             }
         }
-
+        /*
         foreach (Building eB in enemyBuildings)
         {
             float dist = Vector3.Distance(eB.transform.position, currentPosition);
@@ -101,7 +103,7 @@ public class Unit : MonoBehaviour
                 enemyBuilding = eB;
                 minDist = dist;
             }
-        }
+        }*/
     }
 
 
