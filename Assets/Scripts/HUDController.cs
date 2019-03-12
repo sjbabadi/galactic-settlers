@@ -45,7 +45,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Updates all text based on the values recoreded in the GameState Object
-    public void UpdateStats() {
+    public void UpdateStatText() {
         turnText.text = string.Format("Turn: {0}", gs.Turn);
         baseHealthText.text = string.Format("Base Health: {0}", gs.BaseHealth);
         moneyText.text = string.Format("Money: {0}", gs.Money);
