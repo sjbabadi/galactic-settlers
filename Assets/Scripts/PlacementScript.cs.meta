@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - gs: {instanceID: 0}
-  - Soldier: {fileID: 705924160454313970, guid: 54565beda8ab3444396b256a6f019738,
+  - Soldier: {fileID: 8526344501349277587, guid: 4c6e2434364170e4aa1c64139e8a4387,
       type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

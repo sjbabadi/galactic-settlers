@@ -90,29 +90,13 @@ public class PlacementScript : MonoBehaviour
         int numUnitsAllowed = gs.UnitMax;
         int unitsDiff = numUnitsAllowed - numUnits;
 
-        //Debugging-------------------------------
-        Debug.Log("BEFORE CALCULATING");
-        Debug.Log("Num of farm " + gs.buildingCounts[(int)Buildings.Farm]);
-        Debug.Log("Num of barr " + numOfBarracks);
-        Debug.Log("Num of units " + numUnits);
-        Debug.Log("Num of units allowed " + numUnitsAllowed);
-        Debug.Log("Num diff " + unitsDiff);
-        //End Debugging-------------------------------
-
-
         //if num of units allowed is greater than or equal to num of barracks built
         if (unitsDiff >= numOfBarracks)
         {
             for (int i = 0; i < numOfBarracks; i++)
             {
-                Instantiate(Soldier, new Vector2(i + 2.0f, 0), Quaternion.identity);
+                Instantiate(Soldier, new Vector2(i + 5, 8), Quaternion.identity);
                 gs.Units++;
-                Debug.Log("AFTER CALCULATING");
-                Debug.Log("Num of barr" + numOfBarracks);
-                Debug.Log("Num of units" + numUnits);
-                Debug.Log("Num of units allowed" + numUnitsAllowed);
-                Debug.Log("Num diff" + unitsDiff);
-
             }
         }
         else
