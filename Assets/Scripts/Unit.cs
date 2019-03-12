@@ -112,6 +112,7 @@ public class Unit : MonoBehaviour
     public int tileX;
     public int tileY;
     public Tile_map map;
+    public bool turnUsed = false;
 
     public List<Node> currentPath = null;
 
@@ -165,6 +166,10 @@ public class Unit : MonoBehaviour
 
     public void SelectUnit()
     {
-        map.selectedUnit = gameObject;
+        if(turnUsed == false)
+        {
+            map.selectedUnit = gameObject;
+            turnUsed = true;
+        }
     }
 }

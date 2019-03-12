@@ -11,11 +11,18 @@ public class ClickableTile : MonoBehaviour
 
     void OnMouseOver()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0))
         {
             Debug.Log("Click!");
 
             map.GeneratePathTo(tileX, tileY);
+
+            while (map.selectedUnit.GetComponent<Unit>().currentPath != null)
+            {
+                map.selectedUnit.GetComponent<Unit>().MoveNextTile();
+            }
+
+            map.selectedUnit = null;
         }
     }
 }
