@@ -51,6 +51,11 @@ public class GameState : MonoBehaviour
         UpdateStats();
         HUDController.UpdateStatText();
 
+        foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
+        {
+            unit.turnUsed = false;
+        }
+
     }
 
 
