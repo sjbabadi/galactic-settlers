@@ -47,10 +47,19 @@ public class GameState : MonoBehaviour
     public void EndTurn()
     {
         Turn++;
-        HUDController.UpdateStats();
         placement.UnitGen();
-        HUDController.UpdateStats();
+        UpdateStats();
+        HUDController.UpdateStatText();
 
+    }
+
+
+    void UpdateStats()
+    {
+        CalculateFood();
+        CalculateMoney();
+        CalculateMaxPop();
+        CalculateUnitMax();
     }
 
     public void CalculateFood()
