@@ -11,7 +11,7 @@ public class ClickableTile : MonoBehaviour
 
     void OnMouseOver()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && map.selectedUnit != null)
         {
             Debug.Log("Click!");
 

@@ -9,7 +9,7 @@ public class PlacementScript : MonoBehaviour
 
     [SerializeField]
     GameState gs;
-    
+
     [SerializeField]
     private GameObject[] selectableObjects;
 
@@ -55,7 +55,7 @@ public class PlacementScript : MonoBehaviour
     /// <param name="selectedObjectInArray"></param>
     public void SelectObject(int selectedObjectInArray)
     {
-        if(isAnObjectSelected == false)
+        if (isAnObjectSelected == false)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
@@ -73,7 +73,8 @@ public class PlacementScript : MonoBehaviour
             else if (selectedObjectInArray == 1)
             {
                 gs.buildingCounts[(int)Buildings.Mine]++;
-            } else
+            }
+            else
             {
                 gs.buildingCounts[(int)Buildings.Barracks]++;
                 gs.CalculateUnitMax();
@@ -84,7 +85,7 @@ public class PlacementScript : MonoBehaviour
 
     public void UnitGen()
     {
-        
+
         int numOfBarracks = gs.buildingCounts[(int)Buildings.Barracks];
         int numUnits = gs.Units;
         int numUnitsAllowed = gs.UnitMax;
@@ -95,8 +96,9 @@ public class PlacementScript : MonoBehaviour
         {
             for (int i = 0; i < numOfBarracks; i++)
             {
-                Instantiate(Soldier, new Vector2(i + 5, 8), Quaternion.identity);
+                Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
                 gs.Units++;
+
             }
         }
         else
@@ -104,7 +106,7 @@ public class PlacementScript : MonoBehaviour
             //if num of units allowed is less than num of barracks built
             for (int i = 0; i < numOfBarracks; i++)
             {
-                Instantiate(Soldier, new Vector2(i + 2.0f, 0), Quaternion.identity);
+                Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
                 gs.Units++;
             }
 
