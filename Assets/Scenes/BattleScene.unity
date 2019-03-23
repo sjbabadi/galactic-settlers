@@ -1949,7 +1949,7 @@ MonoBehaviour:
   gs: {fileID: 851336224}
   selectableObjects:
   - {fileID: 367458829417478399, guid: fc2c0fe9281ea754c9dd0639b94a38d9, type: 3}
-  - {fileID: 8205746888394707371, guid: dc90f715f2d2f46a6a3d27d9a22a069f, type: 3}
+  - {fileID: 5978919536620850000, guid: 9ee3602b98a4667469fa69075aa3e519, type: 3}
   - {fileID: 8205746888394707371, guid: ac68ce60305a34d47a08fbf01bc206e4, type: 3}
   Soldier: {fileID: 6137087984313735565, guid: e075b2b3ef7d13e4384fbed16edbdd21, type: 3}
 --- !u!1 &801459709
@@ -3362,7 +3362,7 @@ GameObject:
   - component: {fileID: 1405310063}
   - component: {fileID: 1405310062}
   m_Layer: 5
-  m_Name: FortButton
+  m_Name: MineButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4001,7 +4001,7 @@ GameObject:
   - component: {fileID: 1491919740}
   - component: {fileID: 1491919739}
   m_Layer: 5
-  m_Name: FortButtonText
+  m_Name: MineButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4059,7 +4059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fort
+  m_Text: Mine
 --- !u!222 &1491919740
 CanvasRenderer:
   m_ObjectHideFlags: 0

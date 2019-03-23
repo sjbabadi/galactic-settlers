@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2222988554310840983}
   - component: {fileID: 1998039176193550622}
   - component: {fileID: 2163773580114800773}
+  - component: {fileID: 5364987910042593159}
+  - component: {fileID: 7589744679611750001}
   m_Layer: 8
   m_Name: house
   m_TagString: BuildingTile
@@ -106,3 +108,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5364987910042593159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8205746888394707371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7589744679611750001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8205746888394707371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5af2f5023830924cbf3026283d73367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  cost: 100
+  owner: 
+  buildingType: 1
