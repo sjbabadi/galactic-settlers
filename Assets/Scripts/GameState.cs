@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Buildings { Farm, Mine, Barracks };
+public enum Buildings { Farm, Mine, Barracks, Base };
 
 public class GameState : MonoBehaviour
 {

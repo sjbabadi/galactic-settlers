@@ -19,7 +19,7 @@ public class ClickableTile : MonoBehaviour
 
             while (map.selectedUnit.GetComponent<Unit>().currentPath != null)
             {
-                map.selectedUnit.GetComponent<Unit>().MoveNextTile();
+                map.selectedUnit.GetComponent<UnitController>().MoveNextTile();
             }
 
             map.selectedUnit = null;
