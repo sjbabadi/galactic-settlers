@@ -21,6 +21,8 @@ public class GameState : MonoBehaviour
     public List<Building> playerBuildings = new List<Building>();
     public List<Unit> enemyUnits = new List<Unit>();
     public List<Building> enemyBuildings = new List<Building>();
+    public Building playerBase;
+    public Building enemyBase;
 
     private HUDController HUDController;
     private PlacementScript placement;

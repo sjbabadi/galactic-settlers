@@ -1542,7 +1542,7 @@ PrefabInstance:
     - target: {fileID: 2912716381576232816, guid: 8786d6829b7cf4979b1b888240b4c8a0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2912716381576232816, guid: 8786d6829b7cf4979b1b888240b4c8a0,
         type: 3}
@@ -3282,9 +3282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a037bb800f064e88925826e7974567a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingCounts: 000000000000000000000000
-  HUDController: {fileID: 1671611752}
-  placement: {fileID: 795673625}
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []
+  playerBase: {fileID: 6236292817003705542}
+  enemyBase: {fileID: 2994300991327555099}
 --- !u!114 &851336225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3520,7 +3523,7 @@ PrefabInstance:
     - target: {fileID: 2912716381576232816, guid: 8786d6829b7cf4979b1b888240b4c8a0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2912716381576232816, guid: 8786d6829b7cf4979b1b888240b4c8a0,
         type: 3}
@@ -5579,7 +5582,7 @@ PrefabInstance:
     - target: {fileID: 6324339861201946961, guid: bb455b02c530bb64badb4e30784ca0ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6324339861201946961, guid: bb455b02c530bb64badb4e30784ca0ef,
         type: 3}
