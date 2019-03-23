@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4416ba374dd79f48bded5460ff05004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeObject: {fileID: 8205746888394707371, guid: b41a028a0342eb641bcbf226442242f2,
+  placeObject: {fileID: 8205746888394707371, guid: 8fce7d5870fff401891d5653f4bc6a17,
     type: 3}
   buildingLayer:
     serializedVersion: 2

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 909104537356451892}
   - component: {fileID: 6506193842337348322}
   - component: {fileID: 6707089506724683984}
+  - component: {fileID: 1975274141446456121}
+  - component: {fileID: 3892117252160977405}
   m_Layer: 8
   m_Name: farm
   m_TagString: BuildingTile
@@ -106,3 +108,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1975274141446456121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367458829417478399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5af2f5023830924cbf3026283d73367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  cost: 100
+  owner: 
+  buildingType: 0
+--- !u!114 &3892117252160977405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367458829417478399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

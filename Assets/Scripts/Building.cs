@@ -4,21 +4,9 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    private float health = 100;
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        
-        if(health <=0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Building stats
+    public float health = 100;
+    public int cost = 100;
+    public string owner;
+    public Buildings buildingType;
 }

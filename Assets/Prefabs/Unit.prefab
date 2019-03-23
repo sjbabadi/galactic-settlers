@@ -116,7 +116,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6137087984313735564}
+      - m_Target: {fileID: 1908168482451591575}
         m_MethodName: MoveNextTile
         m_Mode: 1
         m_Arguments:
@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 6137087984313735566}
   - component: {fileID: 6137087984313735567}
   - component: {fileID: 6137087984313735564}
+  - component: {fileID: 1908168482451591575}
   m_Layer: 0
   m_Name: Unit (1)
   m_TagString: Untagged
@@ -225,13 +226,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   attackPower: 15
+  owner: 
+  moveSpeed: 2
+  tileX: 0
+  tileY: 0
+  turnUsed: 0
+--- !u!114 &1908168482451591575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6137087984313735565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9b084a988c82e4bba4ec0636fb2706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemyUnit: {fileID: 0}
   enemyBuilding: {fileID: 0}
   target: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
-  turnUsed: 0
 --- !u!1 &6137087984606704854
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +441,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6137087984313735564}
+      - m_Target: {fileID: 1908168482451591575}
         m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
@@ -951,7 +965,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6137087984313735564}
+      - m_Target: {fileID: 1908168482451591575}
         m_MethodName: SelectUnit
         m_Mode: 1
         m_Arguments:

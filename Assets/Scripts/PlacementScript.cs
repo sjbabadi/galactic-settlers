@@ -9,6 +9,7 @@ public class PlacementScript : MonoBehaviour
 
     [SerializeField]
     GameState gs;
+    private GameManager gm;
 
     [SerializeField]
     private GameObject[] selectableObjects;
@@ -17,6 +18,11 @@ public class PlacementScript : MonoBehaviour
 
     //this is for UnitGen
     public GameObject Soldier;
+
+    private void Start()
+    {
+        gm = FindObjectOfType<GameManager>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -66,17 +72,17 @@ public class PlacementScript : MonoBehaviour
             //update building counts in gamestate's array
             if (selectedObjectInArray == 0)
             {
-                gs.buildingCounts[(int)Buildings.Farm]++;
+                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Farm]++;
                 gs.CalculateMaxPop();
                 gs.CalculateFood();
             }
             else if (selectedObjectInArray == 1)
             {
-                gs.buildingCounts[(int)Buildings.Mine]++;
+                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Mine]++;
             }
             else
             {
-                gs.buildingCounts[(int)Buildings.Barracks]++;
+                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks]++;
                 gs.CalculateUnitMax();
             }
         }
@@ -86,9 +92,9 @@ public class PlacementScript : MonoBehaviour
     public void UnitGen()
     {
 
-        int numOfBarracks = gs.buildingCounts[(int)Buildings.Barracks];
-        int numUnits = gs.Units;
-        int numUnitsAllowed = gs.UnitMax;
+        int numOfBarracks = gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks];
+        int numUnits = gs.Units[(int)gm.CurrentTurn];
+        int numUnitsAllowed = gs.UnitMax[(int)gm.CurrentTurn];
         int unitsDiff = numUnitsAllowed - numUnits;
 
         //if num of units allowed is greater than or equal to num of barracks built
@@ -97,7 +103,7 @@ public class PlacementScript : MonoBehaviour
             for (int i = 0; i < numOfBarracks; i++)
             {
                 Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
-                gs.Units++;
+                gs.Units[(int)gm.CurrentTurn]++;
 
             }
         }
@@ -107,7 +113,7 @@ public class PlacementScript : MonoBehaviour
             for (int i = 0; i < numOfBarracks; i++)
             {
                 Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
-                gs.Units++;
+                gs.Units[(int)gm.CurrentTurn]++;
             }
 
         }

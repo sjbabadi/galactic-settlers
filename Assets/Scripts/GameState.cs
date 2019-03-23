@@ -3,50 +3,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Buildings { Farm, Mine, Barracks };
+public enum Buildings { Farm, Mine, Barracks, Base };
 
 public class GameState : MonoBehaviour
 {
-    [SerializeField] public int Turn { get; set; }
+    public int gameTurn { get; set; }
+    public int[] Money { get; set; } = new int[2];
+    public int[] Food { get; set; } = new int[2];
+    public int[] Population { get; set; } = new int[2];
+    public int[] BaseHealth { get; set; } = new int[2];
+    public int[] Units { get; set; } = new int[2];
+    public int[] UnitMax { get; set; } = new int[2];
+    public int[] MaxPop { get; set; } = new int[2];
+    public int[,] buildingCounts = new int[2,3];
 
-    public int Money { get; set; }
+    public List<Unit> playerUnits = new List<Unit>();
+    public List<Building> playerBuildings = new List<Building>();
+    public List<Unit> enemyUnits = new List<Unit>();
+    public List<Building> enemyBuildings = new List<Building>();
+    public Building playerBase;
+    public Building enemyBase;
 
-    public int Food { get; set; }
-
-    public int Population { get; set; }
-
-    public int BaseHealth { get; set; }
-
-    public int Units { get; set; }
-
-    public int UnitMax { get; set; }
-
-    public int MaxPop { get; set; }
-
-    public int[] buildingCounts = new int[3];
-
-    [SerializeField] private HUDController HUDController;
-
-    [SerializeField] public PlacementScript placement;
+    private HUDController HUDController;
+    private PlacementScript placement;
+    private GameManager gm;
 
     private void Start()
     {
-        buildingCounts[(int)Buildings.Farm] = 0;
-        buildingCounts[(int)Buildings.Mine] = 0;
-        buildingCounts[(int)Buildings.Barracks] = 0;
+        HUDController = FindObjectOfType<HUDController>();
+        placement = FindObjectOfType<PlacementScript>();
+        gm = FindObjectOfType<GameManager>();
 
-        Money = 100;
-        Population = 0;
-        BaseHealth = 100;
-        Units = 0;
-        MaxPop = 5;
-        UnitMax = 0;
-        Turn = 0;
+        // Set Player and Enemy starting resources
+        for (int i = 0; i < 2; i++)
+        {
+            buildingCounts[i, (int)Buildings.Farm] = 0;
+            buildingCounts[i, (int)Buildings.Mine] = 0;
+            buildingCounts[i, (int)Buildings.Barracks] = 0;
+            Money[i] = 100;
+            Food[i] = 0;
+            Population[i] = 0;
+            BaseHealth[i] = 100;
+            Units[i] = 0;
+            MaxPop[i] = 5;
+            UnitMax[i] = 0;
+            gameTurn = 0;
+        }
     }
 
     public void EndTurn()
     {
-        Turn++;
+        gameTurn++;
         placement.UnitGen();
         UpdateStats();
         HUDController.UpdateStatText();
@@ -69,22 +76,22 @@ public class GameState : MonoBehaviour
 
     public void CalculateFood()
     {
-        Food += buildingCounts[(int)Buildings.Farm];
+        Food[(int)gm.CurrentTurn] += buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Farm];
     }
 
     void CalculateMoney()
     {
-        Money += 25 * buildingCounts[(int)Buildings.Mine]; // 25 money per turn per mine
+        Money[(int)gm.CurrentTurn] += 25 * buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Mine]; // 25 money per turn per mine
     }
 
     public void CalculateMaxPop()
     {
-        MaxPop = 5 * buildingCounts[(int)Buildings.Farm]; // 5 ppl allowed per farm
+        MaxPop[(int)gm.CurrentTurn] = 5 * buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Farm]; // 5 ppl allowed per farm
     }
 
     public void CalculateUnitMax()
     {
-        UnitMax = 5 * buildingCounts[(int)Buildings.Barracks];
+        UnitMax[(int)gm.CurrentTurn] = 5 * buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks];
     }
 
     /*for debugging----------------------------
