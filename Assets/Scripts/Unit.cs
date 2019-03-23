@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    // Reference to GameState & GameManager
+    private GameState gs;
+    private GameManager gm;
+
     //Refernces to enemies in GameState
     private Unit[] enemyUnits;
     private Building[] enemyBuildings;
@@ -19,6 +23,18 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
+        gs = FindObjectOfType<GameState>();
+        gm = FindObjectOfType<GameManager>();
+
+        gs.Units[(int)gm.CurrentTurn]++;
+        if (gm.CurrentTurn == Turn.Player)
+        {
+            gs.playerUnits.Add(this);
+        }
+        else
+        {
+            gs.enemyUnits.Add(this);
+        }
         // Obtain references to the list of opponent units and buildings
         //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
         //enemyBuildings = GameObject.FindObjectOfType<GameState>().enemyBuildings;
