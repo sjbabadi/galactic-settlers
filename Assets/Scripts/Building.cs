@@ -9,4 +9,5 @@ public class Building : MonoBehaviour
     public int cost = 100;
     public string owner;
     public Buildings buildingType;
+    public bool used = false;
 }

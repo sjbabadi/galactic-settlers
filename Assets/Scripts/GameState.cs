@@ -54,13 +54,17 @@ public class GameState : MonoBehaviour
     public void EndTurn()
     {
         gameTurn++;
-        placement.UnitGen();
         UpdateStats();
         HUDController.UpdateStatText();
 
         foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
         {
             unit.turnUsed = false;
+        }
+
+        foreach (Building building in GameObject.FindObjectsOfType<Building>())
+        {
+            building.used = false;
         }
 
     }
@@ -93,14 +97,5 @@ public class GameState : MonoBehaviour
     {
         UnitMax[(int)gm.CurrentTurn] = 5 * buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks];
     }
-
-    /*for debugging----------------------------
-    private void Update()
-    {
-        Debug.Log(buildingCounts[(int)Buildings.Farm]);
-        Debug.Log(buildingCounts[(int)Buildings.Mine]);
-        Debug.Log(buildingCounts[(int)Buildings.Barracks]);
-    }
-    end debuggine----------------------------*/
-
+    
 }
