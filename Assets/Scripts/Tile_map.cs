@@ -128,7 +128,7 @@ public class Tile_map : MonoBehaviour
             {
 
                 // This is the 4-way connection version:
-                /*           if (x > 0)
+                           if (x > 0)
                                graph[x, y].neighbours.Add(graph[x - 1, y]);
                            if (x < mapSizeX - 1)
                                graph[x, y].neighbours.Add(graph[x + 1, y]);
@@ -137,10 +137,10 @@ public class Tile_map : MonoBehaviour
                            if (y < mapSizeY - 1)
                                graph[x, y].neighbours.Add(graph[x, y + 1]);
 
-               */
+               
                 // This is the 8-way connection version (allows diagonal movement)
                 // Try left
-                if (x > 0)
+             /*   if (x > 0)
                 {
                     graph[x, y].neighbours.Add(graph[x - 1, y]);
                     if (y > 0)
@@ -164,6 +164,7 @@ public class Tile_map : MonoBehaviour
                     graph[x, y].neighbours.Add(graph[x, y - 1]);
                 if (y < mapSizeY - 1)
                     graph[x, y].neighbours.Add(graph[x, y + 1]);
+           */
 
             }
         }
