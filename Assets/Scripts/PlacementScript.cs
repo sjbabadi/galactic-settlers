@@ -16,9 +16,6 @@ public class PlacementScript : MonoBehaviour
 
     private static bool isAnObjectSelected = false;
 
-    //this is for UnitGen
-    public GameObject Soldier;
-
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
@@ -87,36 +84,6 @@ public class PlacementScript : MonoBehaviour
             }
         }
 
-    }
-
-    public void UnitGen()
-    {
-
-        int numOfBarracks = gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks];
-        int numUnits = gs.Units[(int)gm.CurrentTurn];
-        int numUnitsAllowed = gs.UnitMax[(int)gm.CurrentTurn];
-        int unitsDiff = numUnitsAllowed - numUnits;
-
-        //if num of units allowed is greater than or equal to num of barracks built
-        if (unitsDiff >= numOfBarracks)
-        {
-            for (int i = 0; i < numOfBarracks; i++)
-            {
-                Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
-                gs.Units[(int)gm.CurrentTurn]++;
-
-            }
-        }
-        else
-        {
-            //if num of units allowed is less than num of barracks built
-            for (int i = 0; i < numOfBarracks; i++)
-            {
-                Instantiate(Soldier, new Vector2(i + 5.0f, 8f), Quaternion.identity);
-                gs.Units[(int)gm.CurrentTurn]++;
-            }
-
-        }
 
     }
 
