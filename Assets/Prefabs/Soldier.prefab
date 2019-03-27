@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 705924160454313972}
   - component: {fileID: 705924160454313971}
   - component: {fileID: 6340434490976975701}
+  - component: {fileID: 4624660033137137744}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Player
@@ -94,4 +95,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gs: {fileID: 0}
   selectableObjects: []
-  Soldier: {fileID: 705924160454313970}
+--- !u!114 &4624660033137137744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705924160454313970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ecb59dfe11a014e84b258ff0cac0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attackPower: 15
+  owner: 
+  moveSpeed: 2
+  tileX: 0
+  tileY: 0
+  turnUsed: 0
