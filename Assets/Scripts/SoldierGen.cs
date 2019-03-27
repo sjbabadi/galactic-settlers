@@ -19,7 +19,6 @@ public class SoldierGen : MonoBehaviour
     {
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
-        unit = gameObject.GetComponent<Unit>();
         map = FindObjectOfType<Tile_map>();
         map = GameObject.FindObjectOfType<Tile_map>();
         building = gameObject.GetComponent<Building>();
@@ -39,9 +38,11 @@ public class SoldierGen : MonoBehaviour
             if (numUnitsAllowed > numUnits) {
 
                 //create soldier at specified location
-                Instantiate(soldier, new Vector2(5.0f + 5.0f, 8f), Quaternion.identity);
+                GameObject unitref = Instantiate(soldier, new Vector2(5.0f + 5.0f, 8f), Quaternion.identity);
+                unit = unitref.GetComponent<Unit>();
 
                 //set soldier turn as used
+                Debug.Log(unit);
                 unit.turnUsed = true;
                 Debug.Log(unit.turnUsed);
 
@@ -50,6 +51,8 @@ public class SoldierGen : MonoBehaviour
 
                 //set barracks as used
                 building.used = true;
+
+                
             }
         }
     }
