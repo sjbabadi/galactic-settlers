@@ -42,7 +42,7 @@ public class SoldierGen : MonoBehaviour
                 unit = unitref.GetComponent<Unit>();
 
                 //set soldier turn as used
-                Debug.Log(unitref);
+                Debug.Log(unit);
                 unit.turnUsed = true;
                 Debug.Log(unit.turnUsed);
 
