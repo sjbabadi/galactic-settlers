@@ -15,8 +15,19 @@ public class Unit : MonoBehaviour
 
     public Tile_map map;
 
+    // Unit stats
+    public float health;
+    public float attackPower;
+
+
     private void Start()
     {
+        tiles = GameObject.FindGameObjectsWithTag("Tile");
+
+        //  Debug.Log("show me a tile: " + tiles[50]);
+
+        halfHeight = GetComponent<Collider>().bounds.extents.y;
+
         // Obtain references to the list of opponent units and buildings
         //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
         //enemyBuildings = GameObject.FindObjectOfType<GameState>().enemyBuildings;
@@ -129,11 +140,11 @@ public class Unit : MonoBehaviour
 
     protected void Init()
     {
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
+        
 
-      //  Debug.Log("show me a tile: " + GameObject.FindGameObjectsWithTag("Tile"));
+      //  
 
-        halfHeight = GetComponent<Collider>().bounds.extents.y;
+        
 
     }
 
@@ -147,13 +158,17 @@ public class Unit : MonoBehaviour
 
     public Tile GetTargetTile(GameObject target)
     {
-        RaycastHit hit;
+      //  RaycastHit hit;
         Tile tile = null;
 
-        if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
+        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector3.up);
+
+        if (hit)
         {
             tile = hit.collider.GetComponent<Tile>();
         }
+
+        Debug.Log(tile);
 
         return tile;
     }
@@ -341,6 +356,8 @@ public class Unit : MonoBehaviour
         if(turnUsed == false)
         {
             map.selectedUnit = gameObject;
+            FindSelectableTiles();
+
             turnUsed = true;
         }
     }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Soldier : Unit
 {
-    // Unit stats
-    public float health = 100;
-    public float attackPower = 15;
 
 
     // Update is called once per frame
@@ -14,7 +11,7 @@ public class Soldier : Unit
     {
         if (!moving)
         {
-           // FindSelectableTiles();
+         //   FindSelectableTiles();
             CheckMouse();
         }
     }
