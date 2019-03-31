@@ -9,7 +9,7 @@ public class ClickableTile : MonoBehaviour
     public int tileY;
     public Tile_map map;
 
-    void OnMouseOver()
+ /*   void OnMouseOver()
     {
         if(Input.GetMouseButtonDown(0) && map.selectedUnit != null)
         {
@@ -25,4 +25,5 @@ public class ClickableTile : MonoBehaviour
             map.selectedUnit = null;
         }
     }
+    */
 }

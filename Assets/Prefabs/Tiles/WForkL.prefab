@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4196088852758178201}
   - component: {fileID: 1071082665502869507}
   - component: {fileID: 5296663323578507773}
+  - component: {fileID: 8762907985752168113}
   - component: {fileID: 8919547006670861985}
   m_Layer: 0
   m_Name: WForkL
@@ -107,6 +108,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8762907985752168113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7453577447479394506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae06fabe0f554b469e70a978ea7a957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkable: 1
+  current: 0
+  target: 0
+  selectable: 0
+  movementCost: 3
+  adjacencyList: []
+  visited: 0
+  parent: {fileID: 0}
+  distance: 0
+  f: 0
+  g: 0
+  h: 0
 --- !u!114 &8919547006670861985
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class Tile_map : MonoBehaviour
 {
     public GameObject selectedUnit;
 
+    /*
+
     public TileType[] tileTypes;
 
     int[,] tiles;
@@ -18,9 +20,9 @@ public class Tile_map : MonoBehaviour
 
     private void Start()
     {
-        GenerateMapData();
+      //  GenerateMapData();
         GeneratePathFindingGraph();
-        GenerateMapVisual();
+      //  GenerateMapVisual();
     }
 
     /// <summary>
@@ -86,6 +88,8 @@ public class Tile_map : MonoBehaviour
         // spawn the design here
         GenerateMapVisual();
     }
+    
+
 
     public float CostToEnterTile(int sourceX, int sourceY, int targetX, int targetY)
     {
@@ -164,7 +168,7 @@ public class Tile_map : MonoBehaviour
                     graph[x, y].neighbours.Add(graph[x, y - 1]);
                 if (y < mapSizeY - 1)
                     graph[x, y].neighbours.Add(graph[x, y + 1]);
-           */
+          
 
             }
         }
@@ -304,5 +308,5 @@ public class Tile_map : MonoBehaviour
 
         selectedUnit.GetComponent<Unit>().currentPath = currentPath;
     }
-
+    */
 }

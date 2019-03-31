@@ -8,14 +8,12 @@ public class Unit : MonoBehaviour
     private Unit[] enemyUnits;
     private Building[] enemyBuildings;
 
-    // Unit stats
-    public float health = 100;
-    public float attackPower = 15;
-
     // Potential targets
     public Unit enemyUnit;
     public Building enemyBuilding;
     public string target = "";
+
+    public Tile_map map;
 
     private void Start()
     {
@@ -26,6 +24,9 @@ public class Unit : MonoBehaviour
         // Finds the Tile_map game object that is used for unit movement
         map = GameObject.FindObjectOfType<Tile_map>();
     }
+
+
+    /*
 
     public void TakeDamage(float damage)
     {
@@ -103,18 +104,185 @@ public class Unit : MonoBehaviour
                 enemyBuilding = eB;
                 minDist = dist;
             }
-        }*/
+        }
+        */
+    
+
+
+    List<Tile> selectableTiles = new List<Tile>();
+    GameObject[] tiles;
+
+    Stack<Tile> path = new Stack<Tile>();
+    Tile currentTile;
+
+    public bool moving = false;
+
+    public int move = 5;
+    public float jumpHeight = 2;
+    public float moveSpeed = 2;
+    public bool turnUsed = false;
+
+    Vector3 velocity = new Vector3();
+    Vector3 heading = new Vector3();
+
+    float halfHeight = 0;
+
+    protected void Init()
+    {
+        tiles = GameObject.FindGameObjectsWithTag("Tile");
+
+      //  Debug.Log("show me a tile: " + GameObject.FindGameObjectsWithTag("Tile"));
+
+        halfHeight = GetComponent<Collider>().bounds.extents.y;
+
     }
 
 
-    
-    
+    public void GetCurrentTile()
+    {
+        currentTile = GetTargetTile(gameObject);
+        currentTile.current = true;
+    }
+
+
+    public Tile GetTargetTile(GameObject target)
+    {
+        RaycastHit hit;
+        Tile tile = null;
+
+        if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
+        {
+            tile = hit.collider.GetComponent<Tile>();
+        }
+
+        return tile;
+    }
+
+    public void ComputeAdjacencyLists()
+    {
+        foreach (GameObject tile in tiles)
+        {
+            Tile t = tile.GetComponent<Tile>();
+            t.FindNeighbors(jumpHeight);
+        }
+    }
+
+    public void FindSelectableTiles()
+    {
+        ComputeAdjacencyLists();
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+
+        process.Enqueue(currentTile);
+        currentTile.visited = true;
+
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue();
+
+            selectableTiles.Add(t);
+            t.selectable = true;
+
+            if (t.distance < move)
+            {
+                foreach (Tile tile in t.adjacencyList)
+                {
+                    if (!tile.visited)
+                    {
+                        tile.parent = t;
+                        tile.visited = true;
+                        tile.distance = 1 + t.distance;
+                        process.Enqueue(tile);
+                    }
+                }
+            }
+        }
+    }
+
+    public void MoveToTile(Tile tile)
+    {
+        path.Clear();
+        tile.target = true;
+        moving = true;
+
+        Tile next = tile;
+        while (next != null)
+        {
+            path.Push(next);
+            next = next.parent;
+        }
+    }
+
+    public void Move()
+    {
+        while (path.Count > 0)
+        {
+            Tile t = path.Peek();
+            Vector3 target = t.transform.position;
+
+            //calculate the unit's position on top of the target tile
+            target.y += halfHeight + t.GetComponent<Collider>().bounds.extents.y;
+
+            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            {
+
+                CalculateHeading(target);
+                SetHorizontalVelocity();
+
+                transform.forward = heading;
+                transform.position += velocity * Time.deltaTime;
+            }
+            else
+            {
+                //Tile center reached
+                transform.position = target;
+                path.Pop();
+            }
+
+        }
+        RemoveSelectableTiles();
+        moving = false;
+    }
+
+    //remove the selectable tiles
+    protected void RemoveSelectableTiles()
+    {
+
+        if (currentTile != null)
+        {
+            currentTile.current = false;
+            currentTile = null;
+        }
+
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.Reset();
+        }
+
+        selectableTiles.Clear();
+    }
+
+
+    void CalculateHeading(Vector3 target)
+    {
+        heading = target - transform.position;
+        heading.Normalize();
+    }
+
+    void SetHorizontalVelocity()
+    {
+        velocity = heading * moveSpeed;
+    }
+
+
+
+    /*
 
 
     public int tileX;
     public int tileY;
-    public Tile_map map;
-    public bool turnUsed = false;
+
 
     public List<Node> currentPath = null;
 
@@ -165,6 +333,8 @@ public class Unit : MonoBehaviour
         }
        // return 0;
     }
+
+    */
 
     public void SelectUnit()
     {
