@@ -19,7 +19,6 @@ public class SoldierGen : MonoBehaviour
     {
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
-        map = FindObjectOfType<Tile_map>();
         map = GameObject.FindObjectOfType<Tile_map>();
         building = gameObject.GetComponent<Building>();
 
