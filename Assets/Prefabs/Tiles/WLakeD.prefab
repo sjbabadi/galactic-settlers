@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6199386809147027980}
   - component: {fileID: 1400019473584026439}
   - component: {fileID: 6926048894819462059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WLakeD
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -144,6 +144,3 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
-  f: 0
-  g: 0
-  h: 0

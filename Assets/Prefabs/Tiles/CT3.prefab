@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3196925714841068485}
   - component: {fileID: 7910203781816627017}
   - component: {fileID: 8097855952949794781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CT3
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -144,6 +144,3 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
-  f: 0
-  g: 0
-  h: 0

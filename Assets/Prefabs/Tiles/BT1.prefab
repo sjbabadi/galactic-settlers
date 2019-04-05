@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2304248423719462523}
   - component: {fileID: 5204130596889032176}
   - component: {fileID: 5504843375145987951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BT1
   m_TagString: Tile
   m_Icon: {fileID: 0}

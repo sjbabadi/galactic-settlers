@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5296663323578507773}
   - component: {fileID: 8762907985752168113}
   - component: {fileID: 8919547006670861985}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WForkL
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -129,9 +129,6 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
-  f: 0
-  g: 0
-  h: 0
 --- !u!114 &8919547006670861985
 MonoBehaviour:
   m_ObjectHideFlags: 0

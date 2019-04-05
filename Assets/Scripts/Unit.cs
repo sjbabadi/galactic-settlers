@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour
 
     public Tile_map map;
 
+    //public GameObject selectedUnit;
+
     // Unit stats
     public float health;
     public float attackPower;
@@ -22,11 +24,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        tiles = GameObject.FindGameObjectsWithTag("Tile");
-
-        //  Debug.Log("show me a tile: " + tiles[50]);
-
-        halfHeight = GetComponent<Collider>().bounds.extents.y;
+        tiles = GameObject.FindGameObjectsWithTag("Tile"); 
 
         // Obtain references to the list of opponent units and buildings
         //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
@@ -36,6 +34,50 @@ public class Unit : MonoBehaviour
         map = GameObject.FindObjectOfType<Tile_map>();
     }
 
+    /*
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            getUnit();
+        }
+
+    }
+
+    
+    public void getUnit()
+    {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D hit = Physics2D.Raycast(screenPos, -Vector2.up, 1, LayerMask.NameToLayer("Player"));
+        //Debug.Log(screenPos);
+        Debug.Log(hit);
+            if (hit)
+            {
+
+                if ((hit.collider != null) && (hit.collider.tag == "Player"))
+                {
+                    Debug.Log("got here");
+                    selectedUnit = gameObject;
+
+                }
+            }
+
+        
+        if (selectedUnit)
+        {
+            if (!turnUsed)
+            {
+                FindSelectableTiles();
+            }
+
+            turnUsed = true;
+        }
+    }
+    */
 
     /*
 
@@ -117,7 +159,7 @@ public class Unit : MonoBehaviour
             }
         }
         */
-    
+
 
 
     List<Tile> selectableTiles = new List<Tile>();
@@ -128,26 +170,15 @@ public class Unit : MonoBehaviour
 
     public bool moving = false;
 
-    public int move = 5;
-    public float jumpHeight = 2;
+    public int move = 2;
+    
     public float moveSpeed = 2;
     public bool turnUsed = false;
 
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
-    float halfHeight = 0;
-
-    protected void Init()
-    {
-        
-
-      //  
-
-        
-
-    }
-
+  //  float halfHeight = 0;
 
     public void GetCurrentTile()
     {
@@ -161,14 +192,14 @@ public class Unit : MonoBehaviour
       //  RaycastHit hit;
         Tile tile = null;
 
-        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector3.up);
+        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector2.up);
 
         if (hit)
         {
             tile = hit.collider.GetComponent<Tile>();
         }
 
-        Debug.Log(tile);
+        //Debug.Log(tile);
 
         return tile;
     }
@@ -178,7 +209,7 @@ public class Unit : MonoBehaviour
         foreach (GameObject tile in tiles)
         {
             Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors(jumpHeight);
+            t.FindNeighbors();
         }
     }
 
@@ -207,7 +238,10 @@ public class Unit : MonoBehaviour
                     {
                         tile.parent = t;
                         tile.visited = true;
-                        tile.distance = 1 + t.distance;
+                        tile.distance = tile.movementCost + t.distance;
+                        //Debug.Log("Tile: " + tile + " added with coords: " + tile.GetComponent<Tile>().transform.position.x + ", " + tile.GetComponent<Tile>().transform.position.y
+                        //            + " with distance: " + tile.distance);
+                        //Debug.Log(tile.movementCost + ", " + t.distance + ", " + tile.distance);
                         process.Enqueue(tile);
                     }
                 }
@@ -227,6 +261,7 @@ public class Unit : MonoBehaviour
             path.Push(next);
             next = next.parent;
         }
+        Move();
     }
 
     public void Move()
@@ -237,7 +272,7 @@ public class Unit : MonoBehaviour
             Vector3 target = t.transform.position;
 
             //calculate the unit's position on top of the target tile
-            target.y += halfHeight + t.GetComponent<Collider>().bounds.extents.y;
+            //target.y += halfHeight + t.GetComponent<Collider2D>().bounds.extents.y;
 
             if (Vector3.Distance(transform.position, target) >= 0.05f)
             {
@@ -290,72 +325,11 @@ public class Unit : MonoBehaviour
         velocity = heading * moveSpeed;
     }
 
-
-
-    /*
-
-
-    public int tileX;
-    public int tileY;
-
-
-    public List<Node> currentPath = null;
-
-    int moveSpeed = 2;
-
-    void Update()
-    {
-        if(currentPath != null)
-        {
-            int currNode = 0;
-            
-            while( currNode < currentPath.Count-1 )
-            {
-                Vector3 start =  map.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].y);
-                Vector3 end = map.TileCoordToWorldCoord(currentPath[currNode+1].x, currentPath[currNode+1].y);
-
-                Debug.DrawLine(start, end, Color.blue);
-
-                currNode++;
-            }
-        }
-    }
-
-
-    public void MoveNextTile(  )
-    {
-        float remainingMovement = moveSpeed;
-        while(remainingMovement > 0)
-        {
-            if (currentPath == null)
-                return ;
-
-            remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].y, currentPath[1].x, currentPath[1].y);
-          //  Debug.Log("Remaining movement left: " + remainingMovement);
-            //move the unit to the next tile in the path
-            tileX = currentPath[1].x;
-            tileY = currentPath[1].y;
-            transform.position = map.TileCoordToWorldCoord( tileX, tileY );
-
-            //remove the old current/first node from the path
-            currentPath.RemoveAt(0);
-            if(currentPath.Count == 1)
-            {
-                //lets clear the pathfinding data because we're reached the destination
-                currentPath = null;
-               // return (int)remainingMovement;
-            }
-        }
-       // return 0;
-    }
-
-    */
-
     public void SelectUnit()
     {
         if(turnUsed == false)
         {
-            map.selectedUnit = gameObject;
+            //map.selectedUnit = gameObject;
             FindSelectableTiles();
 
             turnUsed = true;

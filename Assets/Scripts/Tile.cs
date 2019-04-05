@@ -20,26 +20,53 @@ public class Tile : MonoBehaviour
     public Tile parent = null;
     public int distance = 0;
 
+
+    //keep in newest version
+    private GameState gs;
+
+    //delete in newest version
+    [SerializeField] private bool empty = true;
+    [SerializeField] private Unit[] playerUnits;
+    [SerializeField] private Building[] playerBuildings;
+    [SerializeField] private Unit[] enemyUnits;
+    [SerializeField] private Building[] enemyBuildings;
+
+    private void Start()
+    {
+        //keep in newest version
+        gs = FindObjectOfType<GameState>();
+
+        //delete in newest version
+        playerUnits = FindObjectsOfType<Unit>();
+        playerBuildings = FindObjectsOfType<Building>();
+        enemyUnits = FindObjectsOfType<Unit>();
+        enemyBuildings = FindObjectsOfType<Building>();
+
+        //simply  for testing
+        InvokeRepeating("isEmpty", 2.0f, 20.0f);
+    }
+
+
     void Update()
     {
         if (current)
         {
-            GetComponent<Renderer>().material.color = Color.magenta;
+            GetComponent<Renderer>().material.color = Color.blue;
         }
         else if (target)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            GetComponent<Renderer>().material.color = Color.red;
         }
         else if (selectable)
         {
-            GetComponent<Renderer>().material.color = Color.red;
+            GetComponent<Renderer>().material.color = Color.green;
         }
      /*   else
         {
-            GetComponent<Renderer>().material.color = ground;
+            GetComponent<Renderer>().material.color = Color.clear;
 
         }
-        */
+       */ 
     }
 
 
@@ -58,41 +85,87 @@ public class Tile : MonoBehaviour
     }
 
 
-    //jumpHeight will be used in the future to check if units can go up/down ledges
-    public void FindNeighbors(float jumpHeight)
+    public void FindNeighbors()
     {
         Reset();
 
-        CheckTile(Vector3.forward, jumpHeight);
-        CheckTile(-Vector3.forward, jumpHeight);
-        CheckTile(Vector3.right, jumpHeight);
-        CheckTile(-Vector3.right, jumpHeight);
+        CheckTile(Vector2.up);
+        CheckTile(Vector2.down);
+        CheckTile(Vector2.right);
+        CheckTile(Vector2.left);
 
     }
 
 
-    public void CheckTile(Vector3 direction, float jumpHeight)
+    public void CheckTile(Vector2 direction)
     {
-        Vector3 halfExtents = new Vector3(0.25f, (1 + jumpHeight) / 2.0f, 0.25f);
-        Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+        Vector2 halfExtents = new Vector2(0.25f, 1 / 2.0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y) + direction, halfExtents, 0);
 
-        foreach (Collider item in colliders)
+        foreach (Collider2D item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();
-            if (tile != null && tile.walkable)
+            if (tile != null && tile.walkable && tile.isEmpty())
             {
-
-             //   RaycastHit2D hit = Physics2D.Raycast(tile.transform.position, Vector2.zero);
-
-
-             //   RaycastHit hit;
-
-             //   if (!Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1))
-             //   if(!hit)
-             //   {
-                    adjacencyList.Add(tile);
-             //   }
+                adjacencyList.Add(tile);
+               // Debug.Log("Tile: " + tile + " added with coords: " + tile.GetComponent<Tile>().transform.position.x + ", " + tile.GetComponent<Tile>().transform.position.y);
             }
         }
     }
+
+
+    public bool isEmpty()
+    {
+        bool isempty = true;
+
+        // Need to change every reference of player/enemy unit/building to point to list inside gamestate object
+        // Ex. change playerUnits to gs.playerUnits
+        //foreach (Unit unit in gs.playerUnits)
+        for (int i = 0; i < playerUnits.Length; i++) //delete in newest version
+        {
+            Unit unit = playerUnits[i];
+            if (unit.transform.position == transform.position)
+            {
+                isempty = false;
+                empty = false; //simply for testing
+                break;
+            }
+        }
+        //foreach (Building building in gs.playerBuildings)
+        for (int i = 0; i < playerBuildings.Length; i++) //delete in newest version
+        {
+            Building building = playerBuildings[i];
+            if (building.transform.position == transform.position)
+            {
+                isempty = false;
+                empty = false; //simply for testing
+                break;
+            }
+        }
+        //foreach (Unit unit in gs.enemyUnits)
+        for (int i = 0; i < enemyUnits.Length; i++) //delete in newest version
+        {
+            Unit unit = enemyUnits[i];
+            if (unit.transform.position == transform.position)
+            {
+                isempty = false;
+                empty = false; //simply for testing
+                break;
+            }
+        }
+        //foreach (Building building in gs.enemyBuildings)
+        for (int i = 0; i < enemyBuildings.Length; i++) //delete in newest version
+        {
+            Building building = enemyBuildings[i];
+            if (building.transform.position == transform.position)
+            {
+                isempty = false;
+                empty = false; //simply for testing
+                break;
+            }
+        }
+
+        return isempty;
+    }
+
 }

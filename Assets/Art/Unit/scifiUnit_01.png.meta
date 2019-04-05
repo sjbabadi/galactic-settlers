@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 66f9e222a8040464789707847349d348
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Soldier
+    21300002: scifiUnit_01_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -40,17 +42,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 1
+  spriteMode: 2
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: 0.25, y: 0.25}
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 43, y: 36, z: 43, w: 36}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.25
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -82,8 +84,37 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
-    outline: []
+    sprites:
+    - serializedVersion: 2
+      name: scifiUnit_01_0
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 38
+        width: 36
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 894d529c92467574d8b0e97c393712ba
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -20.99541, y: 28.089996}
+      - {x: -20.971535, y: 20}
+      - {x: -21.26538, y: -15.853077}
+      - {x: -21.322311, y: -27.910007}
+      - {x: -11.853077, y: -27.943066}
+      - {x: 20.995407, y: -27.94307}
+      - {x: 20.971535, y: -24}
+      - {x: 20.971535, y: 28.203857}
+      - {x: 9.559227, y: 27.94307}
     physicsShape: []
     bones: []
     spriteID: 7ed0d1c88f5a1b24d9cf6691085806b2
