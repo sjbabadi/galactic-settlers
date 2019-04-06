@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8641976774355575547}
   - component: {fileID: 1556186006281998285}
-  - component: {fileID: 7808028918109685131}
   - component: {fileID: 5279868607951658303}
   - component: {fileID: 5228590917045289449}
   m_Layer: 8
@@ -82,21 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7808028918109685131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4521464676592135630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
 --- !u!61 &5279868607951658303
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +128,8 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []

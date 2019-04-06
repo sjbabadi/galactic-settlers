@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1071082665502869507}
   - component: {fileID: 5296663323578507773}
   - component: {fileID: 8762907985752168113}
-  - component: {fileID: 8919547006670861985}
   m_Layer: 8
   m_Name: WForkL
   m_TagString: Tile
@@ -129,18 +128,8 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
---- !u!114 &8919547006670861985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7453577447479394506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []

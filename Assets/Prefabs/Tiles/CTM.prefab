@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 953643251785997370}
   - component: {fileID: 5977175708923691272}
   - component: {fileID: 6363817327259515187}
-  - component: {fileID: 635871823696490807}
   - component: {fileID: 6303898208013696774}
   m_Layer: 8
   m_Name: CTM
@@ -108,21 +107,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &635871823696490807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4834075660097299481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
 --- !u!114 &6303898208013696774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +128,8 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []

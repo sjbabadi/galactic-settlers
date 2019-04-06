@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3280572079349211029}
   - component: {fileID: 1792606542714164373}
   - component: {fileID: 1003649796781801667}
-  - component: {fileID: 3005867960045731946}
   - component: {fileID: 2645293334912854545}
   m_Layer: 8
   m_Name: WBendBR
@@ -108,21 +107,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3005867960045731946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6462970589895038243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
 --- !u!114 &2645293334912854545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +128,8 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []

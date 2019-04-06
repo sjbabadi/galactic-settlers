@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8249886017563470267}
   - component: {fileID: 1484429065173215272}
-  - component: {fileID: 1447518065848737230}
   - component: {fileID: 3203119214789028402}
   - component: {fileID: 2869985260088572801}
   m_Layer: 8
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3370384141670872651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3013783, y: -0.91371566, z: 0.0848422}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,21 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1447518065848737230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370384141670872651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
 --- !u!61 &3203119214789028402
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +128,8 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []
