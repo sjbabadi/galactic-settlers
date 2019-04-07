@@ -20,6 +20,8 @@ public class Tile : MonoBehaviour
     public Tile parent = null;
     public int distance = 0;
 
+   
+
 
     //keep in newest version
     private GameState gs;
@@ -44,6 +46,8 @@ public class Tile : MonoBehaviour
 
         //simply  for testing
         InvokeRepeating("isEmpty", 2.0f, 20.0f);
+
+
     }
 
 
@@ -61,12 +65,12 @@ public class Tile : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.green;
         }
-     /*   else
+        else
         {
-            GetComponent<Renderer>().material.color = Color.clear;
+            GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.GetColor("_Color");
 
         }
-       */ 
+        
     }
 
 

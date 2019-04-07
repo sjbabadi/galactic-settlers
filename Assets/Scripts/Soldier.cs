@@ -11,24 +11,21 @@ public class Soldier : Unit
     {
 /*
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10;
+        mousePos.z = 15;
 
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.up, 1, LayerMask.NameToLayer("Player"));
         //Debug.Log(screenPos);
-        if (hit)
+
+        if ((hit.collider != null) && (hit.collider.tag == "Player"))
         {
+            Debug.Log("got here");
+            map.selectedUnit = gameObject;
 
-            if ((hit.collider != null) && (hit.collider.tag == "Player"))
-            {
-                Debug.Log("got here");
-                map.selectedUnit = gameObject;
-
-            }
         }
-
- */   
+*/
+    
         if (Input.GetMouseButtonDown(0))
         {
             map.selectedUnit = gameObject;

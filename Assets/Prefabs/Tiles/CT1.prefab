@@ -128,6 +128,7 @@ MonoBehaviour:
   visited: 0
   parent: {fileID: 0}
   distance: 0
+  defaultMaterial: {fileID: 0}
   empty: 1
   playerUnits: []
   playerBuildings: []

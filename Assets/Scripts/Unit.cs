@@ -34,8 +34,8 @@ public class Unit : MonoBehaviour
         map = GameObject.FindObjectOfType<Tile_map>();
     }
 
-    /*
-    void Update()
+    
+ /*   void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,13 +61,13 @@ public class Unit : MonoBehaviour
                 if ((hit.collider != null) && (hit.collider.tag == "Player"))
                 {
                     Debug.Log("got here");
-                    selectedUnit = gameObject;
+                    map.selectedUnit = gameObject;
 
                 }
             }
 
         
-        if (selectedUnit)
+        if (map.selectedUnit)
         {
             if (!turnUsed)
             {
@@ -79,86 +79,6 @@ public class Unit : MonoBehaviour
     }
     */
 
-    /*
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void Attack()
-    {
-        FindClosestEnemy();
-
-        // Targets units over buildings first as they can fight back
-        if (enemyUnit)
-        {
-            target = "unit";
-        }
-        else if (enemyBuilding)
-        {
-            target = "building";
-        }
-        else
-        {
-            target = "";
-        }
-        
-        if (target == "unit")
-        {
-            if (Vector3.Distance(enemyUnit.transform.position, transform.position) < 2)
-            {
-                enemyUnit.TakeDamage(attackPower);
-            }
-        }
-        else if (target == "building")
-        {
-            if (Vector3.Distance(enemyBuilding.transform.position, transform.position) < 2)
-            {
-                enemyBuilding.TakeDamage(attackPower);
-            }
-        }
-        else
-        {
-            // TODO
-            // Maybe need to create a dialog that displays to the user that there are no nearby targets
-            Debug.Log("No target");
-        }
-    }
-
-    // Finds the closest enemy of type Building and Unit
-    private void FindClosestEnemy()
-    {
-        enemyUnits = FindObjectsOfType<Unit>();
-
-        float minDist = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
-        foreach (Unit eU in enemyUnits)
-        {
-            float dist = Vector3.Distance(eU.transform.position, currentPosition);
-            if (dist < minDist)
-            {
-                enemyUnit = eU;
-                minDist = dist;
-            }
-        }
-        /*
-        foreach (Building eB in enemyBuildings)
-        {
-            float dist = Vector3.Distance(eB.transform.position, currentPosition);
-            if (dist < minDist)
-            {
-                enemyBuilding = eB;
-                minDist = dist;
-            }
-        }
-        */
 
 
 
@@ -178,11 +98,12 @@ public class Unit : MonoBehaviour
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
-  //  float halfHeight = 0;
+    //float halfHeight = 0;
 
     public void GetCurrentTile()
     {
         currentTile = GetTargetTile(gameObject);
+        //Debug.Log(currentTile);
         currentTile.current = true;
     }
 
@@ -192,14 +113,14 @@ public class Unit : MonoBehaviour
       //  RaycastHit hit;
         Tile tile = null;
 
-        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector2.up);
+        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, Vector2.up);
 
-        if (hit)
+        if (hit.collider != null)
         {
             tile = hit.collider.GetComponent<Tile>();
         }
 
-        //Debug.Log(tile);
+        Debug.Log(tile);
 
         return tile;
     }
@@ -277,16 +198,19 @@ public class Unit : MonoBehaviour
             if (Vector3.Distance(transform.position, target) >= 0.05f)
             {
 
+                //Debug.Log("made it here");
+
                 CalculateHeading(target);
                 SetHorizontalVelocity();
 
-                transform.forward = heading;
+              //  transform.forward = heading;
                 transform.position += velocity * Time.deltaTime;
             }
             else
             {
                 //Tile center reached
                 transform.position = target;
+                //Debug.Log(transform.rotation);
                 path.Pop();
             }
 
@@ -317,7 +241,7 @@ public class Unit : MonoBehaviour
     void CalculateHeading(Vector3 target)
     {
         heading = target - transform.position;
-        heading.Normalize();
+        //heading.Normalize();
     }
 
     void SetHorizontalVelocity()
@@ -335,4 +259,89 @@ public class Unit : MonoBehaviour
             turnUsed = true;
         }
     }
+
+
+    /*
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Attack()
+    {
+        FindClosestEnemy();
+
+        // Targets units over buildings first as they can fight back
+        if (enemyUnit)
+        {
+            target = "unit";
+        }
+        else if (enemyBuilding)
+        {
+            target = "building";
+        }
+        else
+        {
+            target = "";
+        }
+
+        if (target == "unit")
+        {
+            if (Vector3.Distance(enemyUnit.transform.position, transform.position) < 2)
+            {
+                enemyUnit.TakeDamage(attackPower);
+            }
+        }
+        else if (target == "building")
+        {
+            if (Vector3.Distance(enemyBuilding.transform.position, transform.position) < 2)
+            {
+                enemyBuilding.TakeDamage(attackPower);
+            }
+        }
+        else
+        {
+            // TODO
+            // Maybe need to create a dialog that displays to the user that there are no nearby targets
+            Debug.Log("No target");
+        }
+    }
+
+    // Finds the closest enemy of type Building and Unit
+    private void FindClosestEnemy()
+    {
+        enemyUnits = FindObjectsOfType<Unit>();
+
+        float minDist = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (Unit eU in enemyUnits)
+        {
+            float dist = Vector3.Distance(eU.transform.position, currentPosition);
+            if (dist < minDist)
+            {
+                enemyUnit = eU;
+                minDist = dist;
+            }
+        }
+        /*
+        foreach (Building eB in enemyBuildings)
+        {
+            float dist = Vector3.Distance(eB.transform.position, currentPosition);
+            if (dist < minDist)
+            {
+                enemyBuilding = eB;
+                minDist = dist;
+            }
+        }
+        */
+
+
+
 }
