@@ -209,13 +209,14 @@ public class Unit : MonoBehaviour
             else
             {
                 //Tile center reached
-                transform.position = target;
+                transform.position = target + new Vector3(0,0,1);
                 //Debug.Log(transform.rotation);
                 path.Pop();
             }
 
         }
         RemoveSelectableTiles();
+        
         moving = false;
     }
 

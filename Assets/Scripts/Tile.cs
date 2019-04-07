@@ -67,7 +67,7 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.GetColor("_Color");
+            GetComponent<Renderer>().material.color = new Color(1,1,1,1);
 
         }
         
@@ -77,6 +77,8 @@ public class Tile : MonoBehaviour
     public void Reset()
     {
         adjacencyList.Clear();
+
+       // Debug.Log(GetComponent<Renderer>().material.GetColor("_Color"));
 
         current = false;
         target = false;
