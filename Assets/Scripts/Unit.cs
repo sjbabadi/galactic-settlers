@@ -34,40 +34,16 @@ public class Unit : MonoBehaviour
         map = GameObject.FindObjectOfType<Tile_map>();
     }
 
-    
- /*   void Update()
+
+
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!map.selectedUnit)
         {
             getUnit();
         }
 
-    }
-
-    
-    public void getUnit()
-    {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 10;
-
-            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            RaycastHit2D hit = Physics2D.Raycast(screenPos, -Vector2.up, 1, LayerMask.NameToLayer("Player"));
-        //Debug.Log(screenPos);
-        Debug.Log(hit);
-            if (hit)
-            {
-
-                if ((hit.collider != null) && (hit.collider.tag == "Player"))
-                {
-                    Debug.Log("got here");
-                    map.selectedUnit = gameObject;
-
-                }
-            }
-
-        
-        if (map.selectedUnit)
+   /*     if (map.selectedUnit)
         {
             if (!turnUsed)
             {
@@ -76,8 +52,105 @@ public class Unit : MonoBehaviour
 
             turnUsed = true;
         }
-    }
     */
+        if (!moving)
+        {
+           // getUnit();
+            CheckMouse();
+        }
+    }
+
+
+    void CheckMouse()
+    {
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+
+            //Debug.Log(screenPos);
+
+            if (hit)
+            {
+                if (hit.collider.tag == "Tile")
+                {
+                    Tile t = hit.collider.GetComponent<Tile>();
+
+                    // Debug.Log("selected tile to move to: " + t);
+
+                    if (t.selectable)
+                    {
+                        if (map.selectedUnit)
+                        {
+                            MoveToTile(t);
+                            map.selectedUnit = null;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    /*   void Update()
+       {
+           if (Input.GetMouseButtonDown(0))
+           {
+               getUnit();
+           }
+
+       }
+    */
+
+       public void getUnit()
+       {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10;
+
+                Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.zero);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
+                //Debug.Log(screenPos);
+                // Debug.Log(hits);
+                //     if (hit)
+                //     {
+
+                foreach(RaycastHit2D hit in hits)
+                { 
+                    if ((hit.collider != null) && (hit.collider.tag == "Player"))
+                    {
+                       Debug.Log(screenPos + ", " + hit.collider.tag);
+                        map.selectedUnit = gameObject;
+
+                    }
+                }
+                
+                //  }
+
+
+                if (map.selectedUnit)
+                {
+                    if (!turnUsed)
+                    {
+                        FindSelectableTiles();
+                    }
+
+                    turnUsed = true;
+                }
+            }
+       }
+       
 
 
 
@@ -90,7 +163,7 @@ public class Unit : MonoBehaviour
 
     public bool moving = false;
 
-    public int move = 2;
+    public int move;
     
     public float moveSpeed = 2;
     public bool turnUsed = false;

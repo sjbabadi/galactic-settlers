@@ -116,7 +116,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5574038535336721206}
+      - m_Target: {fileID: 0}
         m_MethodName: MoveToTile
         m_Mode: 2
         m_Arguments:
@@ -523,8 +523,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5871043312175903167}
   - component: {fileID: 5871043312175903160}
-  - component: {fileID: 5574038535336721206}
   - component: {fileID: 8179611517308953680}
+  - component: {fileID: 7088617388163885040}
   m_Layer: 12
   m_Name: Soldier
   m_TagString: Player
@@ -596,28 +596,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5574038535336721206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5871043312175903161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 278c08c126d66d14f832ad240975592d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyUnit: {fileID: 0}
-  enemyBuilding: {fileID: 0}
-  target: 
-  map: {fileID: 0}
-  health: 100
-  attackPower: 15
-  moving: 0
-  move: 5
-  moveSpeed: 2
-  turnUsed: 0
 --- !u!61 &8179611517308953680
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -644,6 +622,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7088617388163885040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871043312175903161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ecb59dfe11a014e84b258ff0cac0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyUnit: {fileID: 0}
+  enemyBuilding: {fileID: 0}
+  target: 
+  map: {fileID: 0}
+  health: 0
+  attackPower: 0
+  moving: 0
+  move: 2
+  moveSpeed: 2
+  turnUsed: 0
 --- !u!1 &7316824127750132107
 GameObject:
   m_ObjectHideFlags: 0
