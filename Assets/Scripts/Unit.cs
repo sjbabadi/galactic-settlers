@@ -120,7 +120,7 @@ public class Unit : MonoBehaviour
 
                 Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-                RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.zero);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
+                RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.down, 1);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
                 //Debug.Log(screenPos);
                 // Debug.Log(hits);
                 //     if (hit)
@@ -128,26 +128,30 @@ public class Unit : MonoBehaviour
 
                 foreach(RaycastHit2D hit in hits)
                 { 
+                    //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
+                    Debug.Log(hit.transform.gameObject + ", " + hit.collider.gameObject);
                     if ((hit.collider != null) && (hit.collider.tag == "Player"))
                     {
-                       Debug.Log(screenPos + ", " + hit.collider.tag);
-                        map.selectedUnit = gameObject;
+                       
+                        map.selectedUnit = hit.transform.gameObject;
+                    
+                        if (!turnUsed)
+                        {
+                            FindSelectableTiles();
+                        }
 
+                        turnUsed = true;
                     }
                 }
                 
                 //  }
 
-
+            /*
                 if (map.selectedUnit)
                 {
-                    if (!turnUsed)
-                    {
-                        FindSelectableTiles();
-                    }
-
-                    turnUsed = true;
+                    
                 }
+            */
             }
        }
        
@@ -176,7 +180,7 @@ public class Unit : MonoBehaviour
     public void GetCurrentTile()
     {
         currentTile = GetTargetTile(gameObject);
-        //Debug.Log(currentTile);
+        //Debug.Log(currentTile.GetComponent<Tile>().transform.position);
         currentTile.current = true;
     }
 
@@ -193,7 +197,7 @@ public class Unit : MonoBehaviour
             tile = hit.collider.GetComponent<Tile>();
         }
 
-        Debug.Log(tile);
+       // Debug.Log(tile.GetComponent<Tile>().transform.position);
 
         return tile;
     }
