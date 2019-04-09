@@ -6,6 +6,7 @@ public class PlacementScript : MonoBehaviour
 {
     private static int selectedObjectInArray;
     private static GameObject currentlySelectedObject;
+    private HUDController hudController;
 
     [SerializeField]
     GameState gs;
@@ -19,6 +20,7 @@ public class PlacementScript : MonoBehaviour
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        hudController = FindObjectOfType<HUDController>();
     }
 
     // Update is called once per frame
@@ -60,31 +62,49 @@ public class PlacementScript : MonoBehaviour
     {
         if (isAnObjectSelected == false)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
-
-            currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
-            isAnObjectSelected = true;
-
-            //update building counts in gamestate's array
-            if (selectedObjectInArray == 0)
+            if (HasEnoughMoney())
             {
-                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Farm]++;
-                gs.CalculateMaxPop();
-                gs.CalculateFood();
-            }
-            else if (selectedObjectInArray == 1)
-            {
-                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Mine]++;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+
+                currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
+                isAnObjectSelected = true;
+
+                gs.Money[(int)gm.CurrentTurn] -= 100;
+                UpdateBuildingCounts(selectedObjectInArray);
+                hudController.UpdateStatText();
             }
             else
             {
-                gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks]++;
-                gs.CalculateUnitMax();
+                Debug.Log("Not Enough Money");
             }
         }
 
 
+    }
+
+    public void UpdateBuildingCounts(int selectedObjectInArray)
+    { 
+        if (selectedObjectInArray == 0)
+        {
+            gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Farm]++;
+            gs.CalculateMaxPop();
+            gs.CalculateFood();
+        }
+        else if (selectedObjectInArray == 1)
+        {
+            gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Mine]++;
+        }
+        else
+        {
+            gs.buildingCounts[(int)gm.CurrentTurn, (int)Buildings.Barracks]++;
+            gs.CalculateUnitMax();
+        }
+    }
+
+    public bool HasEnoughMoney()
+    {
+        return gs.Money[(int)gm.CurrentTurn] >= 100;
     }
 
 }
