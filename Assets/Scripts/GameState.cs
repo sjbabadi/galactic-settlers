@@ -49,6 +49,7 @@ public class GameState : MonoBehaviour
             UnitMax[i] = 0;
             gameTurn = 0;
         }
+        HUDController.UpdateStatText();
     }
 
     public void EndTurn()
