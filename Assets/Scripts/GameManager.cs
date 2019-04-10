@@ -141,12 +141,12 @@ public class GameManager : MonoBehaviour
         else
         {
             GameState gs = FindObjectOfType<GameState>();
-            if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0)
+            if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0 || gs.enemyBase == null || gs.playerBase == null)
             {
                 GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
                 es.SetActive(true);
 
-                if (gs.enemyBase.health <= 0)
+                if (gs.enemyBase.health <= 0 || gs.enemyBase == null)
                 {
                     es.transform.Find("Win").gameObject.SetActive(true);
                 }
