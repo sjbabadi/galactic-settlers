@@ -155,7 +155,9 @@ public class GameManager : MonoBehaviour
                     es.transform.Find("Lose").gameObject.SetActive(true);
                 }
 
-                yield return new WaitForSeconds(4);
+                yield return new WaitForSeconds(2);
+                FindObjectOfType<Animator>().SetBool("BattleSceneFade", true);
+                yield return new WaitForSeconds(2);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
             else
