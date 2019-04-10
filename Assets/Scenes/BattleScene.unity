@@ -666,6 +666,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421714431}
   m_CullTransparentMesh: 0
+--- !u!1001 &427258142
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4475843544671331063, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_Name
+      value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475843544671331060, guid: 653dfee9531aa2a4db77c85e27d2b576,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 653dfee9531aa2a4db77c85e27d2b576, type: 3}
 --- !u!1 &437453321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +2020,6 @@ MonoBehaviour:
   - {fileID: 367458829417478399, guid: fc2c0fe9281ea754c9dd0639b94a38d9, type: 3}
   - {fileID: 5978919536620850000, guid: 9ee3602b98a4667469fa69075aa3e519, type: 3}
   - {fileID: 8205746888394707371, guid: ac68ce60305a34d47a08fbf01bc206e4, type: 3}
-  Soldier: {fileID: 6137087984313735565, guid: e075b2b3ef7d13e4384fbed16edbdd21, type: 3}
 --- !u!1 &801459709
 GameObject:
   m_ObjectHideFlags: 0
@@ -5188,146 +5256,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967869607}
   m_CullTransparentMesh: 0
---- !u!1 &1969921708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1969921710}
-  - component: {fileID: 1969921709}
-  m_Layer: 0
-  m_Name: Map
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1969921709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969921708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9a93bad908f2e469355a330593bedd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedUnit: {fileID: 0}
-  tileTypes:
-  - name: Ground
-    tileVisualPrefab: {fileID: 3370384141670872651, guid: 42a802f109a6eee4c8525bffb1992cc3,
-      type: 3}
-    isWalkable: 1
-    movementCost: 1
-  - name: BTM
-    tileVisualPrefab: {fileID: 8147345881961214158, guid: 28b037551c34cae43a2d3c12b06a5842,
-      type: 3}
-    isWalkable: 1
-    movementCost: 2
-  - name: WVert
-    tileVisualPrefab: {fileID: 4521464676592135630, guid: afe1a29d63bfbcd41b568088a9a7016a,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WHorz
-    tileVisualPrefab: {fileID: 3177547916710231552, guid: 768240e64c0316241806a89fe1c8fa42,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WForkL
-    tileVisualPrefab: {fileID: 7453577447479394506, guid: b74d82008da9af642a379b8412da5c9b,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WForkR
-    tileVisualPrefab: {fileID: 5231020716991856633, guid: 1573813fcc8106b4981f1d297631dec1,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WTile
-    tileVisualPrefab: {fileID: 2198777637794845550, guid: a191a17f38750d44b9cd2f72c805473b,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WLakeR
-    tileVisualPrefab: {fileID: 8644827192927028164, guid: 00a07a5345e59a14c82c1ee7686b8f87,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WLakeD
-    tileVisualPrefab: {fileID: 4913061937864836713, guid: 3638cf0b0299d0941b62afe7fcd35c99,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WLakeL
-    tileVisualPrefab: {fileID: 4513653108193189026, guid: cd8e99ab1cfdf984ba638b900674cb93,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WBendBR
-    tileVisualPrefab: {fileID: 6462970589895038243, guid: 3e46341d17242ca47b90794f6246debe,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: WBendTL
-    tileVisualPrefab: {fileID: 7707097354318375050, guid: aea326f40f16d0248a94ac7c0cfebcd8,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
-  - name: BT1
-    tileVisualPrefab: {fileID: 1428883937665973329, guid: 1ec2c01137f3e2a4e9aea54c383c6df6,
-      type: 3}
-    isWalkable: 1
-    movementCost: 1
-  - name: BT2
-    tileVisualPrefab: {fileID: 7153253189054560827, guid: e58b16dd8ba0f3046bad6a5a0f22256f,
-      type: 3}
-    isWalkable: 1
-    movementCost: 1
-  - name: BT3
-    tileVisualPrefab: {fileID: 8550113403879688671, guid: 4e7138f3b13c3fd48a50b97f89ecc5d8,
-      type: 3}
-    isWalkable: 1
-    movementCost: 2
-  - name: CT1
-    tileVisualPrefab: {fileID: 3508733953153377251, guid: c944259bcd8961f4d8bc2c224b6988ba,
-      type: 3}
-    isWalkable: 1
-    movementCost: 1
-  - name: CT2
-    tileVisualPrefab: {fileID: 6721865256300970073, guid: 54d8ffeeff3313748b13a32090f58960,
-      type: 3}
-    isWalkable: 1
-    movementCost: 1
-  - name: CT3
-    tileVisualPrefab: {fileID: 6128065092170289725, guid: 3f1d8509a3e3b5149856b615d9615d46,
-      type: 3}
-    isWalkable: 1
-    movementCost: 2
-  - name: CTM
-    tileVisualPrefab: {fileID: 4834075660097299481, guid: 933dcd0c694761b42a144b41f01d5486,
-      type: 3}
-    isWalkable: 1
-    movementCost: 3
---- !u!4 &1969921710
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969921708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2025948817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,7 +5272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2025948818
 Transform:
   m_ObjectHideFlags: 0
@@ -5800,6 +5728,7 @@ MonoBehaviour:
   cost: 100
   owner: Enemy
   buildingType: 3
+  used: 0
 --- !u!4 &2994300991327555100
 Transform:
   m_ObjectHideFlags: 0
@@ -5992,6 +5921,7 @@ MonoBehaviour:
   cost: 100
   owner: Player
   buildingType: 3
+  used: 0
 --- !u!61 &6236292817003705543
 BoxCollider2D:
   m_ObjectHideFlags: 0

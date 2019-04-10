@@ -24,7 +24,7 @@ public class TransScript : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, buildingLayer);
 
             //if we don't hit another building, build here
-            if (rayHit.collider == null)
+            if (rayHit.collider.gameObject.GetComponent<Tile>().walkable)
             {
                 Instantiate(placeObject, transform.position, Quaternion.identity);
                 PlacementScript.ClearSelection();

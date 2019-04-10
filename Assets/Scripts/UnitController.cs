@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitController : MonoBehaviour
+public class UnitController : Unit
 {
     // Reference to GameState & GameManager
     private GameState gs;
@@ -45,55 +45,290 @@ public class UnitController : MonoBehaviour
 
     void Update()
     {
-        if (unit.currentPath != null)
+        if (!map.selectedUnit)
         {
-            int currNode = 0;
+            getUnit();
+        }
 
-            while (currNode < unit.currentPath.Count - 1)
+        /*     if (map.selectedUnit)
+             {
+                 if (!turnUsed)
+                 {
+                     FindSelectableTiles();
+                 }
+                 turnUsed = true;
+             }
+         */
+        if (!moving && map.selectedUnit && map.selectedUnit.GetComponent<Unit>() == this)
+        {
+            // getUnit();
+            CheckMouse();
+        }
+
+    }
+
+
+    public void CheckMouse()
+    {
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+
+            //Debug.Log(screenPos);
+
+            if (hit)
             {
-                Vector3 start = map.TileCoordToWorldCoord(unit.currentPath[currNode].x, unit.currentPath[currNode].y);
-                Vector3 end = map.TileCoordToWorldCoord(unit.currentPath[currNode + 1].x, unit.currentPath[currNode + 1].y);
+                if (hit.collider.tag == "Tile")
+                {
+                    Tile t = hit.collider.GetComponent<Tile>();
 
-                Debug.DrawLine(start, end, Color.blue);
+                    // Debug.Log("selected tile to move to: " + t);
 
-                currNode++;
+                    if (t.selectable)
+                    {
+                        if (map.selectedUnit)
+                        {
+                            MoveToTile(t);
+                            map.selectedUnit = null;
+                        }
+
+                    }
+                }
             }
         }
     }
 
-    public void MoveNextTile()
+    public void getUnit()
     {
-        float remainingMovement = unit.moveSpeed;
-        while (remainingMovement > 0)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (unit.currentPath == null)
-                return;
 
-            remainingMovement -= map.CostToEnterTile(unit.currentPath[0].x, unit.currentPath[0].y, unit.currentPath[1].x, unit.currentPath[1].y);
-            //  Debug.Log("Remaining movement left: " + remainingMovement);
-            //move the unit to the next tile in the path
-            unit.tileX = unit.currentPath[1].x;
-            unit.tileY = unit.currentPath[1].y;
-            transform.position = map.TileCoordToWorldCoord(unit.tileX, unit.tileY);
 
-            //remove the old current/first node from the path
-            unit.currentPath.RemoveAt(0);
-            if (unit.currentPath.Count == 1)
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.down, 1);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
+            //Debug.Log(screenPos);
+            // Debug.Log(hits);
+            //     if (hit)
+            //     {
+
+            foreach (RaycastHit2D hit in hits)
             {
-                //lets clear the pathfinding data because we're reached the destination
-                unit.currentPath = null;
-                // return (int)remainingMovement;
+                //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
+                //Debug.Log(hit.transform.gameObject.name);
+                if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this))
+                {
+                    Debug.Log(hit.collider.name);
+                    map.selectedUnit = hit.transform.gameObject;
+
+                    if (!turnUsed)
+                    {
+                        FindSelectableTiles();
+                    }
+
+                    turnUsed = true;
+                }
+            }
+
+            //  }
+
+            /*
+                if (map.selectedUnit)
+                {
+
+                }
+            */
+        }
+    }
+
+
+
+
+
+    List<Tile> selectableTiles = new List<Tile>();
+    GameObject[] tiles;
+
+    Stack<Tile> path = new Stack<Tile>();
+    Tile currentTile;
+
+    public bool moving = false;
+
+    public int move;
+
+   
+
+    Vector3 velocity = new Vector3();
+    Vector3 heading = new Vector3();
+
+    //float halfHeight = 0;
+
+    public void GetCurrentTile()
+    {
+        currentTile = GetTargetTile(map.selectedUnit);
+        //Debug.Log(currentTile.GetComponent<Tile>().transform.position);
+        currentTile.current = true;
+    }
+
+
+    public Tile GetTargetTile(GameObject target)
+    {
+        //  RaycastHit hit;
+        Tile tile = null;
+
+        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, Vector2.up);
+
+        if (hit.collider != null)
+        {
+            tile = hit.collider.GetComponent<Tile>();
+        }
+
+        // Debug.Log(tile.GetComponent<Tile>().transform.position);
+
+        return tile;
+    }
+
+    public void ComputeAdjacencyLists()
+    {
+        foreach (GameObject tile in tiles)
+        {
+            Tile t = tile.GetComponent<Tile>();
+            t.FindNeighbors();
+        }
+    }
+
+    public void FindSelectableTiles()
+    {
+        ComputeAdjacencyLists();
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+
+        process.Enqueue(currentTile);
+        currentTile.visited = true;
+
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue();
+
+            selectableTiles.Add(t);
+            t.selectable = true;
+
+            if (t.distance < move)
+            {
+                foreach (Tile tile in t.adjacencyList)
+                {
+                    if (!tile.visited)
+                    {
+                        tile.parent = t;
+                        tile.visited = true;
+                        tile.distance = tile.movementCost + t.distance;
+                        //Debug.Log("Tile: " + tile + " added with coords: " + tile.GetComponent<Tile>().transform.position.x + ", " + tile.GetComponent<Tile>().transform.position.y
+                        //            + " with distance: " + tile.distance);
+                        //Debug.Log(tile.movementCost + ", " + t.distance + ", " + tile.distance);
+                        process.Enqueue(tile);
+                    }
+                }
             }
         }
-        // return 0;
+    }
+
+    public void MoveToTile(Tile tile)
+    {
+        path.Clear();
+        tile.target = true;
+        moving = true;
+
+        Tile next = tile;
+        while (next != null)
+        {
+            path.Push(next);
+            next = next.parent;
+        }
+        Move();
+    }
+
+    public void Move()
+    {
+        while (path.Count > 0)
+        {
+            Tile t = path.Peek();
+            Vector3 target = t.transform.position;
+
+            //calculate the unit's position on top of the target tile
+            //target.y += halfHeight + t.GetComponent<Collider2D>().bounds.extents.y;
+
+            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            {
+
+                //Debug.Log("made it here");
+
+                CalculateHeading(target);
+                SetHorizontalVelocity();
+
+                //  transform.forward = heading;
+                transform.position += velocity * Time.deltaTime;
+            }
+            else
+            {
+                //Tile center reached
+                map.selectedUnit.transform.position = target + new Vector3(0, 0, 1);
+                //Debug.Log(transform.rotation);
+                path.Pop();
+            }
+
+        }
+        RemoveSelectableTiles();
+
+        moving = false;
+    }
+
+    //remove the selectable tiles
+    protected void RemoveSelectableTiles()
+    {
+
+        if (currentTile != null)
+        {
+            currentTile.current = false;
+            currentTile = null;
+        }
+
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.Reset();
+        }
+
+        selectableTiles.Clear();
+    }
+
+
+    void CalculateHeading(Vector3 target)
+    {
+        heading = target - transform.position;
+        //heading.Normalize();
+    }
+
+    void SetHorizontalVelocity()
+    {
+        velocity = heading * moveSpeed;
     }
 
     public void SelectUnit()
     {
-        if (unit.turnUsed == false)
+        if (turnUsed == false)
         {
-            map.selectedUnit = gameObject;
-            unit.turnUsed = true;
+            //map.selectedUnit = gameObject;
+            FindSelectableTiles();
+
+            turnUsed = true;
         }
     }
 
@@ -106,6 +341,7 @@ public class UnitController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     public void Attack()
     {
