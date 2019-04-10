@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        tiles = GameObject.FindGameObjectsWithTag("Tile"); 
+        tiles = GameObject.FindGameObjectsWithTag("Tile");
 
         // Obtain references to the list of opponent units and buildings
         //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
@@ -38,27 +38,26 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        if (!map.selectedUnit)
+        if (!map.selectedUnit || map.selectedUnit != null)
         {
             getUnit();
         }
 
-   /*     if (map.selectedUnit)
+        /*     if (map.selectedUnit)
+             {
+                 if (!turnUsed)
+                 {
+                     FindSelectableTiles();
+                 }
+                 turnUsed = true;
+             }
+         */
+        if (!moving && map.selectedUnit.GetComponent<Unit>() == this)
         {
-            if (!turnUsed)
-            {
-                FindSelectableTiles();
-            }
-
-            turnUsed = true;
-        }
-    */
-        if (!moving)
-        {
-           // getUnit();
+            // getUnit();
             CheckMouse();
         }
-        
+
     }
 
 
@@ -98,52 +97,52 @@ public class Unit : MonoBehaviour
         }
     }
 
-       public void getUnit()
-       {
-            if (Input.GetMouseButtonDown(0))
+    public void getUnit()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.down, 1);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
+            //Debug.Log(screenPos);
+            // Debug.Log(hits);
+            //     if (hit)
+            //     {
+
+            foreach (RaycastHit2D hit in hits)
             {
+                //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
+                Debug.Log(hit.transform.gameObject + ", " + hit.collider.gameObject);
+                if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<Unit>() == this))
+                {
 
+                    map.selectedUnit = hit.transform.gameObject;
 
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 10;
-
-                Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-                RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.down, 1);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
-                //Debug.Log(screenPos);
-                // Debug.Log(hits);
-                //     if (hit)
-                //     {
-
-                foreach(RaycastHit2D hit in hits)
-                { 
-                    //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
-                    Debug.Log(hit.transform.gameObject + ", " + hit.collider.gameObject);
-                    if ((hit.collider != null) && (hit.collider.tag == "Player"))
+                    if (!turnUsed)
                     {
-                       
-                        map.selectedUnit = hit.transform.gameObject;
-                    
-                        if (!turnUsed)
-                        {
-                            FindSelectableTiles();
-                        }
-
-                        turnUsed = true;
+                        FindSelectableTiles();
                     }
+
+                    turnUsed = true;
                 }
-                
-                //  }
+            }
+
+            //  }
 
             /*
                 if (map.selectedUnit)
                 {
-                    
+
                 }
             */
-            }
-       }
-       
+        }
+    }
+
 
 
 
@@ -157,7 +156,7 @@ public class Unit : MonoBehaviour
     public bool moving = false;
 
     public int move;
-    
+
     public float moveSpeed = 2;
     public bool turnUsed = false;
 
@@ -176,7 +175,7 @@ public class Unit : MonoBehaviour
 
     public Tile GetTargetTile(GameObject target)
     {
-      //  RaycastHit hit;
+        //  RaycastHit hit;
         Tile tile = null;
 
         RaycastHit2D hit = Physics2D.Raycast(target.transform.position, Vector2.up);
@@ -186,7 +185,7 @@ public class Unit : MonoBehaviour
             tile = hit.collider.GetComponent<Tile>();
         }
 
-       // Debug.Log(tile.GetComponent<Tile>().transform.position);
+        // Debug.Log(tile.GetComponent<Tile>().transform.position);
 
         return tile;
     }
@@ -269,20 +268,20 @@ public class Unit : MonoBehaviour
                 CalculateHeading(target);
                 SetHorizontalVelocity();
 
-              //  transform.forward = heading;
+                //  transform.forward = heading;
                 transform.position += velocity * Time.deltaTime;
             }
             else
             {
                 //Tile center reached
-                map.selectedUnit.transform.position = target + new Vector3(0,0,1);
+                map.selectedUnit.transform.position = target + new Vector3(0, 0, 1);
                 //Debug.Log(transform.rotation);
                 path.Pop();
             }
 
         }
         RemoveSelectableTiles();
-        
+
         moving = false;
     }
 
@@ -318,7 +317,7 @@ public class Unit : MonoBehaviour
 
     public void SelectUnit()
     {
-        if(turnUsed == false)
+        if (turnUsed == false)
         {
             //map.selectedUnit = gameObject;
             FindSelectableTiles();
@@ -329,21 +328,17 @@ public class Unit : MonoBehaviour
 
 
     /*
-
     public void TakeDamage(float damage)
     {
         health -= damage;
-
         if (health <= 0)
         {
             Destroy(gameObject);
         }
     }
-
     public void Attack()
     {
         FindClosestEnemy();
-
         // Targets units over buildings first as they can fight back
         if (enemyUnit)
         {
@@ -357,7 +352,6 @@ public class Unit : MonoBehaviour
         {
             target = "";
         }
-
         if (target == "unit")
         {
             if (Vector3.Distance(enemyUnit.transform.position, transform.position) < 2)
@@ -379,15 +373,12 @@ public class Unit : MonoBehaviour
             Debug.Log("No target");
         }
     }
-
     // Finds the closest enemy of type Building and Unit
     private void FindClosestEnemy()
     {
         enemyUnits = FindObjectsOfType<Unit>();
-
         float minDist = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-
         foreach (Unit eU in enemyUnits)
         {
             float dist = Vector3.Distance(eU.transform.position, currentPosition);
