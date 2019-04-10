@@ -13,9 +13,11 @@ public class SoldierGen : MonoBehaviour
     private Building building;
     public GameObject soldier;
 
-    //check for soldier creation intenion and creation
-    public bool barracksClicked = false;
-    public bool soldierGenerated = false;
+    //check for soldier creation intenion
+    public bool soldierGenerate = false;
+    int numUnits;
+    int numUnitsAllowed;
+    int foodAvail;
 
     //for location purposes
     Vector2 barrLocation;
@@ -29,11 +31,6 @@ public class SoldierGen : MonoBehaviour
     Vector2 spawnPos;
 
 
-    //public int[][] neighbors;
-    //public TileType[] tileTypes;
-    //public TileSelection tileSelection;
-
-
     private void Start()
     {
         gs = FindObjectOfType<GameState>();
@@ -43,12 +40,13 @@ public class SoldierGen : MonoBehaviour
 
     }
 
+    
     private void Update()
     {
         getMousePos();
-        OnMouseDown();
 
     }
+    
 
     //when the barracks is clicked on
     void OnMouseDown()
@@ -61,9 +59,9 @@ public class SoldierGen : MonoBehaviour
         tileRig = new Vector3(barrLocation.x + 1.0f, barrLocation.y);
 
         //check values for creation of soldier
-        int numUnits = gs.Units[(int)gm.CurrentTurn];
-        int numUnitsAllowed = gs.UnitMax[(int)gm.CurrentTurn];
-        int foodAvail = gs.Food[(int)gm.CurrentTurn];
+        numUnits = gs.Units[(int)gm.CurrentTurn];
+        numUnitsAllowed = gs.UnitMax[(int)gm.CurrentTurn];
+        foodAvail = gs.Food[(int)gm.CurrentTurn];
 
         //check to see if barracks has already been used
         if (building.used == false)
@@ -74,30 +72,7 @@ public class SoldierGen : MonoBehaviour
                 //if we have enough food --(2 per soldier?)
                 if (foodAvail >= 2)
                 {
-                    //if mouse click location = one of the tiles
-                    if (spawnPos == tileTop || spawnPos == tileBot || spawnPos == tileLef || spawnPos == tileRig)
-                    {
-                        Debug.Log("I make it through the tile check!");
-
-                        //create soldier at clicked location
-                        GameObject unitref = Instantiate(soldier, spawnPos, Quaternion.identity);
-                        unit = unitref.GetComponent<Unit>();
-
-                        //set soldier turn as used
-                        Debug.Log(unit);
-                        unit.turnUsed = true;
-                        Debug.Log(unit.turnUsed);
-
-                        //add to player's units
-                        gs.Units[(int)gm.CurrentTurn]++;
-
-                        //take away food used
-                        gs.Food[(int)gm.CurrentTurn] -= 5;
-
-                        //set barracks as used
-                        building.used = true;
-
-                    }
+                    soldierGenerate = true;
                 }
             }
         }
@@ -109,6 +84,31 @@ public class SoldierGen : MonoBehaviour
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+
+            if (soldierGenerate) {
+                //if mouse click location = one of the tiles
+                if (spawnPos == tileTop || spawnPos == tileBot || spawnPos == tileLef || spawnPos == tileRig)
+                {
+                    //create soldier at clicked location
+                    GameObject unitref = Instantiate(soldier, spawnPos, Quaternion.identity);
+                    unit = unitref.GetComponent<Unit>();
+                    soldierGenerate = false;
+
+                    //set soldier turn as used
+                    unit.turnUsed = true;
+
+                    //add to player's units
+                    gs.Units[(int)gm.CurrentTurn]++;
+
+                    //take away food used
+                    gs.Food[(int)gm.CurrentTurn] -= 5;
+
+                    //set barracks as used
+                    building.used = true;
+                    Debug.Log(building.used);
+                }
+
+            }
         }
     }
 }
