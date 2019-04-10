@@ -58,10 +58,11 @@ public class Unit : MonoBehaviour
            // getUnit();
             CheckMouse();
         }
+        
     }
 
 
-    void CheckMouse()
+    public void CheckMouse()
     {
 
         if (Input.GetMouseButtonDown(1))
@@ -96,18 +97,6 @@ public class Unit : MonoBehaviour
             }
         }
     }
-
-
-
-    /*   void Update()
-       {
-           if (Input.GetMouseButtonDown(0))
-           {
-               getUnit();
-           }
-
-       }
-    */
 
        public void getUnit()
        {
@@ -179,7 +168,7 @@ public class Unit : MonoBehaviour
 
     public void GetCurrentTile()
     {
-        currentTile = GetTargetTile(gameObject);
+        currentTile = GetTargetTile(map.selectedUnit);
         //Debug.Log(currentTile.GetComponent<Tile>().transform.position);
         currentTile.current = true;
     }
@@ -286,7 +275,7 @@ public class Unit : MonoBehaviour
             else
             {
                 //Tile center reached
-                transform.position = target + new Vector3(0,0,1);
+                map.selectedUnit.transform.position = target + new Vector3(0,0,1);
                 //Debug.Log(transform.rotation);
                 path.Pop();
             }
