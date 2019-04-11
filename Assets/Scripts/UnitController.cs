@@ -125,7 +125,7 @@ public class UnitController : Unit
             {
                 //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
                 //Debug.Log(hit.transform.gameObject.name);
-                if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this))
+                if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this) && !turnUsed)
                 {
                     //Debug.Log("collider: " +hit.collider.name);
                     map.selectedUnit = hit.transform.gameObject;
