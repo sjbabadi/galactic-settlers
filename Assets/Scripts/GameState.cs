@@ -40,7 +40,7 @@ public class GameState : MonoBehaviour
             buildingCounts[i, (int)Buildings.Farm] = 0;
             buildingCounts[i, (int)Buildings.Mine] = 0;
             buildingCounts[i, (int)Buildings.Barracks] = 0;
-            Money[i] = 100;
+            Money[i] = 1000;
             Food[i] = 0;
             Population[i] = 0;
             BaseHealth[i] = 100;

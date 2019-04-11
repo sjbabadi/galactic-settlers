@@ -40,7 +40,7 @@ public class UnitController : Unit
         //enemyBuildings = GameObject.FindObjectOfType<GameState>().enemyBuildings;
 
         // Finds the Tile_map game object that is used for unit movement
-        map = GameObject.FindObjectOfType<Tile_map>();
+        tiles = FindObjectsOfType<Tile>();
     }
 
     void Update()
@@ -59,7 +59,7 @@ public class UnitController : Unit
                  turnUsed = true;
              }
          */
-        if (!moving && map.selectedUnit && map.selectedUnit.GetComponent<Unit>() == this)
+        if (!moving && map.selectedUnit != null && map.selectedUnit.GetComponent<UnitController>() == this)
         {
             // getUnit();
             CheckMouse();
@@ -127,7 +127,7 @@ public class UnitController : Unit
                 //Debug.Log(hit.transform.gameObject.name);
                 if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this))
                 {
-                    Debug.Log(hit.collider.name);
+                    //Debug.Log("collider: " +hit.collider.name);
                     map.selectedUnit = hit.transform.gameObject;
 
                     if (!turnUsed)
@@ -155,7 +155,7 @@ public class UnitController : Unit
 
 
     List<Tile> selectableTiles = new List<Tile>();
-    GameObject[] tiles;
+    Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
     Tile currentTile;
@@ -184,12 +184,21 @@ public class UnitController : Unit
         //  RaycastHit hit;
         Tile tile = null;
 
-        RaycastHit2D hit = Physics2D.Raycast(target.transform.position, Vector2.up);
-
-        if (hit.collider != null)
+        RaycastHit2D[] hits = Physics2D.RaycastAll(target.transform.position, new Vector3(0, 0, 1));
+        Debug.DrawRay(target.transform.position, new Vector3(0, 0, 1), Color.green, 200f);
+        foreach (RaycastHit2D hit in hits)
         {
-            tile = hit.collider.GetComponent<Tile>();
+            Debug.Log(hit.collider.name);
+            if (hit.collider.tag == "Tile")
+            {
+                tile = hit.collider.GetComponent<Tile>();
+            }
         }
+
+        //if (hit.collider != null)
+        //{
+        //    tile = hit.collider.GetComponent<Tile>();
+        //}
 
         // Debug.Log(tile.GetComponent<Tile>().transform.position);
 
@@ -198,7 +207,7 @@ public class UnitController : Unit
 
     public void ComputeAdjacencyLists()
     {
-        foreach (GameObject tile in tiles)
+        foreach (Tile tile in tiles)
         {
             Tile t = tile.GetComponent<Tile>();
             t.FindNeighbors();
