@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Maintains a reference to the current state and handles switching from one state to another.
+/// </summary>
 public class StateMachine : MonoBehaviour 
 {
 	public virtual State CurrentState

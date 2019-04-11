@@ -3,12 +3,18 @@ using System.Collections;
 
 public abstract class State : MonoBehaviour 
 {
+    /// <summary>
+    /// Called by the state machine when this becomes the current state.
+    /// </summary>
 	public virtual void Enter ()
 	{
 		AddListeners();
 	}
-	
-	public virtual void Exit ()
+
+    /// <summary>
+    /// Called by the state machine when this state stops being the current state.
+    /// </summary>
+    public virtual void Exit ()
 	{
 		RemoveListeners();
 	}

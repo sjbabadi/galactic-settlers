@@ -1,30 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Testing out our input controller and infoeventargs.
-/// </summary>
 public class Demo : MonoBehaviour
 {
-    void OnEnable()
+    enum State
     {
-        InputController.moveEvent += OnMoveEvent;
-        InputController.fireEvent += OnFireEvent;
+        Loading,
+        Playing,
+        GameOver
     }
+    State _state;
 
-    void OnDisable()
+    void CheckState()
     {
-        InputController.moveEvent -= OnMoveEvent;
-        InputController.fireEvent -= OnFireEvent;
-    }
-
-    void OnMoveEvent(object sender, InfoEventArgs<Point> e)
-    {
-        Debug.Log("Move " + e.info.ToString());
-    }
-
-    void OnFireEvent(object sender, InfoEventArgs<int> e)
-    {
-        Debug.Log("Fire " + e.info);
+        switch (_state)
+        {
+            case State.Loading:
+                // Loading Logic here
+                break;
+            case State.Playing:
+                // Playing Logic here
+                break;
+            case State.GameOver:
+                // GameOver Logic here
+                break;
+        }
     }
 }
