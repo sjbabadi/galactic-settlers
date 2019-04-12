@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 {
     PlayerManager player;
     EnemyManager enemy;
+    GameState gs;
 
     Turn currentTurn = Turn.Player;
     public Turn CurrentTurn { get { return currentTurn; } }
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
         enemy = Object.FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
+        gs = Object.FindObjectOfType<GameState>().GetComponent<GameState>();
     }
     // Start is called before the first frame update
     void Start()
@@ -55,8 +57,7 @@ public class GameManager : MonoBehaviour
     {
         //yield return StartCoroutine("StartGameRoutine");
         yield return StartCoroutine("PlayGameRoutine");
-        //yield return StartCoroutine("EndGameRoutine");
-        //TODO: EnDGameRoutine will run the game over screen -- post vertical slice
+        yield return StartCoroutine("EndGameRoutine");
     }
 
     IEnumerator StartGameRoutine()
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
         while (!isGameOver)
         {
             //check for win condition (base health to zero)
-            //isGameOver = IsWinner();
+            isGameOver = IsWinner();
             yield return null;
         }
     }
@@ -103,10 +104,10 @@ public class GameManager : MonoBehaviour
         enemy.PlayTurn();
     }
 
-    //bool IsWinner()
-    //{
-
-    //}
+    bool IsWinner()
+    {
+        return (gs.playerBase.health == 0 || gs.enemyBase.health == 0);
+    }
 
     public void UpdateTurn()
     {
@@ -132,22 +133,18 @@ public class GameManager : MonoBehaviour
         // This exists merely to test EndGame() functionality
         if (Input.GetKeyDown("e"))
         {
-            isGameOver = true;
-
             if (Random.value > 0.5f)
             {
-                FindObjectOfType<GameState>().enemyBase.health = 0;
+                gs.enemyBase.health = 0;
             }
             else
             {
-                FindObjectOfType<GameState>().playerBase.health = 0;
+                gs.playerBase.health = 0;
             }
-
-            StartCoroutine(EndGame());
         }
     }
 
-    IEnumerator EndGame()
+    IEnumerator EndGameRoutine()
     {
         if (!isGameOver)
         {
@@ -155,7 +152,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GameState gs = FindObjectOfType<GameState>();
             if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0 || gs.enemyBase == null || gs.playerBase == null)
             {
                 GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
