@@ -41,6 +41,7 @@ public class UnitController : Unit
 
         // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
+        currentTile = GetTargetTile(gameObject);
     }
 
     void Update()
@@ -94,7 +95,9 @@ public class UnitController : Unit
                     {
                         if (map.selectedUnit)
                         {
+                            currentTile.empty = true;
                             MoveToTile(t);
+                            t.empty = false;
                             map.selectedUnit = null;
                         }
 
@@ -158,6 +161,7 @@ public class UnitController : Unit
     Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
+    [SerializeField]
     Tile currentTile;
 
     public bool moving = false;
