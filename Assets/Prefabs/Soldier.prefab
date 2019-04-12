@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 705924160454313971}
   - component: {fileID: 6340434490976975701}
   - component: {fileID: 9067447813944393691}
-  - component: {fileID: 4624660033137137744}
+  - component: {fileID: 2533934608178703094}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Player
@@ -108,21 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b084a988c82e4bba4ec0636fb2706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnit: {fileID: 0}
-  enemyBuilding: {fileID: 0}
-  target: 
---- !u!114 &4624660033137137744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705924160454313970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ecb59dfe11a014e84b258ff0cac0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   health: 100
   attackPower: 15
   owner: 
@@ -130,3 +115,34 @@ MonoBehaviour:
   tileX: 0
   tileY: 0
   turnUsed: 0
+  enemyUnit: {fileID: 0}
+  enemyBuilding: {fileID: 0}
+  target: 
+  moving: 0
+  move: 4
+--- !u!61 &2533934608178703094
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705924160454313970}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

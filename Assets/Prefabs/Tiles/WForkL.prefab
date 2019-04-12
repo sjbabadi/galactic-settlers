@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4196088852758178201}
   - component: {fileID: 1071082665502869507}
   - component: {fileID: 5296663323578507773}
-  - component: {fileID: 8919547006670861985}
-  m_Layer: 0
+  - component: {fileID: 8762907985752168113}
+  m_Layer: 8
   m_Name: WForkL
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +107,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8919547006670861985
+--- !u!114 &8762907985752168113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,9 +116,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7453577447479394506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ae06fabe0f554b469e70a978ea7a957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
+  walkable: 1
+  current: 0
+  target: 0
+  selectable: 0
+  movementCost: 3
+  adjacencyList: []
+  visited: 0
+  parent: {fileID: 0}
+  distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []

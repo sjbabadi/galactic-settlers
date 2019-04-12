@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5124765076274225786}
   - component: {fileID: 5450460226784942155}
   - component: {fileID: 7371080418994906058}
-  - component: {fileID: 1849965870487711084}
-  m_Layer: 0
+  - component: {fileID: 688486348214865503}
+  m_Layer: 8
   m_Name: WTile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +107,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1849965870487711084
+--- !u!114 &688486348214865503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,9 +116,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2198777637794845550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155e6c0ae19133b42b0484595d95a800, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ae06fabe0f554b469e70a978ea7a957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileX: 0
-  tileY: 0
-  map: {fileID: 0}
+  walkable: 0
+  current: 0
+  target: 0
+  selectable: 0
+  movementCost: 0
+  adjacencyList: []
+  visited: 0
+  parent: {fileID: 0}
+  distance: 0
+  empty: 1
+  playerUnits: []
+  playerBuildings: []
+  enemyUnits: []
+  enemyBuildings: []
