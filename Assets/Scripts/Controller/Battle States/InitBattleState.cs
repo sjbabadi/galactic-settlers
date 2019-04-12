@@ -11,12 +11,12 @@ public class InitBattleState : BattleState
 
     IEnumerator Init()
     {
-        board.Load(levelData);
-        Point p = new Point((int)levelData.tiles[0].x, (int)levelData.tiles[0].y);
-        SelectTile(p);
-        SpawnTestUnits();
+        //board.Load(levelData);
+        //Point p = new Point((int)levelData.tiles[0].x, (int)levelData.tiles[0].y);
+        //SelectTile(p);
+        //SpawnTestUnits();
         yield return null;
-        owner.ChangeState<SelectUnitState>();
+        owner.ChangeState<CutSceneState>();
     }
 
     void SpawnTestUnits()

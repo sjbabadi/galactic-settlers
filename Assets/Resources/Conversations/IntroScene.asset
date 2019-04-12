@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f041866e1c84e244980cc06373efa377, type: 3}
+  m_Name: IntroScene
+  m_EditorClassIdentifier: 
+  list:
+  - messages:
+    - This planet has all the resources we need.
+    - Our search has finally come to an end...
+    speaker: {fileID: 21300000, guid: ef0179e8b6f69214887b03091b2394e1, type: 3}
+    anchor: 0
+  - messages:
+    - Captain! Do you hear that?
+    speaker: {fileID: 21300000, guid: 66f9e222a8040464789707847349d348, type: 3}
+    anchor: 0
+  - messages:
+    - '!@#$%^@#@%'
+    - '!#$!%^!@#$%@'
+    speaker: {fileID: 21300000, guid: 7a9ed302171a4084babe39fa27ac3cfb, type: 3}
+    anchor: 8
+  - messages:
+    - An alien?!
+    - Why does it look like a different color version of us?
+    speaker: {fileID: 21300000, guid: ef0179e8b6f69214887b03091b2394e1, type: 3}
+    anchor: 0
+  - messages:
+    - Alien assets must be what they call a C feature...
+    speaker: {fileID: 21300000, guid: 66f9e222a8040464789707847349d348, type: 3}
+    anchor: 0
