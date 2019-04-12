@@ -17,7 +17,7 @@ public class TurnManager : MonoBehaviour
     {
         isTurnComplete = true;
 
-        if(gm != null)
+        if (gm != null)
         {
             gm.UpdateTurn();
         }

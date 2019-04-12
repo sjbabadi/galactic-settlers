@@ -30,6 +30,15 @@ public class GameState : MonoBehaviour
 
     private Tile_map map;
 
+    PlayerManager player;
+    EnemyManager enemy;
+
+    void Awake()
+    {
+        player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
+        enemy = Object.FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
+    }
+
     private void Start()
     {
         HUDController = FindObjectOfType<HUDController>();
@@ -72,6 +81,8 @@ public class GameState : MonoBehaviour
         }
 
         map.selectedUnit = null;
+
+        player.FinishTurn();
     }
 
 

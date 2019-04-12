@@ -19,6 +19,7 @@ public class EnemyManager : TurnManager
     IEnumerator PlayTurnRoutine()
     {
         //enemy's action sequence
-        yield return null;
+        yield return new WaitForSeconds(5f);
+        FinishTurn();
     }
 }
