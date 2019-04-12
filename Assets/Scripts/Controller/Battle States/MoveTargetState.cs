@@ -1,8 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MoveTargetState : BattleState
 {
+    List<Tile> tiles;
+
+    public override void Enter()
+    {
+        base.Enter();
+        Movement mover = owner.currentUnit.GetComponent<Movement>();
+        tiles = mover.GetTilesInRange(board);
+        board.SelectTiles(tiles);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        board.DeSelectTiles(tiles);
+        tiles = null;
+    }
+
     protected override void OnMove(object sender, InfoEventArgs<Point> e)
     {
         SelectTile(e.info + pos);
@@ -10,6 +28,7 @@ public class MoveTargetState : BattleState
 
     protected override void OnFire(object sender, InfoEventArgs<int> e)
     {
-        Debug.Log("Fire: " + e.info);
+        if (tiles.Contains(owner.currentTile))
+            owner.ChangeState<MoveSequenceState>();
     }
 }
