@@ -26,7 +26,7 @@ public class InitBattleState : BattleState
         {
             GameObject instance = Instantiate(owner.soldierPrefab) as GameObject;
 
-            Point p = new Point((int)levelData.tiles[i].x, (int)levelData.tiles[i].z);
+            Point p = new Point((int)levelData.tiles[i].x, (int)levelData.tiles[i].y);
 
             Unit unit = instance.GetComponent<Unit>();
             unit.Place(board.GetTile(p));
