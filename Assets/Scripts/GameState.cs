@@ -23,19 +23,17 @@ public class GameState : MonoBehaviour
     public List<Building> enemyBuildings = new List<Building>();
     public Building playerBase;
     public Building enemyBase;
+    public GameObject selectedUnit;
 
     private HUDController HUDController;
     private PlacementScript placement;
     private GameManager gm;
-
-    private Tile_map map;
 
     private void Start()
     {
         HUDController = FindObjectOfType<HUDController>();
         placement = FindObjectOfType<PlacementScript>();
         gm = FindObjectOfType<GameManager>();
-        map = FindObjectOfType<Tile_map>();
 
         // Set Player and Enemy starting resources
         for (int i = 0; i < 2; i++)
@@ -71,7 +69,7 @@ public class GameState : MonoBehaviour
             building.used = false;
         }
 
-        map.selectedUnit = null;
+        selectedUnit = null;
     }
 
 
