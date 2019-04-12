@@ -1300,6 +1300,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   isTurnComplete: 0
+  enemyBarracks: {fileID: 8205746888394707371, guid: 3566d3723fcf1439490e71ab9dd454f0,
+    type: 3}
+  enemyFarm: {fileID: 367458829417478399, guid: 807cbb12fb92244419f32898075f7306,
+    type: 3}
+  enemyMine: {fileID: 5978919536620850000, guid: b083ba4f859a5449c957e79b85e59571,
+    type: 3}
+  enemyUnit: {fileID: 2912716381576232821, guid: 8786d6829b7cf4979b1b888240b4c8a0,
+    type: 3}
 --- !u!4 &599072862
 Transform:
   m_ObjectHideFlags: 0
@@ -2392,6 +2400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732b3df23bafa4b8ba4a55f8c3fb8ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 1
 --- !u!1 &905630056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2561,6 +2570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   isTurnComplete: 0
+  inputEnabled: 0
 --- !u!4 &1078065933
 Transform:
   m_ObjectHideFlags: 0
