@@ -6,6 +6,15 @@ public class Tile : MonoBehaviour
     #region Fields / Properties
     public Point pos;
     public Vector2 center { get { return new Vector2(pos.x, pos.y); } }
+    public GameObject content;
+    /// <summary>
+    /// Stores the tile that was traversed to reach this tile.
+    /// </summary>
+    [HideInInspector] public Tile prev;
+    /// <summary>
+    /// The number of tiles that have been traversed to reach this tile.
+    /// </summary>
+    [HideInInspector] public int distance;
     #endregion
 
     #region Public
