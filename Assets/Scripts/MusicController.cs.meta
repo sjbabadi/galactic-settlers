@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f15ad220da25bd44c908c0aab4f9462e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - startMenu: {fileID: 8300000, guid: 53f54db942a196344bcb18b7cdeb4192, type: 3}
+  - battleScene: {fileID: 8300000, guid: 9f57e680d4ab13a4e9dc40f5f43186bc, type: 3}
+  - enemyTurn: {fileID: 8300000, guid: 98c4264bf7feb37469fdf47ab1ed50a5, type: 3}
+  - gameEnd: {fileID: 8300000, guid: d791c646ac9fa7744ac39c8076b6ac63, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -155,8 +155,14 @@ public class GameManager : MonoBehaviour
                     es.transform.Find("Lose").gameObject.SetActive(true);
                 }
 
-                yield return new WaitForSeconds(2);
-                FindObjectOfType<Animator>().SetBool("BattleSceneFade", true);
+                yield return new WaitForSeconds(.5f);
+
+                while (!Input.anyKeyDown)
+                {
+                    yield return null;
+                }
+
+                FindObjectOfType<Animator>().SetBool("MusicFadeOut", true);
                 yield return new WaitForSeconds(2);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
