@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : TurnManager
 {
+    public bool inputEnabled;
+
     protected override void Awake()
     {
         base.Awake();
@@ -15,6 +17,7 @@ public class PlayerManager : TurnManager
         //if it's not the player's turn, immediately return / don't run anything
         if(gm.CurrentTurn != Turn.Player)
         {
+            inputEnabled = false;
             return;
         }
     }

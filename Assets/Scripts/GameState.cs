@@ -29,6 +29,16 @@ public class GameState : MonoBehaviour
     private PlacementScript placement;
     private GameManager gm;
 
+
+    PlayerManager player;
+    EnemyManager enemy;
+
+    void Awake()
+    {
+        player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
+        enemy = Object.FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
+    }
+
     private void Start()
     {
         HUDController = FindObjectOfType<HUDController>();
@@ -70,6 +80,8 @@ public class GameState : MonoBehaviour
         }
 
         selectedUnit = null;
+        
+        player.FinishTurn();
     }
 
 

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 {
     PlayerManager player;
     EnemyManager enemy;
+    GameState gs;
 
     Turn currentTurn = Turn.Player;
     public Turn CurrentTurn { get { return currentTurn; } }
@@ -31,10 +32,13 @@ public class GameManager : MonoBehaviour
     bool isGameOver = false;
     public bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
 
+    public float delay = 1f;
+
     void Awake()
     {
         player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
         enemy = Object.FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
+        gs = Object.FindObjectOfType<GameState>().GetComponent<GameState>();
     }
     // Start is called before the first frame update
     void Start()
@@ -51,15 +55,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MainGameLoop()
     {
-        yield return StartCoroutine("StartGameRoutine");
+        //yield return StartCoroutine("StartGameRoutine");
         yield return StartCoroutine("PlayGameRoutine");
-        //yield return StartCoroutine("EndGameRoutine");
-        //TODO: EnDGameRoutine will run the game over screen -- post vertical slice
+        yield return StartCoroutine("EndGameRoutine");
     }
 
     IEnumerator StartGameRoutine()
     {
-        //player.InputEnabled = false;
+        Debug.Log("Start Level");
+        player.inputEnabled = false;
 
         while (!hasGameStarted)
         {
@@ -72,42 +76,54 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayGameRoutine()
     {
+        Debug.Log("Play Level");
         isGamePlaying = true;
-        //player.InputEnabled = true;
-
+        yield return new WaitForSeconds(delay);
+        player.inputEnabled = true;
         while (!isGameOver)
         {
-            yield return null;
-
             //check for win condition (base health to zero)
-            //isGameOver = IsWinner();
-
+            isGameOver = IsWinner();
+            yield return null;
         }
     }
 
     void PlayPlayerTurn()
     {
         currentTurn = Turn.Player;
-        
+        Debug.Log(currentTurn);
+        player.isTurnComplete = false;
+        player.inputEnabled = true;
     }
 
     void PlayEnemyTurn()
     {
         currentTurn = Turn.Enemy;
+        Debug.Log(currentTurn);
+        enemy.isTurnComplete = false;
+        enemy.PlayTurn();
     }
 
-    //bool IsWinner()
-    //{
-
-    //}
+    bool IsWinner()
+    {
+        return (gs.playerBase.health == 0 || gs.enemyBase.health == 0);
+    }
 
     public void UpdateTurn()
     {
-        if(currentTurn == Turn.Player && player != null)
+        if (currentTurn == Turn.Player && player != null)
         {
             if (player.isTurnComplete)
             {
                 PlayEnemyTurn();
+            }
+        }
+        else if (currentTurn == Turn.Enemy)
+        {
+            //if enemy turn is complete, play player turn
+            if (enemy.isTurnComplete)
+            {
+                PlayPlayerTurn();
             }
         }
     }
@@ -117,22 +133,18 @@ public class GameManager : MonoBehaviour
         // This exists merely to test EndGame() functionality
         if (Input.GetKeyDown("e"))
         {
-            isGameOver = true;
-
             if (Random.value > 0.5f)
             {
-                FindObjectOfType<GameState>().enemyBase.health = 0;
+                gs.enemyBase.health = 0;
             }
             else
             {
-                FindObjectOfType<GameState>().playerBase.health = 0;
+                gs.playerBase.health = 0;
             }
-
-            StartCoroutine(EndGame());
         }
     }
 
-    IEnumerator EndGame()
+    IEnumerator EndGameRoutine()
     {
         if (!isGameOver)
         {
@@ -140,7 +152,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GameState gs = FindObjectOfType<GameState>();
             if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0 || gs.enemyBase == null || gs.playerBase == null)
             {
                 GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
