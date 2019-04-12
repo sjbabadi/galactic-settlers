@@ -8,7 +8,6 @@ public class UnitController : Unit
     private GameState gs;
     private GameManager gm;
     private Unit unit;
-    private Tile_map map;
 
     //Refernces to enemies in GameState
     private UnitController[] enemyUnits;
@@ -24,7 +23,6 @@ public class UnitController : Unit
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         unit = gameObject.GetComponent<Unit>();
-        map = FindObjectOfType<Tile_map>();
 
         gs.Units[(int)gm.CurrentTurn]++;
         if (gm.CurrentTurn == Turn.Player)
@@ -41,11 +39,12 @@ public class UnitController : Unit
 
         // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
+        currentTile = GetTargetTile(gameObject);
     }
 
     void Update()
     {
-        if (!map.selectedUnit)
+        if (!gs.selectedUnit)
         {
             getUnit();
         }
@@ -59,7 +58,7 @@ public class UnitController : Unit
                  turnUsed = true;
              }
          */
-        if (!moving && map.selectedUnit != null && map.selectedUnit.GetComponent<UnitController>() == this)
+        if (!moving && gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this)
         {
             // getUnit();
             CheckMouse();
@@ -92,10 +91,12 @@ public class UnitController : Unit
 
                     if (t.selectable)
                     {
-                        if (map.selectedUnit)
+                        if (gs.selectedUnit)
                         {
+                            currentTile.empty = true;
                             MoveToTile(t);
-                            map.selectedUnit = null;
+                            t.empty = false;
+                            gs.selectedUnit = null;
                         }
 
                     }
@@ -128,7 +129,7 @@ public class UnitController : Unit
                 if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this) && !turnUsed)
                 {
                     //Debug.Log("collider: " +hit.collider.name);
-                    map.selectedUnit = hit.transform.gameObject;
+                    gs.selectedUnit = hit.transform.gameObject;
 
                     if (!turnUsed)
                     {
@@ -158,6 +159,7 @@ public class UnitController : Unit
     Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
+    [SerializeField]
     Tile currentTile;
 
     public bool moving = false;
@@ -173,7 +175,7 @@ public class UnitController : Unit
 
     public void GetCurrentTile()
     {
-        currentTile = GetTargetTile(map.selectedUnit);
+        currentTile = GetTargetTile(gs.selectedUnit);
         //Debug.Log(currentTile.GetComponent<Tile>().transform.position);
         currentTile.current = true;
     }
@@ -289,7 +291,7 @@ public class UnitController : Unit
             else
             {
                 //Tile center reached
-                map.selectedUnit.transform.position = target + new Vector3(0, 0, 1);
+                gs.selectedUnit.transform.position = target + new Vector3(0, 0, 1);
                 //Debug.Log(transform.rotation);
                 path.Pop();
             }

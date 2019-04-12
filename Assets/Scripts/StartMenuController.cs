@@ -14,6 +14,7 @@ public class StartMenuController : MonoBehaviour
     {
 
         FindObjectOfType<Animator>().SetBool("StartMenuFade", true);
+        FindObjectOfType<MusicController>().FadeOutMusic();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
