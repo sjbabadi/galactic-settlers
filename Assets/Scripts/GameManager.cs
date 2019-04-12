@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public enum Turn
@@ -107,6 +108,61 @@ public class GameManager : MonoBehaviour
             if (player.isTurnComplete)
             {
                 PlayEnemyTurn();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // This exists merely to test EndGame() functionality
+        if (Input.GetKeyDown("e"))
+        {
+            isGameOver = true;
+
+            if (Random.value > 0.5f)
+            {
+                FindObjectOfType<GameState>().enemyBase.health = 0;
+            }
+            else
+            {
+                FindObjectOfType<GameState>().playerBase.health = 0;
+            }
+
+            StartCoroutine(EndGame());
+        }
+    }
+
+    IEnumerator EndGame()
+    {
+        if (!isGameOver)
+        {
+            Debug.Log("Who called me!?");
+        }
+        else
+        {
+            GameState gs = FindObjectOfType<GameState>();
+            if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0 || gs.enemyBase == null || gs.playerBase == null)
+            {
+                GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
+                es.SetActive(true);
+
+                if (gs.enemyBase.health <= 0 || gs.enemyBase == null)
+                {
+                    es.transform.Find("Win").gameObject.SetActive(true);
+                }
+                else
+                {
+                    es.transform.Find("Lose").gameObject.SetActive(true);
+                }
+
+                yield return new WaitForSeconds(2);
+                FindObjectOfType<Animator>().SetBool("BattleSceneFade", true);
+                yield return new WaitForSeconds(2);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            }
+            else
+            {
+                Debug.Log("Game over but there is still health in the tank");
             }
         }
     }

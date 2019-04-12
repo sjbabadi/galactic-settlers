@@ -105,7 +105,7 @@ public class SoldierGen : MonoBehaviour
 
                     //set barracks as used
                     building.used = true;
-                    Debug.Log(building.used);
+                    //Debug.Log(building.used);
                 }
 
             }
