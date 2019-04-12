@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     bool isGameOver = false;
     public bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
 
+    public float delay = 1f;
+
     void Awake()
     {
         player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MainGameLoop()
     {
-        yield return StartCoroutine("StartGameRoutine");
+        //yield return StartCoroutine("StartGameRoutine");
         yield return StartCoroutine("PlayGameRoutine");
         //yield return StartCoroutine("EndGameRoutine");
         //TODO: EnDGameRoutine will run the game over screen -- post vertical slice
@@ -59,7 +61,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartGameRoutine()
     {
-        //player.InputEnabled = false;
+        Debug.Log("Start Level");
+        player.inputEnabled = false;
 
         while (!hasGameStarted)
         {
@@ -72,28 +75,32 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayGameRoutine()
     {
+        Debug.Log("Play Level");
         isGamePlaying = true;
-        //player.InputEnabled = true;
-
+        yield return new WaitForSeconds(delay);
+        player.inputEnabled = true;
         while (!isGameOver)
         {
-            yield return null;
-
             //check for win condition (base health to zero)
             //isGameOver = IsWinner();
-
+            yield return null;
         }
     }
 
     void PlayPlayerTurn()
     {
         currentTurn = Turn.Player;
-        
+        Debug.Log(currentTurn);
+        player.isTurnComplete = false;
+        player.inputEnabled = true;
     }
 
     void PlayEnemyTurn()
     {
         currentTurn = Turn.Enemy;
+        Debug.Log(currentTurn);
+        enemy.isTurnComplete = false;
+        enemy.PlayTurn();
     }
 
     //bool IsWinner()
@@ -103,11 +110,19 @@ public class GameManager : MonoBehaviour
 
     public void UpdateTurn()
     {
-        if(currentTurn == Turn.Player && player != null)
+        if (currentTurn == Turn.Player && player != null)
         {
             if (player.isTurnComplete)
             {
                 PlayEnemyTurn();
+            }
+        }
+        else if (currentTurn == Turn.Enemy)
+        {
+            //if enemy turn is complete, play player turn
+            if (enemy.isTurnComplete)
+            {
+                PlayPlayerTurn();
             }
         }
     }
