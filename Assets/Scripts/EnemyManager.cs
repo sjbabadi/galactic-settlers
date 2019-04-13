@@ -32,8 +32,10 @@ public class EnemyManager : TurnManager
     IEnumerator PlayTurnRoutine()
     {
         //enemy's action sequence
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         GenerateBuilding(new Vector2(0,2), enemyFarm);
+        // The time interval bellow allows for the building lists to be populated correctly
+        yield return new WaitForSeconds(1f);
         FinishTurn();
     }
 

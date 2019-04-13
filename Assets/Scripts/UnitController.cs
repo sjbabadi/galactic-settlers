@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UnitController : Unit
 {
+    //Attack animation
+    [SerializeField] GameObject attackAnimation;
+
     // Reference to GameState & GameManager
     private GameState gs;
     private GameManager gm;
@@ -23,9 +26,10 @@ public class UnitController : Unit
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         unit = gameObject.GetComponent<Unit>();
+        owner = gm.CurrentTurn;
 
-        gs.Units[(int)gm.CurrentTurn]++;
-        if (gm.CurrentTurn == Turn.Player)
+        gs.Units[(int)owner]++;
+        if (owner == Turn.Player)
         {
             gs.playerUnits.Add(unit);
         }
@@ -40,6 +44,7 @@ public class UnitController : Unit
         // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
+        currentTile.empty = false;
     }
 
     void Update()
@@ -345,6 +350,7 @@ public class UnitController : Unit
 
     public void TakeDamage(float damage)
     {
+        Instantiate(attackAnimation, unit.transform.position + new Vector3(0, 0, -2), Quaternion.identity); //Attack animation position is modified so that it appears on top of the soldier
         unit.health -= damage;
 
         if (unit.health <= 0)

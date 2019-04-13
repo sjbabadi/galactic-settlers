@@ -73,6 +73,11 @@ public class PlacementScript : MonoBehaviour
                 gs.Money[(int)gm.CurrentTurn] -= 100;
                 UpdateBuildingCounts(selectedObjectInArray);
                 hudController.UpdateStatText();
+
+                foreach (Tile t in gs.playerBuildingLocations)
+                {
+                    t.movementSelect = true;
+                }
             }
             else
             {
