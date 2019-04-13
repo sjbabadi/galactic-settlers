@@ -63,7 +63,7 @@ public class UnitController : Unit
             // getUnit();
             CheckMouse();
         }
-
+        /*
         if (unit.health <= 50 && unit.health > 25)
         {
             // Debug.Log("got here");
@@ -77,7 +77,7 @@ public class UnitController : Unit
         {
             unit.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
         }
-
+        */
 
     }
 
@@ -111,6 +111,8 @@ public class UnitController : Unit
                             currentTile.empty = true;
                             MoveToTile(t);
                             t.empty = false;
+
+
                             gs.selectedUnit = null;
                         }
 
@@ -202,10 +204,10 @@ public class UnitController : Unit
         Tile tile = null;
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(target.transform.position, new Vector3(0, 0, 1));
-        Debug.DrawRay(target.transform.position, new Vector3(0, 0, 1), Color.green, 200f);
+        //Debug.DrawRay(target.transform.position, new Vector3(0, 0, 1), Color.green, 200f);
         foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
             if (hit.collider.tag == "Tile")
             {
                 tile = hit.collider.GetComponent<Tile>();
