@@ -115,9 +115,12 @@ MonoBehaviour:
   tileX: 0
   tileY: 0
   turnUsed: 0
+  attackAnimation: {fileID: 8936685364583653480, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
   enemyUnit: {fileID: 0}
   enemyBuilding: {fileID: 0}
   target: 
+  currentTile: {fileID: 0}
   moving: 0
   move: 4
 --- !u!61 &2533934608178703094

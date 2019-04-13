@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UnitController : Unit
 {
+    //Attack animation
+    [SerializeField] GameObject attackAnimation;
+
     // Reference to GameState & GameManager
     private GameState gs;
     private GameManager gm;
@@ -345,6 +348,7 @@ public class UnitController : Unit
 
     public void TakeDamage(float damage)
     {
+        Instantiate(attackAnimation, unit.transform.position + new Vector3(0, 0, -2), Quaternion.identity); //Attack animation position is modified so that it appears on top of the soldier
         unit.health -= damage;
 
         if (unit.health <= 0)
