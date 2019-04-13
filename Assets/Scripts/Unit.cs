@@ -14,7 +14,6 @@ public class Unit : MonoBehaviour
     // Unit location & pathing
     public int tileX;
     public int tileY;
-    public List<Node> currentPath = null;
     
     // track if unit has attacked or moved during turn
     public bool turnUsed = false;

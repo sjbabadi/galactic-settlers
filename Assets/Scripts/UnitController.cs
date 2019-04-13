@@ -33,11 +33,7 @@ public class UnitController : Unit
         {
             gs.enemyUnits.Add(unit);
         }
-        // Obtain references to the list of opponent units and buildings
-        //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
-        //enemyBuildings = GameObject.FindObjectOfType<GameState>().enemyBuildings;
 
-        // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
     }
@@ -49,18 +45,8 @@ public class UnitController : Unit
             getUnit();
         }
 
-        /*     if (map.selectedUnit)
-             {
-                 if (!turnUsed)
-                 {
-                     FindSelectableTiles();
-                 }
-                 turnUsed = true;
-             }
-         */
         if (!moving && gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this)
         {
-            // getUnit();
             CheckMouse();
         }
 
@@ -131,23 +117,9 @@ public class UnitController : Unit
                     //Debug.Log("collider: " +hit.collider.name);
                     gs.selectedUnit = hit.transform.gameObject;
 
-                    if (!turnUsed)
-                    {
-                        FindSelectableTiles();
-                    }
-
-                    turnUsed = true;
+                    SelectUnit();
                 }
             }
-
-            //  }
-
-            /*
-                if (map.selectedUnit)
-                {
-
-                }
-            */
         }
     }
 
@@ -336,7 +308,6 @@ public class UnitController : Unit
     {
         if (turnUsed == false)
         {
-            //map.selectedUnit = gameObject;
             FindSelectableTiles();
 
             turnUsed = true;
@@ -352,7 +323,6 @@ public class UnitController : Unit
             Destroy(gameObject);
         }
     }
-
 
     public void Attack()
     {
@@ -411,17 +381,5 @@ public class UnitController : Unit
                 minDist = dist;
             }
         }
-        /*
-        foreach (Building eB in enemyBuildings)
-        {
-            float dist = Vector3.Distance(eB.transform.position, currentPosition);
-            if (dist < minDist)
-            {
-                enemyBuilding = eB;
-                minDist = dist;
-            }
-        }*/
     }
-
-
 }

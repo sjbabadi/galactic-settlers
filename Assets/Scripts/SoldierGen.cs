@@ -9,7 +9,6 @@ public class SoldierGen : MonoBehaviour
     private GameManager gm;
 
     private Unit unit;
-    public Tile_map map;
     private Building building;
     public GameObject soldier;
 
@@ -35,9 +34,7 @@ public class SoldierGen : MonoBehaviour
     {
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
-        map = GameObject.FindObjectOfType<Tile_map>();
         building = gameObject.GetComponent<Building>();
-
     }
 
     
@@ -112,57 +109,3 @@ public class SoldierGen : MonoBehaviour
         }
     }
 }
-
-
-
-/*
- *                  //this changes the color of the barracks
-                    //GetComponent<Renderer>().material.color = Color.magenta;
-
-
-                    //neighbors[x][y] = map.GetTile(location);
-                    //public map.TileBase GetTile(tilePos);
-
-
-
-                    Tile tile = item.GetComponent<Tile>();
-
-                    ----
-
-                    Tile tile = (Tile)tilemap.GetTile(coord);
-
-                    ----
-
-                    BoundsInt bounds = tilemap.cellBounds;
-                    TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-
-                    ----
-
-                    // Get the object Tile or TilesetBrush
-                    Tile tile = tilemap.GetTile(-4, -8); // directly from the tilemap
-                    tile = tilemap.Tileset.GetTile(tileId); // from the tileset with the tileId
-
-                    ----
-
-                    Vector3 pos = transform.position;
-                    pos.x = 12;
-                    transform.position = pos;
-
-                    ----
-
-                    neighboringNeighbors[xIndex] = new TileBase[NeighborCount];
-                    int index = 0;
-                    for (int y = 1; y >= -1; y--)
-                    {
-                        for (int x = -1; x <= 1; x++)
-                        {
-                            if (x != 0 || y != 0)
-                            {
-                                Vector3Int tilePosition = new Vector3Int(position.x + x, position.y + y, position.z);
-                                neighboringNeighbors[xIndex][index] = tilemap.GetTile(tilePosition);
-                                index++;
-                            }
-                        }
-                    }
-                }
-                */
