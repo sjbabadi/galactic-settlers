@@ -22,9 +22,10 @@ public class TransScript : MonoBehaviour
         {
             Vector2 mouseRay = Camera.main.ScreenToWorldPoint(transform.position);
             RaycastHit2D rayHit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, buildingLayer);
-            Debug.Log(rayHit.collider.name);
+
+            Tile tile = rayHit.collider.GetComponent<Tile>();
             //if we don't hit another building, build here
-            if (rayHit.collider.gameObject.GetComponent<Tile>().walkable && rayHit.collider.gameObject.GetComponent<Tile>().empty)
+            if (tile.walkable && tile.empty && FindObjectOfType<GameState>().playerBuildingLocations.Contains(tile))
             {
                 Instantiate(placeObject, transform.position, Quaternion.identity);
                 PlacementScript.ClearSelection();
