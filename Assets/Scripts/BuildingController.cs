@@ -5,6 +5,9 @@ using System.Linq;
 
 public class BuildingController : MonoBehaviour
 {
+    //Attack animation
+    [SerializeField] GameObject attackAnimation;
+
     // Reference to GameState & GameManager
     private GameState gs;
     private GameManager gm;
@@ -29,6 +32,7 @@ public class BuildingController : MonoBehaviour
     // called by units to inflict damage
     public void TakeDamage(float damage)
     {
+        Instantiate(attackAnimation, building.transform.position + new Vector3(0, 0, -2), Quaternion.identity);
         building.health -= damage;
 
         if (building.health <= 0)
