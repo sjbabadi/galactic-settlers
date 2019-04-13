@@ -110,12 +110,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   attackPower: 15
-  owner: 
+  owner: 0
   moveSpeed: 2
   tileX: 0
   tileY: 0
   turnUsed: 0
-  attackAnimation: {fileID: 8936685364583653480, guid: c9eb65085088c7742976b808c57fea35,
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
   enemyUnit: {fileID: 0}
   enemyBuilding: {fileID: 0}
