@@ -31,7 +31,7 @@ public class PlacementScript : MonoBehaviour
         {
             SelectObject(0);
         }
-        else if (Input.GetKeyDown("h"))
+        else if (Input.GetKeyDown("m"))
         {
             SelectObject(1);
         }
