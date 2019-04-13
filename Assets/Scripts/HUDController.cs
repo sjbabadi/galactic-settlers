@@ -21,11 +21,22 @@ public class HUDController : MonoBehaviour
     private bool statsDisplayed = false;
     private Vector3 statsClose, statsOpen;
 
+    //player controls
+    [SerializeField] private GameObject playerControls;
+    private RectTransform pc;
+    private bool controlsDisplayed = false;
+    private Vector3 controlsOpen, controlsClose;
+
     private void Start()
     {
         rt = statsPanel.GetComponent<RectTransform>();
         statsClose = rt.transform.localPosition;
         statsOpen = rt.transform.localPosition + new Vector3(-340,0,0);
+
+        pc = playerControls.GetComponent<RectTransform>();
+        controlsClose = pc.transform.localPosition;
+        controlsOpen = pc.transform.localPosition + new Vector3(0, +460, 0);
+
     }
 
     public void ShowStatsPanel() {
@@ -43,6 +54,20 @@ public class HUDController : MonoBehaviour
             statsDisplayed = false;
         }
     }
+
+    public void MoveControlsPanel()
+    {
+        if (!controlsDisplayed)
+        {
+            pc.localPosition = controlsOpen;
+            controlsDisplayed = true;
+        } else
+        {
+            pc.localPosition = controlsClose;
+            controlsDisplayed = false;
+        }
+    }
+
 
     // Updates all text based on the values recoreded in the GameState Object
     public void UpdateStatText() {
