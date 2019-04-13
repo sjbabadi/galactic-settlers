@@ -73,7 +73,7 @@ public class GameState : MonoBehaviour
 
         foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
         {
-            unit.turnUsed = false;
+            unit.GetComponent<UnitController>().Reset();
         }
 
         foreach (Building building in GameObject.FindObjectsOfType<Building>())

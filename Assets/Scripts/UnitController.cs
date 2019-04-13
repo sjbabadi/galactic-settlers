@@ -10,7 +10,7 @@ public class UnitController : Unit
     // Reference to GameState & GameManager
     private GameState gs;
     private GameManager gm;
-    private Unit unit;
+    //private Unit unit;
 
     //Refernces to enemies in GameState
     private UnitController[] enemyUnits;
@@ -20,153 +20,6 @@ public class UnitController : Unit
     public UnitController enemyUnit;
     public BuildingController enemyBuilding;
     public string target = "";
-
-    private void Start()
-    {
-        gs = FindObjectOfType<GameState>();
-        gm = FindObjectOfType<GameManager>();
-        unit = gameObject.GetComponent<Unit>();
-        owner = gm.CurrentTurn;
-
-        gs.Units[(int)owner]++;
-        if (owner == Turn.Player)
-        {
-            gs.playerUnits.Add(unit);
-        }
-        else
-        {
-            gs.enemyUnits.Add(unit);
-        }
-        // Obtain references to the list of opponent units and buildings
-        //enemyUnits = GameObject.FindObjectOfType<GameState>().enemyUnits;
-        //enemyBuildings = GameObject.FindObjectOfType<GameState>().enemyBuildings;
-
-        // Finds the Tile_map game object that is used for unit movement
-        tiles = FindObjectsOfType<Tile>();
-        currentTile = GetTargetTile(gameObject);
-        currentTile.empty = false;
-
-        //for testing takedamage functionality
-        //Invoke("test", 3);
-    }
-
-    //void test()
-    //{
-    //    TakeDamage(15f);
-    //}
-
-    void Update()
-    {
-        if (!gs.selectedUnit)
-        {
-            getUnit();
-        }
-
-        /*     if (map.selectedUnit)
-             {
-                 if (!turnUsed)
-                 {
-                     FindSelectableTiles();
-                 }
-                 turnUsed = true;
-             }
-         */
-        if (!moving && gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this)
-        {
-            // getUnit();
-            CheckMouse();
-        }
-
-    }
-
-
-    public void CheckMouse()
-    {
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 10;
-
-            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
-
-            //Debug.Log(screenPos);
-
-            if (hit)
-            {
-                if (hit.collider.tag == "Tile")
-                {
-                    Tile t = hit.collider.GetComponent<Tile>();
-
-                    // Debug.Log("selected tile to move to: " + t);
-
-                    if (t.selectable)
-                    {
-                        if (gs.selectedUnit)
-                        {
-                            currentTile.empty = true;
-                            MoveToTile(t);
-                            t.empty = false;
-                            gs.selectedUnit = null;
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-
-    public void getUnit()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-
-
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 10;
-
-            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.down, 1);            //-Vector2.up, 1,  LayerMask.NameToLayer("Player"));
-            //Debug.Log(screenPos);
-            // Debug.Log(hits);
-            //     if (hit)
-            //     {
-
-            foreach (RaycastHit2D hit in hits)
-            {
-                //Debug.Log(screenPos + ", " + hit.collider.name + ", " + gameObject);
-                //Debug.Log(hit.transform.gameObject.name);
-                if ((hit.collider != null) && (hit.collider.gameObject.GetComponent<UnitController>() == this) && !turnUsed)
-                {
-                    //Debug.Log("collider: " +hit.collider.name);
-                    gs.selectedUnit = hit.transform.gameObject;
-
-                    if (!turnUsed)
-                    {
-                        FindSelectableTiles();
-                    }
-
-                    turnUsed = true;
-                }
-            }
-
-            //  }
-
-            /*
-                if (map.selectedUnit)
-                {
-
-                }
-            */
-        }
-    }
-
-
-
-
 
     List<Tile> selectableTiles = new List<Tile>();
     Tile[] tiles;
@@ -179,26 +32,118 @@ public class UnitController : Unit
 
     public int move;
 
-   
-
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
     //float halfHeight = 0;
 
+    private void Start()
+    {
+        gs = FindObjectOfType<GameState>();
+        gm = FindObjectOfType<GameManager>();
+        //unit = gameObject.GetComponent<Unit>();
+        owner = gm.CurrentTurn;
+
+        gs.Units[(int)owner]++;
+        if (owner == Turn.Player)
+        {
+            gs.playerUnits.Add(this);
+        }
+        else
+        {
+            gs.enemyUnits.Add(this);
+        }
+
+        // Finds the Tile_map game object that is used for unit movement
+        tiles = FindObjectsOfType<Tile>();
+        currentTile = GetTargetTile(gameObject);
+        currentTile.empty = false;
+
+    //    ////for testing takedamage functionality
+    //    Invoke("test", 3);
+    //    Invoke("test", 4);
+    //    Invoke("test", 5);
+    //    Invoke("test", 6);
+    }
+
+    //void test()
+    //{
+    //    TakeDamage(30f);
+    //}
+
+    void Update()
+    {
+        if (gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this && !moving)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                Vector3 position = GetPosition();
+
+                RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
+
+                if (hit)
+                {
+                    if (hit.collider.tag == "Tile")
+                    {
+                        Tile t = hit.collider.GetComponent<Tile>();
+
+                        if (t.selectable)
+                        {
+                            if (gs.selectedUnit)
+                            {
+                                currentTile.empty = true;
+                                MoveToTile(t);
+                                t.empty = false;
+                                
+                                gs.selectedUnit = null;
+                                currentTile = GetTargetTile(gameObject);
+                                currentTile.empty = false;
+                                turnUsed = true;
+                            }
+
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+
+    public void Reset()
+    {
+        gs.selectedUnit = null;
+        turnUsed = false;
+        RemoveSelectableTiles();
+        moving = false;
+    }
+    private void OnMouseDown()
+    {
+        //Debug.Log("Selecting Unit: " + this.name);
+        gs.selectedUnit = gameObject;
+        if (!turnUsed)
+        {
+            FindSelectableTiles();
+        }
+    }
+
+    private Vector3 GetPosition()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        return screenPos;
+    }
+
     public void GetCurrentTile()
     {
         currentTile = GetTargetTile(gs.selectedUnit);
-        //Debug.Log(currentTile.GetComponent<Tile>().transform.position);
         currentTile.current = true;
     }
-
 
     public Tile GetTargetTile(GameObject target)
     {
         //Debug.Log(target.transform.position);
         return GetTileAt(target.transform.position);
-        
     }
 
     public Tile GetTileAt(Vector2 position)
@@ -300,7 +245,7 @@ public class UnitController : Unit
             else
             {
                 //Tile center reached
-                gs.selectedUnit.transform.position = target + new Vector3(0, 0, 1);
+                gs.selectedUnit.transform.position = target;
                 //Debug.Log(transform.rotation);
                 path.Pop();
             }
@@ -354,12 +299,24 @@ public class UnitController : Unit
 
     public void TakeDamage(float damage)
     {
-        Instantiate(attackAnimation, unit.transform.position + new Vector3(0, 0, -2), Quaternion.identity); //Attack animation position is modified so that it appears on top of the soldier
-        unit.health -= damage;
+        Instantiate(attackAnimation, transform.position + new Vector3(0, 0, -2), Quaternion.identity); //Attack animation position is modified so that it appears on top of the soldier
+        health -= damage;
 
-        if (unit.health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
+        }
+        else if (health <= 25)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        else if (health <= 50)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -378,35 +335,4 @@ public class UnitController : Unit
             Debug.Log("Target is not building or unit");
         }
     }
-
-    // Finds the closest enemy of type Building and Unit
-    private void FindClosestEnemy()
-    {
-        enemyUnits = FindObjectsOfType<UnitController>();
-
-        float minDist = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
-        foreach (UnitController eU in enemyUnits)
-        {
-            float dist = Vector3.Distance(eU.transform.position, currentPosition);
-            if (dist < minDist && dist != 0)
-            {
-                enemyUnit = eU;
-                minDist = dist;
-            }
-        }
-        /*
-        foreach (Building eB in enemyBuildings)
-        {
-            float dist = Vector3.Distance(eB.transform.position, currentPosition);
-            if (dist < minDist)
-            {
-                enemyBuilding = eB;
-                minDist = dist;
-            }
-        }*/
-    }
-
-
 }
