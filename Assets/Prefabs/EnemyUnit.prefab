@@ -1070,7 +1070,7 @@ GameObject:
   - component: {fileID: 2912716381576232816}
   - component: {fileID: 2912716381576232823}
   - component: {fileID: 2912716381576232822}
-  - component: {fileID: 8287016524699049415}
+  - component: {fileID: 2798061383677395722}
   m_Layer: 0
   m_Name: EnemyUnit
   m_TagString: Untagged
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   enemyFarm: {fileID: 0}
   enemyMine: {fileID: 0}
   enemyUnit: {fileID: 0}
---- !u!114 &8287016524699049415
+--- !u!114 &2798061383677395722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1169,13 +1169,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2912716381576232821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ecb59dfe11a014e84b258ff0cac0dd, type: 3}
+  m_Script: {fileID: 11500000, guid: dc9b084a988c82e4bba4ec0636fb2706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
   attackPower: 15
-  owner: 
+  owner: 1
   moveSpeed: 2
   tileX: 0
   tileY: 0
   turnUsed: 0
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
+  enemyUnit: {fileID: 0}
+  enemyBuilding: {fileID: 0}
+  target: 
+  currentTile: {fileID: 0}
+  moving: 0
+  move: 0

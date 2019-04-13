@@ -359,44 +359,19 @@ public class UnitController : Unit
         }
     }
 
-
-    public void Attack()
+    public void Attack(GameObject target)
     {
-        FindClosestEnemy();
-
-        // Targets units over buildings first as they can fight back
-        if (enemyUnit)
+        if (target.GetComponent<UnitController>())
         {
-            target = "unit";
+            target.GetComponent<UnitController>().TakeDamage(attackPower);
         }
-        else if (enemyBuilding)
+        else if (target.GetComponent<BuildingController>())
         {
-            target = "building";
+            target.GetComponent<BuildingController>().TakeDamage(attackPower);
         }
         else
         {
-            target = "";
-        }
-
-        if (target == "unit")
-        {
-            if (Vector3.Distance(enemyUnit.transform.position, transform.position) < 2)
-            {
-                enemyUnit.TakeDamage(unit.attackPower);
-            }
-        }
-        else if (target == "building")
-        {
-            if (Vector3.Distance(enemyBuilding.transform.position, transform.position) < 2)
-            {
-                enemyBuilding.GetComponent<BuildingController>().TakeDamage(unit.attackPower);
-            }
-        }
-        else
-        {
-            // TODO
-            // Maybe need to create a dialog that displays to the user that there are no nearby targets
-            Debug.Log("No target");
+            Debug.Log("Target is not building or unit");
         }
     }
 

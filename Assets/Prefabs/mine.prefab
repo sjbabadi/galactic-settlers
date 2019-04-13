@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
   radius: 0
 --- !u!114 &6185121787337683845
 MonoBehaviour:
@@ -135,6 +137,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: 
+  owner: 0
   buildingType: 1
   used: 0
