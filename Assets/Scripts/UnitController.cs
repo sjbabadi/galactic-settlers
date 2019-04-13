@@ -26,9 +26,10 @@ public class UnitController : Unit
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         unit = gameObject.GetComponent<Unit>();
+        owner = gm.CurrentTurn;
 
-        gs.Units[(int)gm.CurrentTurn]++;
-        if (gm.CurrentTurn == Turn.Player)
+        gs.Units[(int)owner]++;
+        if (owner == Turn.Player)
         {
             gs.playerUnits.Add(unit);
         }
