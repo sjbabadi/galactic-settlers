@@ -41,20 +41,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Ground
     uniqueID: 1230657971
     locked: 0
   - name: Terrain
     uniqueID: 2101346173
     locked: 0
+  - name: Buildings
+    uniqueID: 2616458721
+    locked: 0
   - name: Units
     uniqueID: 2675410713
     locked: 0
   - name: Background
     uniqueID: 23994999
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0
   - name: Foreground
     uniqueID: 1609793951
