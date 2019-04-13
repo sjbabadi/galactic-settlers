@@ -17,4 +17,21 @@ public class Unit : MonoBehaviour
     
     // track if unit has attacked or moved during turn
     public bool turnUsed = false;
+    public bool hasUnitActed = false;
+    public bool hasUnitMoved = false;
+
+    public void Refresh()
+    {
+        turnUsed = false;
+        hasUnitActed = false;
+        hasUnitMoved = false;
+    }
+
+    public void Exhaust()
+    {
+        turnUsed = true;
+        hasUnitActed = true;
+        hasUnitMoved = true;
+    }
+
 }

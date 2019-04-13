@@ -92,7 +92,7 @@ public class SoldierGen : MonoBehaviour
                     soldierGenerate = false;
 
                     //set soldier turn as used
-                    unit.turnUsed = true;
+                    unit.Exhaust();
 
                     //add to player's units
                     gs.Units[(int)gm.CurrentTurn]++;

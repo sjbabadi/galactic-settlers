@@ -71,7 +71,7 @@ public class GameState : MonoBehaviour
 
         foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
         {
-            unit.turnUsed = false;
+            unit.Refresh();
         }
 
         foreach (Building building in GameObject.FindObjectsOfType<Building>())
