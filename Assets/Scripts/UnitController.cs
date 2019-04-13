@@ -64,6 +64,21 @@ public class UnitController : Unit
             CheckMouse();
         }
 
+        if(gs.selectedUnit.GetComponent<UnitController>().health <= 50 && gs.selectedUnit.GetComponent<UnitController>().health > 25)
+        {
+            Debug.Log("got here");
+            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (gs.selectedUnit.GetComponent<Unit>().health <= 25)
+        {
+            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            gs.selectedUnit.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
+        }
+
+
     }
 
 
