@@ -45,7 +45,15 @@ public class UnitController : Unit
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
         currentTile.empty = false;
+
+        //for testing takedamage functionality
+        //Invoke("test", 3);
     }
+
+    //void test()
+    //{
+    //    TakeDamage(15f);
+    //}
 
     void Update()
     {
@@ -188,27 +196,23 @@ public class UnitController : Unit
 
     public Tile GetTargetTile(GameObject target)
     {
-        //  RaycastHit hit;
+        //Debug.Log(target.transform.position);
+        return GetTileAt(target.transform.position);
+        
+    }
+
+    public Tile GetTileAt(Vector2 position)
+    {
         Tile tile = null;
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(target.transform.position, new Vector3(0, 0, 1));
-        Debug.DrawRay(target.transform.position, new Vector3(0, 0, 1), Color.green, 200f);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
         foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log(hit.collider.name);
             if (hit.collider.tag == "Tile")
             {
                 tile = hit.collider.GetComponent<Tile>();
             }
         }
-
-        //if (hit.collider != null)
-        //{
-        //    tile = hit.collider.GetComponent<Tile>();
-        //}
-
-        // Debug.Log(tile.GetComponent<Tile>().transform.position);
-
         return tile;
     }
 
