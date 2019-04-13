@@ -64,18 +64,18 @@ public class UnitController : Unit
             CheckMouse();
         }
 
-        if(gs.selectedUnit.GetComponent<UnitController>().health <= 50 && gs.selectedUnit.GetComponent<UnitController>().health > 25)
+        if (unit.health <= 50 && unit.health > 25)
         {
-            Debug.Log("got here");
-            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.yellow;
+            // Debug.Log("got here");
+            unit.GetComponent<Renderer>().material.color = Color.yellow;
         }
-        else if (gs.selectedUnit.GetComponent<Unit>().health <= 25)
+        else if (unit.health <= 25)
         {
-            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.red;
+            unit.GetComponent<Renderer>().material.color = Color.red;
         }
         else
         {
-            gs.selectedUnit.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
+            unit.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
         }
 
 
@@ -170,7 +170,7 @@ public class UnitController : Unit
 
 
 
-    List<Tile> selectableTiles = new List<Tile>();
+    public List<Tile> selectableTiles = new List<Tile>();
     Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
@@ -366,6 +366,21 @@ public class UnitController : Unit
         {
             Destroy(gameObject);
         }
+
+        if (gs.selectedUnit.GetComponent<UnitController>().health <= 50 && gs.selectedUnit.GetComponent<UnitController>().health > 25)
+        {
+           // Debug.Log("got here");
+            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (gs.selectedUnit.GetComponent<Unit>().health <= 25)
+        {
+            gs.selectedUnit.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            gs.selectedUnit.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
+        }
+
     }
 
 

@@ -79,6 +79,15 @@ public class GameState : MonoBehaviour
             building.used = false;
         }
 
+        if(selectedUnit && selectedUnit.GetComponent<UnitController>().selectableTiles != null)
+        {
+            foreach (Tile t in selectedUnit.GetComponent<UnitController>().selectableTiles)
+            {
+                t.Reset();
+            }
+        }
+        
+
         selectedUnit = null;
         
         player.FinishTurn();
