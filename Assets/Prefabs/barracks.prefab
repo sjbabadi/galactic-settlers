@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1678508575
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 133a75e8d909bc3428094c3b5fa6d089, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,8 +123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: 
+  owner: 0
   buildingType: 2
+  used: 0
 --- !u!114 &1011190789898828934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
+  radius: 1
 --- !u!114 &6569137882781798501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gs: {fileID: 0}
-  gm: {fileID: 0}
-  unit: {fileID: 6137087984313735564, guid: e075b2b3ef7d13e4384fbed16edbdd21, type: 3}
   map: {fileID: 0}
   soldier: {fileID: 705924160454313970, guid: 54565beda8ab3444396b256a6f019738, type: 3}
+  soldierGenerate: 0

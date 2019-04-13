@@ -23,6 +23,8 @@ public class GameState : MonoBehaviour
     public List<Building> enemyBuildings = new List<Building>();
     public Building playerBase;
     public Building enemyBase;
+    public List<Tile> playerBuildingLocations;
+    public List<Tile> enemyBuildingLocations;
     public GameObject selectedUnit;
 
     private HUDController HUDController;

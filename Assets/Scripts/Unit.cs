@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
     // Unit stats
     public float health = 100;
     public float attackPower = 15;
-    public string owner;
+    public Turn owner;
     //public Units unitType; Units enum needs to be created and incorporated into the rest of the code
     public int moveSpeed = 2;
 

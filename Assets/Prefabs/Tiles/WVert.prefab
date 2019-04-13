@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1556186006281998285}
   - component: {fileID: 5279868607951658303}
   - component: {fileID: 5228590917045289449}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: WVert
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2101346173
-  m_SortingLayer: -3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d8a74d9af13f46145913678dc2d508d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -124,12 +124,8 @@ MonoBehaviour:
   target: 0
   selectable: 0
   movementCost: 3
+  empty: 1
   adjacencyList: []
   visited: 0
   parent: {fileID: 0}
   distance: 0
-  empty: 1
-  playerUnits: []
-  playerBuildings: []
-  enemyUnits: []
-  enemyBuildings: []

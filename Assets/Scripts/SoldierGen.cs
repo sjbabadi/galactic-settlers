@@ -15,20 +15,10 @@ public class SoldierGen : MonoBehaviour
 
     //check for soldier creation intenion
     public bool soldierGenerate = false;
-    int numUnits;
-    int numUnitsAllowed;
-    int foodAvail;
 
-    //for location purposes
-    Vector2 barrLocation;
-    Vector2 tileTop;
-    Vector2 tileBot;
-    Vector2 tileLef;
-    Vector2 tileRig;
-
-    //mouse location
-    Vector2 mousePos;
-    Vector2 spawnPos;
+    Vector2[] buildTiles;
+    bool selected;
+    int foodCost = 2;
 
 
     private void Start()
@@ -37,79 +27,107 @@ public class SoldierGen : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         map = GameObject.FindObjectOfType<Tile_map>();
         building = gameObject.GetComponent<Building>();
+        buildTiles = BuildLocations();
 
     }
 
-    
     private void Update()
     {
-        getMousePos();
-
+        if (selected)
+        {
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 spawnPos = GetPos();
+                PlayerSoldierGenerate(spawnPos);
+            }
+        }
     }
-    
+
+    private Vector2 GetPos()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+        return spawnPos;
+    }
+
+    private void PlayerSoldierGenerate(Vector2 spawnPos)
+    {
+        if (soldierGenerate)
+        {
+            //if mouse click location = one of the tiles
+            if (spawnPos == buildTiles[0] || spawnPos == buildTiles[1] || spawnPos == buildTiles[2] || spawnPos == buildTiles[3])
+            {
+                //create soldier at clicked location
+                GameObject unitref = SpawnSoldierAt(soldier, spawnPos);
+
+                UpdateStats();
+            }
+        }
+    }
+
+    private void UpdateStats()
+    {
+        //add to player's units
+        gs.Units[(int)gm.CurrentTurn]++;
+
+        //take away food used
+        gs.Food[(int)gm.CurrentTurn] -= foodCost;
+
+        //set barracks as used
+        building.used = true;
+        //Debug.Log(building.used);
+    }
 
     //when the barracks is clicked on
     void OnMouseDown()
     {
-        //grab the locations of barracks and surrounding tiles
-        barrLocation = transform.position;
-        tileTop = new Vector3(barrLocation.x, barrLocation.y + 1.0f);
-        tileBot = new Vector3(barrLocation.x, barrLocation.y - 1.0f);
-        tileLef = new Vector3(barrLocation.x - 1.0f, barrLocation.y);
-        tileRig = new Vector3(barrLocation.x + 1.0f, barrLocation.y);
-
-        //check values for creation of soldier
-        numUnits = gs.Units[(int)gm.CurrentTurn];
-        numUnitsAllowed = gs.UnitMax[(int)gm.CurrentTurn];
-        foodAvail = gs.Food[(int)gm.CurrentTurn];
-
-        //check to see if barracks has already been used
-        if (building.used == false)
+        if (!building.used && ResourcesAvailable())
         {
-            //if we have enough houses(?) to create a unit
-            if (numUnitsAllowed > numUnits)
-            {
-                //if we have enough food --(2 per soldier?)
-                if (foodAvail >= 2)
-                {
-                    soldierGenerate = true;
-                }
-            }
+            soldierGenerate = true;
         }
+        selected = true;
     }
 
-    void getMousePos()
+    private bool ResourcesAvailable()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool available = false;
+        //if we have enough houses(?) to create a unit & if we have enough food --(2 per soldier?)
+        if (gs.UnitMax[(int)gm.CurrentTurn] > gs.Units[(int)gm.CurrentTurn] && gs.Food[(int)gm.CurrentTurn] >= foodCost)
         {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
-
-            if (soldierGenerate) {
-                //if mouse click location = one of the tiles
-                if (spawnPos == tileTop || spawnPos == tileBot || spawnPos == tileLef || spawnPos == tileRig)
-                {
-                    //create soldier at clicked location
-                    GameObject unitref = Instantiate(soldier, spawnPos, Quaternion.identity);
-                    unit = unitref.GetComponent<Unit>();
-                    soldierGenerate = false;
-
-                    //set soldier turn as used
-                    unit.turnUsed = true;
-
-                    //add to player's units
-                    gs.Units[(int)gm.CurrentTurn]++;
-
-                    //take away food used
-                    gs.Food[(int)gm.CurrentTurn] -= 5;
-
-                    //set barracks as used
-                    building.used = true;
-                    //Debug.Log(building.used);
-                }
-
-            }
+            available = true;
         }
+
+        return available;
+    }
+
+    private Vector2[] BuildLocations()
+    {
+        //grab the locations of barracks and surrounding tiles
+        Vector2[] buildTiles = new Vector2[4];
+        buildTiles[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+        buildTiles[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+        buildTiles[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+        buildTiles[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+
+        return buildTiles;
+    }
+
+    public void SpawnSolider()
+    {
+        Vector3 buildPosition = buildTiles[Random.Range(0,buildTiles.Length)];
+        SpawnSoldierAt(soldier, buildPosition);
+        UpdateStats();
+    }
+
+    private GameObject SpawnSoldierAt(GameObject soldier, Vector2 position)
+    {
+        GameObject unitref = Instantiate(soldier, position, Quaternion.identity);
+
+        unitref.GetComponent<Unit>().turnUsed = true;
+        soldierGenerate = false;
+
+        return unitref;
     }
 }
 

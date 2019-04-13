@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UnitController : Unit
 {
+    //Attack animation
+    [SerializeField] GameObject attackAnimation;
+
     // Reference to GameState & GameManager
     private GameState gs;
     private GameManager gm;
@@ -23,9 +26,10 @@ public class UnitController : Unit
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         unit = gameObject.GetComponent<Unit>();
+        owner = gm.CurrentTurn;
 
-        gs.Units[(int)gm.CurrentTurn]++;
-        if (gm.CurrentTurn == Turn.Player)
+        gs.Units[(int)owner]++;
+        if (owner == Turn.Player)
         {
             gs.playerUnits.Add(unit);
         }
@@ -40,7 +44,16 @@ public class UnitController : Unit
         // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
+        currentTile.empty = false;
+
+        //for testing takedamage functionality
+        //Invoke("test", 3);
     }
+
+    //void test()
+    //{
+    //    TakeDamage(15f);
+    //}
 
     void Update()
     {
@@ -183,27 +196,23 @@ public class UnitController : Unit
 
     public Tile GetTargetTile(GameObject target)
     {
-        //  RaycastHit hit;
+        //Debug.Log(target.transform.position);
+        return GetTileAt(target.transform.position);
+        
+    }
+
+    public Tile GetTileAt(Vector2 position)
+    {
         Tile tile = null;
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(target.transform.position, new Vector3(0, 0, 1));
-        Debug.DrawRay(target.transform.position, new Vector3(0, 0, 1), Color.green, 200f);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
         foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log(hit.collider.name);
             if (hit.collider.tag == "Tile")
             {
                 tile = hit.collider.GetComponent<Tile>();
             }
         }
-
-        //if (hit.collider != null)
-        //{
-        //    tile = hit.collider.GetComponent<Tile>();
-        //}
-
-        // Debug.Log(tile.GetComponent<Tile>().transform.position);
-
         return tile;
     }
 
@@ -345,6 +354,7 @@ public class UnitController : Unit
 
     public void TakeDamage(float damage)
     {
+        Instantiate(attackAnimation, unit.transform.position + new Vector3(0, 0, -2), Quaternion.identity); //Attack animation position is modified so that it appears on top of the soldier
         unit.health -= damage;
 
         if (unit.health <= 0)
@@ -353,44 +363,19 @@ public class UnitController : Unit
         }
     }
 
-
-    public void Attack()
+    public void Attack(GameObject target)
     {
-        FindClosestEnemy();
-
-        // Targets units over buildings first as they can fight back
-        if (enemyUnit)
+        if (target.GetComponent<UnitController>())
         {
-            target = "unit";
+            target.GetComponent<UnitController>().TakeDamage(attackPower);
         }
-        else if (enemyBuilding)
+        else if (target.GetComponent<BuildingController>())
         {
-            target = "building";
+            target.GetComponent<BuildingController>().TakeDamage(attackPower);
         }
         else
         {
-            target = "";
-        }
-
-        if (target == "unit")
-        {
-            if (Vector3.Distance(enemyUnit.transform.position, transform.position) < 2)
-            {
-                enemyUnit.TakeDamage(unit.attackPower);
-            }
-        }
-        else if (target == "building")
-        {
-            if (Vector3.Distance(enemyBuilding.transform.position, transform.position) < 2)
-            {
-                enemyBuilding.GetComponent<BuildingController>().TakeDamage(unit.attackPower);
-            }
-        }
-        else
-        {
-            // TODO
-            // Maybe need to create a dialog that displays to the user that there are no nearby targets
-            Debug.Log("No target");
+            Debug.Log("Target is not building or unit");
         }
     }
 
