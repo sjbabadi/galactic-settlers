@@ -43,6 +43,7 @@ public class UnitController : Unit
         // Finds the Tile_map game object that is used for unit movement
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
+        currentTile.empty = false;
     }
 
     void Update()

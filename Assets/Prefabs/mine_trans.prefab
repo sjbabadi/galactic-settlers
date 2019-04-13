@@ -96,4 +96,4 @@ MonoBehaviour:
     type: 3}
   buildingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 909104537356451892}
   - component: {fileID: 6506193842337348322}
   - component: {fileID: 5486825470297009503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: farm_trans
   m_TagString: BuildingTile
   m_Icon: {fileID: 0}
@@ -96,4 +96,4 @@ MonoBehaviour:
     type: 3}
   buildingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512

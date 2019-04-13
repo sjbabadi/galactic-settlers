@@ -22,16 +22,17 @@ public class TransScript : MonoBehaviour
         {
             Vector2 mouseRay = Camera.main.ScreenToWorldPoint(transform.position);
             RaycastHit2D rayHit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, buildingLayer);
-
+            Debug.Log(rayHit.collider.name);
             //if we don't hit another building, build here
-            if (rayHit.collider.gameObject.GetComponent<Tile>().walkable)
+            if (rayHit.collider.gameObject.GetComponent<Tile>().walkable && rayHit.collider.gameObject.GetComponent<Tile>().empty)
             {
                 Instantiate(placeObject, transform.position, Quaternion.identity);
                 PlacementScript.ClearSelection();
-
+                foreach (Tile t in FindObjectOfType<GameState>().playerBuildingLocations)
+                {
+                    t.movementSelect = false;
+                }
             }
-
-
         }
     }
 }

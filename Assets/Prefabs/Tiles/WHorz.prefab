@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2394898721439113771}
   - component: {fileID: 6650756912664716286}
   - component: {fileID: 8185656319375348168}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: WHorz
   m_TagString: Tile
   m_Icon: {fileID: 0}

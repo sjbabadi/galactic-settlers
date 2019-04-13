@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1792606542714164373}
   - component: {fileID: 1003649796781801667}
   - component: {fileID: 2645293334912854545}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: WBendBR
   m_TagString: Tile
   m_Icon: {fileID: 0}

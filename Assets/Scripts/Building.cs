@@ -7,7 +7,7 @@ public class Building : MonoBehaviour
     // Building stats
     public float health = 100;
     public int cost = 100;
-    public string owner;
+    public Turn owner;
     public Buildings buildingType;
     public bool used = false;
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2222988554310840983}
   - component: {fileID: 1998039176193550622}
   - component: {fileID: 5403263321205125445}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barracks_trans
   m_TagString: BuildingTile
   m_Icon: {fileID: 0}
@@ -96,4 +96,4 @@ MonoBehaviour:
     type: 3}
   buildingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512

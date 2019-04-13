@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool current = false;
     public bool target = false;
     public bool selectable = false;
+    public bool movementSelect = false;
     public int movementCost;
     public bool empty = true;
 
@@ -50,9 +51,13 @@ public class Tile : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.green;
         }
+        else if (movementSelect)
+        {
+            GetComponent<Renderer>().material.color = Color.cyan;
+        }
         else
         {
-            GetComponent<Renderer>().material.color = new Color(1,1,1,1);
+            GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
 
         }
         
