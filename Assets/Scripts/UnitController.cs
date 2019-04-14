@@ -158,11 +158,6 @@ public class UnitController : Unit
         gs.selectedUnit = null;
     }
 
-    public void SetTargetLocation(Vector2 location)
-    {
-
-    }
-
     public void Reset()
     {
         gs.selectedUnit = null;

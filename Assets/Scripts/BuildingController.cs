@@ -23,6 +23,8 @@ public class BuildingController : MonoBehaviour
         building = gameObject.GetComponent<Building>();
         location = GetTargetTile(gameObject);
 
+        location.empty = false;
+
         if (building.buildingType != Buildings.Base)
         {
             building.owner = gm.CurrentTurn;
