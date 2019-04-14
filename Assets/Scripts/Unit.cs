@@ -10,11 +10,12 @@ public class Unit : MonoBehaviour
     public Turn owner;
     //public Units unitType; Units enum needs to be created and incorporated into the rest of the code
     public int moveSpeed = 2;
+    public float strikingDistance = 1f;
 
-    // Unit location & pathing
-    public int tileX;
-    public int tileY;
-    public List<Node> currentPath = null;
+    //// Unit location & pathing
+    //public int tileX;
+    //public int tileY;
+    //public List<Node> currentPath = null;
     
     // track if unit has attacked or moved during turn
     public bool turnUsed = false;

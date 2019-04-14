@@ -35,6 +35,8 @@ public class UnitController : Unit
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
+    Vector2[] neighbors;
+
     //float halfHeight = 0;
 
     private void Start()
@@ -59,11 +61,14 @@ public class UnitController : Unit
         currentTile = GetTargetTile(gameObject);
         currentTile.empty = false;
 
-    //    ////for testing takedamage functionality
-    //    Invoke("test", 3);
-    //    Invoke("test", 4);
-    //    Invoke("test", 5);
-    //    Invoke("test", 6);
+        //Determine neighbor locations
+        neighbors = new Vector2[4];
+
+        //    ////for testing takedamage functionality
+        //    Invoke("test", 3);
+        //    Invoke("test", 4);
+        //    Invoke("test", 5);
+        //    Invoke("test", 6);
     }
 
     //void test()
@@ -78,34 +83,63 @@ public class UnitController : Unit
             if (Input.GetMouseButtonDown(1))
             {
                 Vector3 position = GetPosition();
+                //Debug.DrawRay(transform.position, new Vector3(0, 0, 1), Color.green);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
 
-                RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
-
-                if (hit)
+                foreach (RaycastHit2D hit in hits)
                 {
-                    if (hit.collider.tag == "Tile")
+                    if (hit.collider.GetComponent<UnitController>())
+                    {
+                        UnitController target = hit.collider.GetComponent<UnitController>();
+                        if (!turnUsed && target.owner != owner && Vector3.Distance(this.transform.position, target.transform.position) <= strikingDistance)
+                        {
+                            Debug.Log("attack");
+                            target.TakeDamage(attackPower);
+                            gs.selectedUnit = null;
+                            turnUsed = true;
+                            RemoveSelectableTiles();
+                            break;
+                        }
+                        else
+                        {
+                            Debug.Log("Trying to attack a friendly!? Or, are you too far?");
+                        }
+                    }
+                    else if (hit.collider.GetComponent<Tile>())
                     {
                         Tile t = hit.collider.GetComponent<Tile>();
 
-                        if (t.selectable)
+                        if (!turnUsed && t.selectable)
                         {
                             if (gs.selectedUnit)
                             {
                                 currentTile.empty = true;
                                 MoveToTile(t);
                                 t.empty = false;
-                                
                                 gs.selectedUnit = null;
                                 currentTile = GetTargetTile(gameObject);
                                 currentTile.empty = false;
                                 turnUsed = true;
-                            }
 
+                                neighbors[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+                                neighbors[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+                                neighbors[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+                                neighbors[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+
+                                foreach (Vector2 neighbor in neighbors)
+                                {
+                                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, Vector2.zero);
+                                    if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
+                                    {
+                                        neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }
-            
+            }           
         }
     }
 
@@ -119,9 +153,9 @@ public class UnitController : Unit
     private void OnMouseDown()
     {
         //Debug.Log("Selecting Unit: " + this.name);
-        gs.selectedUnit = gameObject;
         if (!turnUsed)
         {
+            gs.selectedUnit = gameObject;
             FindSelectableTiles();
         }
     }
@@ -305,6 +339,7 @@ public class UnitController : Unit
         if (health <= 0)
         {
             Destroy(gameObject);
+            GetTargetTile(this.gameObject).empty = true;
         }
         else if (health <= 25)
         {
