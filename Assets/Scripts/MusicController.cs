@@ -16,8 +16,8 @@ public class MusicController : MonoBehaviour
 {
     [SerializeField] AudioClip startMenu;
     [SerializeField] AudioClip battleScene;
-    [SerializeField] AudioClip enemyTurn;
-    [SerializeField] AudioClip gameEnd;
+    //[SerializeField] AudioClip enemyTurn;
+    //[SerializeField] AudioClip gameEnd;
 
     private Animator animator;
 
@@ -40,8 +40,6 @@ public class MusicController : MonoBehaviour
                 animator = anim;
             }
         }
-
-        FadeInMusic();
     }
 
     public void PlayMusic(MusicState audioState)
@@ -58,21 +56,16 @@ public class MusicController : MonoBehaviour
                 Debug.Log(MusicState.Battle);
                 audio.clip = battleScene;
                 break;
-            case MusicState.Enemy:
-                Debug.Log(MusicState.Enemy);
-                audio.clip = enemyTurn;
-                break;
-            case MusicState.End:
-                Debug.Log(MusicState.End);
-                audio.clip = gameEnd;
-                break;
+            //case MusicState.Enemy:
+            //    Debug.Log(MusicState.Enemy);
+            //    audio.clip = enemyTurn;
+            //    break;
+            //case MusicState.End:
+            //    Debug.Log(MusicState.End);
+            //    audio.clip = gameEnd;
+            //    break;
         }
         audio.Play();
-    }
-
-    void FadeInMusic()
-    {
-        animator.SetBool("MusicFadeIn", true);
     }
 
     public void FadeOutMusic()
