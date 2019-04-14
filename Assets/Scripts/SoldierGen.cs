@@ -38,7 +38,12 @@ public class SoldierGen : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 spawnPos = GetPos();
-                PlayerSoldierGenerate(spawnPos);
+                Tile tile;
+                tile = GetTileAt(spawnPos);
+                if (tile.empty)
+                {
+                    PlayerSoldierGenerate(spawnPos);
+                }
             }        
         }
     }
@@ -62,6 +67,7 @@ public class SoldierGen : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+
         return spawnPos;
     }
 
@@ -70,7 +76,7 @@ public class SoldierGen : MonoBehaviour
         if (soldierGenerate)
         {
             //if mouse click location = one of the tiles
-            if (spawnPos == buildTiles[0] || spawnPos == buildTiles[1] || spawnPos == buildTiles[2] || spawnPos == buildTiles[3])
+            if ((spawnPos == buildTiles[0] || spawnPos == buildTiles[1] || spawnPos == buildTiles[2] || spawnPos == buildTiles[3]))
             {
                 //create soldier at clicked location
                 GameObject unitref = SpawnSoldierAt(soldier, spawnPos);
@@ -96,7 +102,7 @@ public class SoldierGen : MonoBehaviour
         foreach (Vector2 t in buildTiles)
         {
             tile = GetTileAt(t);
-            Debug.Log(tile);
+           // Debug.Log(tile);
             tile.unitGen = false;
         }
     }
@@ -114,7 +120,7 @@ public class SoldierGen : MonoBehaviour
         foreach (Vector2 t in buildTiles)
         {
             tile = GetTileAt(t);
-            Debug.Log(tile);
+           // Debug.Log(tile);
             if(tile.empty)
             {
             tile.unitGen = true;
