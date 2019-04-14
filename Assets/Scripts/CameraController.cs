@@ -101,7 +101,9 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown("k"))
         {
+            FindObjectOfType<TileSelection>().gameObject.SetActive(false);
             screenshot();
+            FindObjectOfType<TileSelection>().gameObject.SetActive(true);
         }
     }
 
