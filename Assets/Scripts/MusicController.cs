@@ -19,6 +19,8 @@ public class MusicController : MonoBehaviour
     [SerializeField] AudioClip enemyTurn;
     [SerializeField] AudioClip gameEnd;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,16 @@ public class MusicController : MonoBehaviour
         {
             PlayMusic(MusicState.Battle);
         }
+
+        foreach (Animator anim in FindObjectsOfType<Animator>())
+        {
+            if (anim.name == "Music")
+            {
+                animator = anim;
+            }
+        }
+
+        FadeInMusic();
     }
 
     public void PlayMusic(MusicState audioState)
@@ -58,15 +70,13 @@ public class MusicController : MonoBehaviour
         audio.Play();
     }
 
-    //void FadeInMusic()
-    //{
-    //    FindObjectOfType<Animator>().SetBool("MusicFadeIn", true);
-    //    //FindObjectOfType<Animator>().SetFloat("MusicFadeInDuration", fadeDuration);
-    //}
+    void FadeInMusic()
+    {
+        animator.SetBool("MusicFadeIn", true);
+    }
 
     public void FadeOutMusic()
     {
-        FindObjectOfType<Animator>().SetBool("MusicFadeOut", true);
-        //FindObjectOfType<Animator>().SetFloat("MusicFadeOutDuration", fadeDuration);
+        animator.SetBool("MusicFadeOut", true);
     }
 }
