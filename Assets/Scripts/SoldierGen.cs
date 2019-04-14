@@ -35,19 +35,39 @@ public class SoldierGen : MonoBehaviour
     {
         if (selected)
         {
-            
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 spawnPos = GetPos();
-                PlayerSoldierGenerate(spawnPos);
+                Tile tile;
+                tile = GetTileAt(spawnPos);
+                if (tile && tile.empty)
+                {
+                    PlayerSoldierGenerate(spawnPos);
+                }
+            }        
+        }
+    }
+
+    public Tile GetTileAt(Vector2 position)
+    {
+        Tile tile = null;
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.tag == "Tile")
+            {
+                tile = hit.collider.GetComponent<Tile>();
             }
         }
+        return tile;
     }
 
     private Vector2 GetPos()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+
         return spawnPos;
     }
 
@@ -56,7 +76,7 @@ public class SoldierGen : MonoBehaviour
         if (soldierGenerate)
         {
             //if mouse click location = one of the tiles
-            if (spawnPos == buildTiles[0] || spawnPos == buildTiles[1] || spawnPos == buildTiles[2] || spawnPos == buildTiles[3])
+            if ((spawnPos == buildTiles[0] || spawnPos == buildTiles[1] || spawnPos == buildTiles[2] || spawnPos == buildTiles[3]))
             {
                 //create soldier at clicked location
                 GameObject unitref = SpawnSoldierAt(soldier, spawnPos);
@@ -77,6 +97,16 @@ public class SoldierGen : MonoBehaviour
         //set barracks as used
         building.used = true;
         //Debug.Log(building.used);
+
+        ResetTiles();
+    }
+
+    public void ResetTiles()
+    {
+        foreach (Vector2 t in buildTiles)
+        {
+            GetTileAt(t).unitGen = false;
+        }
     }
 
     //when the barracks is clicked on
@@ -87,6 +117,17 @@ public class SoldierGen : MonoBehaviour
             soldierGenerate = true;
         }
         selected = true;
+
+        Tile tile;
+        foreach (Vector2 t in buildTiles)
+        {
+            tile = GetTileAt(t);
+           // Debug.Log(tile);
+            if(tile.empty)
+            {
+            tile.unitGen = true;
+            }
+        }
     }
 
     private bool ResourcesAvailable()
