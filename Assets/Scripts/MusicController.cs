@@ -16,8 +16,10 @@ public class MusicController : MonoBehaviour
 {
     [SerializeField] AudioClip startMenu;
     [SerializeField] AudioClip battleScene;
-    [SerializeField] AudioClip enemyTurn;
-    [SerializeField] AudioClip gameEnd;
+    //[SerializeField] AudioClip enemyTurn;
+    //[SerializeField] AudioClip gameEnd;
+
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,14 @@ public class MusicController : MonoBehaviour
         else
         {
             PlayMusic(MusicState.Battle);
+        }
+
+        foreach (Animator anim in FindObjectsOfType<Animator>())
+        {
+            if (anim.name == "Music")
+            {
+                animator = anim;
+            }
         }
     }
 
@@ -46,27 +56,20 @@ public class MusicController : MonoBehaviour
                 Debug.Log(MusicState.Battle);
                 audio.clip = battleScene;
                 break;
-            case MusicState.Enemy:
-                Debug.Log(MusicState.Enemy);
-                audio.clip = enemyTurn;
-                break;
-            case MusicState.End:
-                Debug.Log(MusicState.End);
-                audio.clip = gameEnd;
-                break;
+            //case MusicState.Enemy:
+            //    Debug.Log(MusicState.Enemy);
+            //    audio.clip = enemyTurn;
+            //    break;
+            //case MusicState.End:
+            //    Debug.Log(MusicState.End);
+            //    audio.clip = gameEnd;
+            //    break;
         }
         audio.Play();
     }
 
-    //void FadeInMusic()
-    //{
-    //    FindObjectOfType<Animator>().SetBool("MusicFadeIn", true);
-    //    //FindObjectOfType<Animator>().SetFloat("MusicFadeInDuration", fadeDuration);
-    //}
-
     public void FadeOutMusic()
     {
-        FindObjectOfType<Animator>().SetBool("MusicFadeOut", true);
-        //FindObjectOfType<Animator>().SetFloat("MusicFadeOutDuration", fadeDuration);
+        animator.SetBool("MusicFadeOut", true);
     }
 }

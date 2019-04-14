@@ -13,7 +13,13 @@ public class StartMenuController : MonoBehaviour
     IEnumerator StartGame()
     {
 
-        FindObjectOfType<Animator>().SetBool("StartMenuFade", true);
+        foreach (Animator anim in FindObjectsOfType<Animator>())
+        {
+            if (anim.name == "Image")
+            {
+                anim.SetBool("StartFadeOut", true);
+            }
+        }
         FindObjectOfType<MusicController>().FadeOutMusic();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

@@ -173,7 +173,17 @@ public class GameManager : MonoBehaviour
                     yield return null;
                 }
 
-                FindObjectOfType<Animator>().SetBool("MusicFadeOut", true);
+                foreach (Animator anim in FindObjectsOfType<Animator>())
+                {
+                    if (anim.name == "Music")
+                    {
+                        anim.SetBool("MusicFadeOut", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("BattleSceneFade", true);
+                    }
+                }
                 yield return new WaitForSeconds(2);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
