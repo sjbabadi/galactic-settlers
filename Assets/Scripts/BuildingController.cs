@@ -33,6 +33,15 @@ public class BuildingController : MonoBehaviour
         
     }
 
+    public void Reset()
+    {
+        building.used = false;
+        if (building.buildingType == Buildings.Barracks)
+        {
+            GetComponent<SoldierGen>().ResetTiles();
+        }
+    }
+
     // called by units to inflict damage
     public void TakeDamage(float damage)
     {

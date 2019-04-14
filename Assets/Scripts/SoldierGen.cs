@@ -40,7 +40,7 @@ public class SoldierGen : MonoBehaviour
                 Vector2 spawnPos = GetPos();
                 Tile tile;
                 tile = GetTileAt(spawnPos);
-                if (tile.empty)
+                if (tile && tile.empty)
                 {
                     PlayerSoldierGenerate(spawnPos);
                 }
@@ -98,12 +98,14 @@ public class SoldierGen : MonoBehaviour
         building.used = true;
         //Debug.Log(building.used);
 
-        Tile tile;
+        ResetTiles();
+    }
+
+    public void ResetTiles()
+    {
         foreach (Vector2 t in buildTiles)
         {
-            tile = GetTileAt(t);
-           // Debug.Log(tile);
-            tile.unitGen = false;
+            GetTileAt(t).unitGen = false;
         }
     }
 
