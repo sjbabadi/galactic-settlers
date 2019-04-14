@@ -110,7 +110,6 @@ public class UnitController : Unit
             if (Input.GetMouseButtonDown(1))
             {
                 Vector3 position = GetPosition();
-                //Debug.DrawRay(transform.position, new Vector3(0, 0, 1), Color.green);
                 RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
 
                 foreach (RaycastHit2D hit in hits)
@@ -139,23 +138,24 @@ public class UnitController : Unit
                         if (!turnUsed && t.selectable && t.empty)
                         {
                             if (gs.selectedUnit)
-                            {
-                                currentTile.empty = true;
-                                t.empty = false;
-                                targetLocation = t;
-                                //MoveToTile(t);
-
-                                gs.selectedUnit = null;
-                                //currentTile = GetTargetTile(gameObject);
-                                //currentTile.empty = false;
-                                turnUsed = true;
-                                moving = true;
+                            {                          
+                                SetTargetLocation(t);
                             }
                         }
                     }
                 }
             }           
         }
+    }
+
+    public void SetTargetLocation(Tile t)
+    {
+        currentTile.empty = true;
+        t.empty = false;
+        targetLocation = t;
+        turnUsed = true;
+        moving = true;
+        gs.selectedUnit = null;
     }
 
     public void Reset()
