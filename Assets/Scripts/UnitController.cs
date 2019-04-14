@@ -29,6 +29,7 @@ public class UnitController : Unit
     Tile currentTile;
 
     public bool moving = false;
+    public Tile targetLocation;
 
     public int move;
 
@@ -78,7 +79,33 @@ public class UnitController : Unit
 
     void Update()
     {
-        if (gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this && !moving)
+        if (moving)
+        {
+            RemoveSelectableTiles();
+            float step = moveSpeed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, targetLocation.transform.position, step);
+            if (transform.position == targetLocation.transform.position)
+            {
+                moving = false;
+
+                neighbors[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+                neighbors[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+                neighbors[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+                neighbors[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+
+                foreach (Vector2 neighbor in neighbors)
+                {
+                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, Vector2.zero);
+                    if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
+                    {
+                        neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
+                        break;
+                    }
+                }
+
+            }
+        }
+        else if (gs.selectedUnit != null && gs.selectedUnit.GetComponent<UnitController>() == this)
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -109,32 +136,20 @@ public class UnitController : Unit
                     {
                         Tile t = hit.collider.GetComponent<Tile>();
 
-                        if (!turnUsed && t.selectable)
+                        if (!turnUsed && t.selectable && t.empty)
                         {
                             if (gs.selectedUnit)
                             {
                                 currentTile.empty = true;
-                                MoveToTile(t);
                                 t.empty = false;
+                                targetLocation = t;
+                                //MoveToTile(t);
+
                                 gs.selectedUnit = null;
-                                currentTile = GetTargetTile(gameObject);
-                                currentTile.empty = false;
+                                //currentTile = GetTargetTile(gameObject);
+                                //currentTile.empty = false;
                                 turnUsed = true;
-
-                                neighbors[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
-                                neighbors[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
-                                neighbors[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
-                                neighbors[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
-
-                                foreach (Vector2 neighbor in neighbors)
-                                {
-                                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, Vector2.zero);
-                                    if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
-                                    {
-                                        neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
-                                        break;
-                                    }
-                                }
+                                moving = true;
                             }
                         }
                     }
@@ -240,55 +255,55 @@ public class UnitController : Unit
         }
     }
 
-    public void MoveToTile(Tile tile)
-    {
-        path.Clear();
-        tile.target = true;
-        moving = true;
+    //public void MoveToTile(Tile tile)
+    //{
+    //    path.Clear();
+    //    tile.target = true;
+    //    moving = true;
 
-        Tile next = tile;
-        while (next != null)
-        {
-            path.Push(next);
-            next = next.parent;
-        }
-        Move();
-    }
+    //    Tile next = tile;
+    //    while (next != null)
+    //    {
+    //        path.Push(next);
+    //        next = next.parent;
+    //    }
+    //    Move();
+    //}
 
-    public void Move()
-    {
-        while (path.Count > 0)
-        {
-            Tile t = path.Peek();
-            Vector3 target = t.transform.position;
+    //public void Move()
+    //{
+    //    while (path.Count > 0)
+    //    {
+    //        Tile t = path.Peek();
+    //        Vector3 target = t.transform.position;
 
-            //calculate the unit's position on top of the target tile
-            //target.y += halfHeight + t.GetComponent<Collider2D>().bounds.extents.y;
+    //        //calculate the unit's position on top of the target tile
+    //        //target.y += halfHeight + t.GetComponent<Collider2D>().bounds.extents.y;
 
-            if (Vector3.Distance(transform.position, target) >= 0.05f)
-            {
+    //        if (Vector3.Distance(transform.position, target) >= 0.05f)
+    //        {
 
-                //Debug.Log("made it here");
+    //            //Debug.Log("made it here");
 
-                CalculateHeading(target);
-                SetHorizontalVelocity();
+    //            CalculateHeading(target);
+    //            SetHorizontalVelocity();
 
-                //  transform.forward = heading;
-                transform.position += velocity * Time.deltaTime;
-            }
-            else
-            {
-                //Tile center reached
-                gs.selectedUnit.transform.position = target;
-                //Debug.Log(transform.rotation);
-                path.Pop();
-            }
+    //            //  transform.forward = heading;
+    //            transform.position += velocity * Time.deltaTime;
+    //        }
+    //        else
+    //        {
+    //            //Tile center reached
+    //            gs.selectedUnit.transform.position = target;
+    //            //Debug.Log(transform.rotation);
+    //            path.Pop();
+    //        }
 
-        }
-        RemoveSelectableTiles();
+    //    }
+    //    RemoveSelectableTiles();
 
-        moving = false;
-    }
+    //    moving = false;
+    //}
 
     //remove the selectable tiles
     protected void RemoveSelectableTiles()
