@@ -86,7 +86,8 @@ public class CameraController : MonoBehaviour
     //        takeHiResShot = false;
     //    }
     //}
-
+	
+	// Source: https://forum.unity.com/threads/export-full-scene-as-image.496232/#post-4299523
     public GameObject target;
 
     private RenderTexture renderTexture;
