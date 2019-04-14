@@ -251,6 +251,7 @@ public class UnitController : Unit
         {
             path.Push(next);
             next = next.parent;
+            Debug.Log(next);
         }
         Move();
     }
@@ -260,27 +261,26 @@ public class UnitController : Unit
         while (path.Count > 0)
         {
             Tile t = path.Peek();
-            Vector3 target = t.transform.position;
+            Vector2 target = t.transform.position;
 
             //calculate the unit's position on top of the target tile
             //target.y += halfHeight + t.GetComponent<Collider2D>().bounds.extents.y;
 
-            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            if (Vector2.Distance(transform.position, target) >= 0.05f)
             {
-
-                //Debug.Log("made it here");
 
                 CalculateHeading(target);
                 SetHorizontalVelocity();
 
-                //  transform.forward = heading;
-                transform.position += velocity * Time.deltaTime;
+              //  transform.up = heading;
+                transform.position += velocity * 0.25f;
+              //  Debug.Log(gs.selectedUnit.transform.position);
             }
             else
             {
                 //Tile center reached
-                gs.selectedUnit.transform.position = target;
-                //Debug.Log(transform.rotation);
+                transform.position = target;
+            //    Debug.Log("this is it");
                 path.Pop();
             }
 
@@ -312,12 +312,14 @@ public class UnitController : Unit
     void CalculateHeading(Vector3 target)
     {
         heading = target - transform.position;
-        //heading.Normalize();
+        heading.Normalize();
+       // Debug.Log("Heading is: " + heading);
     }
 
     void SetHorizontalVelocity()
     {
         velocity = heading * moveSpeed;
+     //   Debug.Log(velocity);
     }
 
     public void SelectUnit()

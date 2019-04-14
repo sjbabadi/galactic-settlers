@@ -9,10 +9,9 @@ public class Tile : MonoBehaviour
     public bool target = false;
     public bool selectable = false;
     public bool movementSelect = false;
+    public bool unitGen = false;
     public int movementCost;
     public bool empty = true;
-
-    //Color ground = new Color(0.6509434f, 0.3101193f, 0.05490196f, 1);
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -54,6 +53,10 @@ public class Tile : MonoBehaviour
         else if (movementSelect)
         {
             GetComponent<Renderer>().material.color = Color.cyan;
+        }
+        else if (unitGen)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
         }
         else
         {
