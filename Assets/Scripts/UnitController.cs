@@ -63,18 +63,7 @@ public class UnitController : Unit
 
         //Determine neighbor locations
         neighbors = new Vector2[4];
-
-        //    ////for testing takedamage functionality
-        //    Invoke("test", 3);
-        //    Invoke("test", 4);
-        //    Invoke("test", 5);
-        //    Invoke("test", 6);
     }
-
-    //void test()
-    //{
-    //    TakeDamage(30f);
-    //}
 
     void Update()
     {
