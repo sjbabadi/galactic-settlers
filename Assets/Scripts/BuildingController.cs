@@ -22,7 +22,11 @@ public class BuildingController : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         building = gameObject.GetComponent<Building>();
         location = GetTargetTile(gameObject);
-        building.owner = gm.CurrentTurn;
+
+        if (building.buildingType != Buildings.Base)
+        {
+            building.owner = gm.CurrentTurn;
+        }
 
         UpdateBuildingLocations();
         AddToBuildingLists();
@@ -84,13 +88,13 @@ public class BuildingController : MonoBehaviour
                 }
             }
         }
-        CompactLists();
+        //CompactLists();
     }
 
-    private void CompactLists()
-    {
+    //private void CompactLists()
+    //{
 
-    }
+    //}
 
     private void AddToBuildingLists()
     {
