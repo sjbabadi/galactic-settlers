@@ -76,7 +76,8 @@ public class Tile : MonoBehaviour
         current = false;
         target = false;
         selectable = false;
-
+        movementSelect = false;
+        unitGen = false;
 
         visited = false;
         parent = null;
