@@ -90,8 +90,11 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void Fire()
     {
-        target.GetComponent<UnitController>().TakeDamage(unit.attackPower);
-        unit.turnUsed = true;
+        if (target)
+        {
+            target.GetComponent<UnitController>().TakeDamage(unit.attackPower);
+            unit.turnUsed = true;
+        }
         Task.current.Succeed();
     }
 
@@ -140,7 +143,6 @@ public class EnemyUnitController : MonoBehaviour
                 {
 
                     moveLocation = t;
-                    Task.current.Succeed();
                     break;
                 }
             }
@@ -153,10 +155,17 @@ public class EnemyUnitController : MonoBehaviour
                 {
 
                     moveLocation = t;
-                    Task.current.Succeed();
                     break;
                 }
             }
+        }
+        if (moveLocation)
+        {
+            Task.current.Succeed();
+        }
+        else
+        {
+            Task.current.Fail();
         }
     }
 
@@ -229,21 +238,21 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void BaseInSight()
     {
-        bool insight = false;
-        gs.selectedUnit = gameObject;
-        unit.FindSelectableTiles();
-        foreach (Tile t in unit.selectableTiles)
-        {
-            if (t.occupant)
-            {
-                if (t.occupant.GetComponent<Building>() && t.occupant.GetComponent<Building>().owner == Turn.Enemy && t.occupant.GetComponent<Building>().buildingType == Buildings.Base)
-                {
-                    insight = true;
-                    break;
-                }
-            }
-        }
-        if (insight)
+        //bool insight = false;
+        //gs.selectedUnit = gameObject;
+        //unit.FindSelectableTiles();
+        //foreach (Tile t in unit.selectableTiles)
+        //{
+        //    if (t.occupant)
+        //    {
+        //        if (t.occupant.GetComponent<Building>() && t.occupant.GetComponent<Building>().owner == un && t.occupant.GetComponent<Building>().buildingType == Buildings.Base)
+        //        {
+        //            insight = true;
+        //            break;
+        //        }
+        //    }
+        //}
+        if (Vector2.Distance(transform.position, gs.enemyBase.transform.position) < 10f)
         {
             Task.current.Succeed();
         }

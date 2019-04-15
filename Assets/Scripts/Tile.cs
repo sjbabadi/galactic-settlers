@@ -83,6 +83,9 @@ public class Tile : MonoBehaviour
         visited = false;
         parent = null;
         distance = 0;
+
+        empty = true;
+        occupant = null;
     }
 
 

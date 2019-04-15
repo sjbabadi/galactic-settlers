@@ -373,8 +373,7 @@ public class UnitController : Unit
 
         if (health <= 0)
         {
-            currentTile.empty = true;
-            currentTile.occupant = null;
+            currentTile.Reset();
             Destroy(gameObject);
         }
         else if (health <= 25)

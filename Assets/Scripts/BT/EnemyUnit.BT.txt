@@ -1,10 +1,9 @@
 tree "Root"
 	while IsEnemyTurn
-		fallback
-			while not TurnUsed
-				fallback
-					tree "Attack"
-					tree "Defend"
+		while not TurnUsed
+			fallback
+				tree "Attack"
+				tree "Defend"
 tree "Attack"
 	while AttackMode
 		fallback
