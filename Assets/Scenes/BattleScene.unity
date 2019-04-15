@@ -2292,6 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732b3df23bafa4b8ba4a55f8c3fb8ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endTurnButton: {fileID: 1148889166}
   delay: 1
 --- !u!1 &888254767
 GameObject:
