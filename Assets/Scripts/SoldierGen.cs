@@ -7,6 +7,7 @@ public class SoldierGen : MonoBehaviour
     [SerializeField]
     GameState gs;
     private GameManager gm;
+    PlayerManager player;
 
     private Unit unit;
     public Tile_map map;
@@ -28,6 +29,7 @@ public class SoldierGen : MonoBehaviour
         map = GameObject.FindObjectOfType<Tile_map>();
         building = gameObject.GetComponent<Building>();
         buildTiles = BuildLocations();
+        player = FindObjectOfType<PlayerManager>();
 
     }
 
@@ -115,14 +117,14 @@ public class SoldierGen : MonoBehaviour
     //when the barracks is clicked on
     void OnMouseDown()
     {
-        if (!building.used && ResourcesAvailable())
+        if (!building.used && ResourcesAvailable() && player.inputEnabled)
         {
             soldierGenerate = true;
         }
         selected = true;
 
         Tile tile;
-        if (!building.used)
+        if (!building.used && player.inputEnabled)
         {
             foreach (Vector2 t in buildTiles)
             {
