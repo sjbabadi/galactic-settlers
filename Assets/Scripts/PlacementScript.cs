@@ -11,6 +11,7 @@ public class PlacementScript : MonoBehaviour
     [SerializeField]
     GameState gs;
     private GameManager gm;
+    PlayerManager player;
 
     [SerializeField]
     private GameObject[] selectableObjects;
@@ -21,23 +22,27 @@ public class PlacementScript : MonoBehaviour
     {
         gm = FindObjectOfType<GameManager>();
         hudController = FindObjectOfType<HUDController>();
+        player = FindObjectOfType<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //select an object
-        if (Input.GetKeyDown("f"))
+        if (player.inputEnabled)
         {
-            SelectObject(0);
-        }
-        else if (Input.GetKeyDown("m"))
-        {
-            SelectObject(1);
-        }
-        else if (Input.GetKeyDown("b"))
-        {
-            SelectObject(2);
+            //select an object
+            if (Input.GetKeyDown("f"))
+            {
+                SelectObject(0);
+            }
+            else if (Input.GetKeyDown("m"))
+            {
+                SelectObject(1);
+            }
+            else if (Input.GetKeyDown("b"))
+            {
+                SelectObject(2);
+            }
         }
     }
 
@@ -60,32 +65,33 @@ public class PlacementScript : MonoBehaviour
     /// <param name="selectedObjectInArray"></param>
     public void SelectObject(int selectedObjectInArray)
     {
-        if (isAnObjectSelected == false)
+        if (player.inputEnabled)
         {
-            if (HasEnoughMoney())
+            if (isAnObjectSelected == false)
             {
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
-
-                currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
-                isAnObjectSelected = true;
-
-                gs.Money[(int)gm.CurrentTurn] -= 100;
-                UpdateBuildingCounts(selectedObjectInArray);
-                hudController.UpdateStatText();
-
-                foreach (Tile t in gs.playerBuildingLocations)
+                if (HasEnoughMoney())
                 {
-                    t.movementSelect = true;
+                    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector2 spawnPos = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+
+                    currentlySelectedObject = (GameObject)Instantiate(selectableObjects[selectedObjectInArray], spawnPos, Quaternion.identity);
+                    isAnObjectSelected = true;
+
+                    gs.Money[(int)gm.CurrentTurn] -= 100;
+                    UpdateBuildingCounts(selectedObjectInArray);
+                    hudController.UpdateStatText();
+
+                    foreach (Tile t in gs.playerBuildingLocations)
+                    {
+                        t.movementSelect = true;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not Enough Money");
                 }
             }
-            else
-            {
-                Debug.Log("Not Enough Money");
-            }
         }
-
-
     }
 
     public void UpdateBuildingCounts(int selectedObjectInArray)

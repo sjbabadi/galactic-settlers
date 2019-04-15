@@ -65,11 +65,20 @@ public class GameState : MonoBehaviour
         HUDController.UpdateStatText();
     }
 
+    public void PlayerEndTurn()
+    {
+        if (player.inputEnabled)
+        {
+            selectedUnit = null;
+            EndTurn();
+            HUDController.UpdateStatText();
+            player.FinishTurn();
+        }
+    }
     public void EndTurn()
     {
         gameTurn++;
         UpdateStats();
-        HUDController.UpdateStatText();
 
         foreach (Unit unit in GameObject.FindObjectsOfType<Unit>())
         {
@@ -80,10 +89,6 @@ public class GameState : MonoBehaviour
         {
             building.GetComponent<BuildingController>().Reset();
         }
-
-        selectedUnit = null;
-        
-        player.FinishTurn();
         
     }
 

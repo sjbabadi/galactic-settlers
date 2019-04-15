@@ -2816,7 +2816,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 851336224}
-        m_MethodName: EndTurn
+        m_MethodName: PlayerEndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6367,6 +6367,7 @@ MonoBehaviour:
   owner: 0
   buildingType: 3
   used: 0
+  neighbors: []
 --- !u!4 &2994300991327555100
 Transform:
   m_ObjectHideFlags: 0
@@ -6562,6 +6563,7 @@ MonoBehaviour:
   owner: 0
   buildingType: 3
   used: 0
+  neighbors: []
 --- !u!61 &6236292817003705543
 BoxCollider2D:
   m_ObjectHideFlags: 0
