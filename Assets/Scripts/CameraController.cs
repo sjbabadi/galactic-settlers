@@ -12,6 +12,10 @@ public class CameraController : MonoBehaviour
     private const float MIN_DISTANCE = 10f;
     private const float MAX_DISTANCE = 20f;
 
+    private Vector3 mouseOriginPoint;
+    private Vector3 offset;
+    private bool dragging;
+
     /// <summary>
     /// Handles zooming in and out and moving camera around. Enforces limits on size and position.
     /// </summary>
@@ -48,6 +52,24 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, MIN_DISTANCE, MAX_DISTANCE),
                                              Mathf.Clamp(transform.position.y, MIN_DISTANCE, MAX_DISTANCE),
                                              transform.position.z);
+        }
+        if (Input.GetMouseButton(0))
+        {
+            offset = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            if (!dragging)
+            {
+                dragging = true;
+                mouseOriginPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+
+            if (dragging)
+            {
+                transform.position = mouseOriginPoint - offset;
+            }
+        }
+        else
+        {
+            dragging = false;
         }
 
     }
