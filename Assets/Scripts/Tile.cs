@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
     public bool unitGen = false;
     public int movementCost;
     public bool empty = true;
+    public GameObject occupant;
 
     public List<Tile> adjacencyList = new List<Tile>();
 

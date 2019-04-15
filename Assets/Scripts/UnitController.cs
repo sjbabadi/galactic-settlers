@@ -21,7 +21,7 @@ public class UnitController : Unit
     public BuildingController enemyBuilding;
     public string target = "";
 
-    List<Tile> selectableTiles = new List<Tile>();
+    public List<Tile> selectableTiles = new List<Tile>();
     Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
@@ -36,7 +36,7 @@ public class UnitController : Unit
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
-    Vector2[] neighbors;
+    public Vector2[] neighbors;
 
     //float halfHeight = 0;
 
@@ -61,9 +61,10 @@ public class UnitController : Unit
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
         currentTile.empty = false;
+        currentTile.occupant = gameObject;
 
         //Determine neighbor locations
-        neighbors = new Vector2[4];
+        neighbors = FindNeighborLocations();
 
         //    ////for testing takedamage functionality
         //    Invoke("test", 3);
@@ -88,10 +89,7 @@ public class UnitController : Unit
             {
                 moving = false;
 
-                neighbors[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
-                neighbors[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
-                neighbors[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
-                neighbors[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+                neighbors = FindNeighborLocations();
 
                 foreach (Vector2 neighbor in neighbors)
                 {
@@ -99,6 +97,11 @@ public class UnitController : Unit
                     if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
                     {
                         neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
+                        break;
+                    }
+                    else if (neigh.collider.GetComponent<BuildingController>() && neigh.collider.GetComponent<Building>().owner != owner)
+                    {
+                        neigh.collider.GetComponent<BuildingController>().TakeDamage(attackPower);
                         break;
                     }
                 }
@@ -151,11 +154,23 @@ public class UnitController : Unit
     public void SetTargetLocation(Tile t)
     {
         currentTile.empty = true;
+        currentTile.occupant = null;
         t.empty = false;
+        t.occupant = gameObject;
         targetLocation = t;
         turnUsed = true;
         moving = true;
         gs.selectedUnit = null;
+    }
+
+    public Vector2[] FindNeighborLocations()
+    {
+        Vector2[] locations = new Vector2[4];
+        locations[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+        locations[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+        locations[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+        locations[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+        return locations;
     }
 
     public void Reset()
@@ -354,7 +369,8 @@ public class UnitController : Unit
         if (health <= 0)
         {
             Destroy(gameObject);
-            GetTargetTile(this.gameObject).empty = true;
+            currentTile.empty = true;
+            currentTile.occupant = null;
         }
         else if (health <= 25)
         {
