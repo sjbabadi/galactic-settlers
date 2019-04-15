@@ -109,6 +109,7 @@ public class UnitController : Unit
                 {
                     if (hit.collider.GetComponent<UnitController>())
                     {
+
                         UnitController target = hit.collider.GetComponent<UnitController>();
                         if (!turnUsed && target.owner != owner && Vector3.Distance(this.transform.position, target.transform.position) <= strikingDistance)
                         {
@@ -124,6 +125,19 @@ public class UnitController : Unit
                             Debug.Log("Trying to attack a friendly!? Or, are you too far?");
                         }
                     }
+                    else if (hit.collider.GetComponent<BuildingController>())
+                    {
+                        BuildingController target = hit.collider.GetComponent<BuildingController>();
+                        if (!turnUsed && target.GetComponent<Building>().owner != owner && Vector3.Distance(this.transform.position, target.transform.position) <= strikingDistance)
+                        {
+                            Debug.Log("attack");
+                            target.TakeDamage(attackPower);
+                            gs.selectedUnit = null;
+                            turnUsed = true;
+                            RemoveSelectableTiles();
+                            break;
+                        }
+                    }
                     else if (hit.collider.GetComponent<Tile>())
                     {
                         Tile t = hit.collider.GetComponent<Tile>();
@@ -131,7 +145,7 @@ public class UnitController : Unit
                         if (!turnUsed && t.selectable && t.empty)
                         {
                             if (gs.selectedUnit)
-                            {                          
+                            {
                                 SetTargetLocation(t);
                             }
                         }

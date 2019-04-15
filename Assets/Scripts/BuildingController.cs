@@ -64,6 +64,8 @@ public class BuildingController : MonoBehaviour
 
         if (building.health <= 0)
         {
+            location.empty = true;
+            location.occupant = null;
             Destroy(gameObject);
         }
     }

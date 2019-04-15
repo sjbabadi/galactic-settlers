@@ -102,18 +102,14 @@ public class EnemyUnitController : MonoBehaviour
         unit.FindSelectableTiles();
         foreach (Tile t in unit.selectableTiles)
         {
-            //Debug.Log(t.name + "" + t.transform.position);
             if (t.occupant)
             {
-                Debug.Log("occupant");
                 if (t.occupant.GetComponent<Unit>() && t.occupant.GetComponent<Unit>().owner != Turn.Enemy)
                 {
-                    Debug.Log("a");
                     target = t.occupant;
                 }
                 else if (t.occupant.GetComponent<Building>() && t.occupant.GetComponent<Building>().owner != Turn.Enemy)
                 {
-                    Debug.Log("b");
                     target = t.occupant;
                 }
                 if (target)
