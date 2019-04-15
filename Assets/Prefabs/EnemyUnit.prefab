@@ -1071,6 +1071,7 @@ GameObject:
   - component: {fileID: 2912716381576232823}
   - component: {fileID: 2912716381576232822}
   - component: {fileID: 2798061383677395722}
+  - component: {fileID: 6415857100867359785}
   - component: {fileID: 3009673853227957061}
   m_Layer: 0
   m_Name: EnemyUnit
@@ -1188,6 +1189,19 @@ MonoBehaviour:
   moving: 0
   targetLocation: {fileID: 0}
   move: 0
+--- !u!114 &6415857100867359785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2912716381576232821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea20d3ff4dadc64ea8d7df4182f823d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackMode: 1
 --- !u!114 &3009673853227957061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,7 +1215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scripts:
-  - {fileID: 0}
+  - {fileID: 4900000, guid: 8937ed94687a3714ba376ee9d37ef0d2, type: 3}
   autoReset: 1
   tickOn: 0
   sourceInfos:
