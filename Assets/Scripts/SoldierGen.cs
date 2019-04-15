@@ -94,6 +94,9 @@ public class SoldierGen : MonoBehaviour
         //take away food used
         gs.Food[(int)gm.CurrentTurn] -= foodCost;
 
+        //add to population
+        gs.Population[(int)gm.CurrentTurn]++;
+
         //set barracks as used
         building.used = true;
         //Debug.Log(building.used);

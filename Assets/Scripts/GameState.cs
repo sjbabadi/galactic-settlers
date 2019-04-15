@@ -84,6 +84,7 @@ public class GameState : MonoBehaviour
         selectedUnit = null;
         
         player.FinishTurn();
+        
     }
 
 
