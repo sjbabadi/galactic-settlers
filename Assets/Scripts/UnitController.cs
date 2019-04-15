@@ -88,7 +88,7 @@ public class UnitController : Unit
             {
                 
                 moving = false;
-
+                currentTile = GetTargetTile(gameObject);
                 neighbors = FindNeighborLocations();
 
                 foreach (Vector2 neighbor in neighbors)
@@ -370,9 +370,9 @@ public class UnitController : Unit
 
         if (health <= 0)
         {
-            Destroy(gameObject);
             currentTile.empty = true;
             currentTile.occupant = null;
+            Destroy(gameObject);
         }
         else if (health <= 25)
         {

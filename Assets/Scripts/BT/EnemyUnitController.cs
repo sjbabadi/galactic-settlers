@@ -9,7 +9,7 @@ public class EnemyUnitController : MonoBehaviour
     private GameManager gm;
     private UnitController unit;
 
-    public bool attackMode = false;
+    public bool attackMode;
     public GameObject target;
     public Tile moveLocation;
 
@@ -18,6 +18,8 @@ public class EnemyUnitController : MonoBehaviour
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         unit = GetComponent<UnitController>();
+
+        attackMode = false;
     }
 
     [Task]
