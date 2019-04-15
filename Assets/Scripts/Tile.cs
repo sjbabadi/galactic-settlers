@@ -106,7 +106,7 @@ public class Tile : MonoBehaviour
         foreach (Collider2D item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();
-            if (tile != null && tile.walkable && tile.empty)
+            if (tile != null && tile.walkable)
             {
                 adjacencyList.Add(tile);
                // Debug.Log("Tile: " + tile + " added with coords: " + tile.GetComponent<Tile>().transform.position.x + ", " + tile.GetComponent<Tile>().transform.position.y);

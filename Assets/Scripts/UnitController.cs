@@ -82,24 +82,25 @@ public class UnitController : Unit
     {
         if (moving)
         {
-            RemoveSelectableTiles();
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetLocation.transform.position, step);
             if (transform.position == targetLocation.transform.position)
             {
+                
                 moving = false;
 
                 neighbors = FindNeighborLocations();
 
                 foreach (Vector2 neighbor in neighbors)
                 {
-                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, Vector2.zero);
-                    if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
+                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, new Vector3(0, 0, -1));
+                    //Debug.Log(neigh.collider.name);
+                    if (neigh && neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
                     {
                         neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
                         break;
                     }
-                    else if (neigh.collider.GetComponent<BuildingController>() && neigh.collider.GetComponent<Building>().owner != owner)
+                    else if (neigh && neigh.collider.GetComponent<BuildingController>() && neigh.collider.GetComponent<Building>().owner != owner)
                     {
                         neigh.collider.GetComponent<BuildingController>().TakeDamage(attackPower);
                         break;
@@ -113,7 +114,7 @@ public class UnitController : Unit
             if (Input.GetMouseButtonDown(1))
             {
                 Vector3 position = GetPosition();
-                RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
+                RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0,0,-1));
 
                 foreach (RaycastHit2D hit in hits)
                 {
@@ -161,6 +162,7 @@ public class UnitController : Unit
         turnUsed = true;
         moving = true;
         gs.selectedUnit = null;
+        RemoveSelectableTiles();
     }
 
     public Vector2[] FindNeighborLocations()
