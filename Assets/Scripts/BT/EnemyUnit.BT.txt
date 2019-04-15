@@ -1,0 +1,38 @@
+tree "Root"
+	while IsEnemyTurn
+		while not TurnUsed
+			fallback
+				tree "Attack"
+				tree "Defend"
+tree "Attack"
+	while AttackMode
+		fallback
+			while TargetInSight
+				sequence
+					SetMoveLocation
+					while not Moving
+						MoveToLocation
+			while HasTarget
+				while TargetInRange
+					Fire
+			while not Moving
+				sequence
+					SetTravelLocation
+					MoveToLocation
+tree "Defend"
+	while not AttackMode
+		fallback
+			while HasTarget
+				while TargetInRange
+					Fire
+			while not BaseInSight
+				while not Moving
+					sequence
+						SetTravelLocation
+						MoveToLocation
+			while TargetInSight
+				sequence
+					SetMoveLocation
+					while not Moving
+						MoveToLocation
+			Patrol

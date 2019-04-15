@@ -32,7 +32,19 @@ public class BuildingController : MonoBehaviour
 
         UpdateBuildingLocations();
         AddToBuildingLists();
-        
+
+        building.neighbors = FindNeighborLocations();
+        location.occupant = gameObject;
+    }
+
+    private Vector2[] FindNeighborLocations()
+    {
+        Vector2[] locations = new Vector2[4];
+        locations[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+        locations[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+        locations[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+        locations[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+        return locations;
     }
 
     public void Reset()
@@ -52,6 +64,8 @@ public class BuildingController : MonoBehaviour
 
         if (building.health <= 0)
         {
+            location.empty = true;
+            location.occupant = null;
             Destroy(gameObject);
         }
     }

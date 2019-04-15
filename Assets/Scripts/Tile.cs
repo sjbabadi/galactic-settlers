@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
     public bool unitGen = false;
     public int movementCost;
     public bool empty = true;
+    public GameObject occupant;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -82,6 +83,9 @@ public class Tile : MonoBehaviour
         visited = false;
         parent = null;
         distance = 0;
+
+        empty = true;
+        occupant = null;
     }
 
 
@@ -105,7 +109,7 @@ public class Tile : MonoBehaviour
         foreach (Collider2D item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();
-            if (tile != null && tile.walkable && tile.empty)
+            if (tile != null && tile.walkable)
             {
                 adjacencyList.Add(tile);
                // Debug.Log("Tile: " + tile + " added with coords: " + tile.GetComponent<Tile>().transform.position.x + ", " + tile.GetComponent<Tile>().transform.position.y);

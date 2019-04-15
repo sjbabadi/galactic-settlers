@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     bool IsWinner()
     {
-        return (gs.playerBase.health == 0 || gs.enemyBase.health == 0);
+        return (gs.enemyBase == null || gs.playerBase == null ||  gs.playerBase.health <= 0 || gs.enemyBase.health <= 0);
     }
 
     public void UpdateTurn()
@@ -128,22 +128,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        // This exists merely to test EndGame() functionality
-        if (Input.GetKeyDown("e"))
-        {
-            if (Random.value > 0.5f)
-            {
-                gs.enemyBase.health = 0;
-            }
-            else
-            {
-                gs.playerBase.health = 0;
-            }
-        }
-    }
-
     IEnumerator EndGameRoutine()
     {
         if (!isGameOver)
@@ -152,45 +136,38 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (gs.enemyBase.health <= 0 || gs.playerBase.health <= 0 || gs.enemyBase == null || gs.playerBase == null)
+            GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
+            es.SetActive(true);
+
+            if (gs.enemyBase == null || gs.enemyBase.health <= 0)
             {
-                GameObject es = FindObjectOfType<HUDController>().transform.Find("EndScreen").gameObject;
-                es.SetActive(true);
-
-                if (gs.enemyBase.health <= 0 || gs.enemyBase == null)
-                {
-                    es.transform.Find("Win").gameObject.SetActive(true);
-                }
-                else
-                {
-                    es.transform.Find("Lose").gameObject.SetActive(true);
-                }
-
-                yield return new WaitForSeconds(.5f);
-
-                while (!Input.anyKeyDown)
-                {
-                    yield return null;
-                }
-
-                foreach (Animator anim in FindObjectsOfType<Animator>())
-                {
-                    if (anim.name == "Music")
-                    {
-                        anim.SetBool("MusicFadeOut", true);
-                    }
-                    else
-                    {
-                        anim.SetBool("BattleSceneFade", true);
-                    }
-                }
-                yield return new WaitForSeconds(2);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                es.transform.Find("Win").gameObject.SetActive(true);
             }
             else
             {
-                Debug.Log("Game over but there is still health in the tank");
+                es.transform.Find("Lose").gameObject.SetActive(true);
             }
+
+            yield return new WaitForSeconds(.5f);
+
+            while (!Input.anyKeyDown)
+            {
+                yield return null;
+            }
+
+            foreach (Animator anim in FindObjectsOfType<Animator>())
+            {
+                if (anim.name == "Music")
+                {
+                    anim.SetBool("MusicFadeOut", true);
+                }
+                else
+                {
+                    anim.SetBool("BattleSceneFade", true);
+                }
+            }
+            yield return new WaitForSeconds(2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
 }

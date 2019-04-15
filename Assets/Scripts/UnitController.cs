@@ -21,7 +21,7 @@ public class UnitController : Unit
     public BuildingController enemyBuilding;
     public string target = "";
 
-    List<Tile> selectableTiles = new List<Tile>();
+    public List<Tile> selectableTiles = new List<Tile>();
     Tile[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
@@ -36,7 +36,7 @@ public class UnitController : Unit
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
 
-    Vector2[] neighbors;
+    public Vector2[] neighbors;
 
     //float halfHeight = 0;
 
@@ -61,33 +61,37 @@ public class UnitController : Unit
         tiles = FindObjectsOfType<Tile>();
         currentTile = GetTargetTile(gameObject);
         currentTile.empty = false;
+        currentTile.occupant = gameObject;
 
         //Determine neighbor locations
-        neighbors = new Vector2[4];
+        neighbors = FindNeighborLocations();
     }
 
     void Update()
     {
         if (moving)
         {
-            RemoveSelectableTiles();
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetLocation.transform.position, step);
             if (transform.position == targetLocation.transform.position)
             {
+                
                 moving = false;
-
-                neighbors[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
-                neighbors[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
-                neighbors[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
-                neighbors[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+                currentTile = GetTargetTile(gameObject);
+                neighbors = FindNeighborLocations();
 
                 foreach (Vector2 neighbor in neighbors)
                 {
-                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, Vector2.zero);
-                    if (neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
+                    RaycastHit2D neigh = Physics2D.Raycast(neighbor, new Vector3(0, 0, -1));
+                    //Debug.Log(neigh.collider.name);
+                    if (neigh && neigh.collider.GetComponent<UnitController>() && neigh.collider.GetComponent<UnitController>().owner != owner)
                     {
                         neigh.collider.GetComponent<UnitController>().TakeDamage(attackPower);
+                        break;
+                    }
+                    else if (neigh && neigh.collider.GetComponent<BuildingController>() && neigh.collider.GetComponent<Building>().owner != owner)
+                    {
+                        neigh.collider.GetComponent<BuildingController>().TakeDamage(attackPower);
                         break;
                     }
                 }
@@ -99,12 +103,13 @@ public class UnitController : Unit
             if (Input.GetMouseButtonDown(1))
             {
                 Vector3 position = GetPosition();
-                RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
+                RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0,0,-1));
 
                 foreach (RaycastHit2D hit in hits)
                 {
                     if (hit.collider.GetComponent<UnitController>())
                     {
+
                         UnitController target = hit.collider.GetComponent<UnitController>();
                         if (!turnUsed && target.owner != owner && Vector3.Distance(this.transform.position, target.transform.position) <= strikingDistance)
                         {
@@ -120,6 +125,19 @@ public class UnitController : Unit
                             Debug.Log("Trying to attack a friendly!? Or, are you too far?");
                         }
                     }
+                    else if (hit.collider.GetComponent<BuildingController>())
+                    {
+                        BuildingController target = hit.collider.GetComponent<BuildingController>();
+                        if (!turnUsed && target.GetComponent<Building>().owner != owner && Vector3.Distance(this.transform.position, target.transform.position) <= strikingDistance)
+                        {
+                            Debug.Log("attack");
+                            target.TakeDamage(attackPower);
+                            gs.selectedUnit = null;
+                            turnUsed = true;
+                            RemoveSelectableTiles();
+                            break;
+                        }
+                    }
                     else if (hit.collider.GetComponent<Tile>())
                     {
                         Tile t = hit.collider.GetComponent<Tile>();
@@ -127,7 +145,7 @@ public class UnitController : Unit
                         if (!turnUsed && t.selectable && t.empty)
                         {
                             if (gs.selectedUnit)
-                            {                          
+                            {
                                 SetTargetLocation(t);
                             }
                         }
@@ -140,11 +158,24 @@ public class UnitController : Unit
     public void SetTargetLocation(Tile t)
     {
         currentTile.empty = true;
+        currentTile.occupant = null;
         t.empty = false;
+        t.occupant = gameObject;
         targetLocation = t;
         turnUsed = true;
         moving = true;
         gs.selectedUnit = null;
+        RemoveSelectableTiles();
+    }
+
+    public Vector2[] FindNeighborLocations()
+    {
+        Vector2[] locations = new Vector2[4];
+        locations[0] = new Vector2(transform.position.x, transform.position.y + 1.0f);
+        locations[1] = new Vector2(transform.position.x, transform.position.y - 1.0f);
+        locations[2] = new Vector2(transform.position.x - 1.0f, transform.position.y);
+        locations[3] = new Vector2(transform.position.x + 1.0f, transform.position.y);
+        return locations;
     }
 
     public void Reset()
@@ -342,8 +373,8 @@ public class UnitController : Unit
 
         if (health <= 0)
         {
+            currentTile.Reset();
             Destroy(gameObject);
-            GetTargetTile(this.gameObject).empty = true;
         }
         else if (health <= 25)
         {

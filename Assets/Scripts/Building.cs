@@ -10,4 +10,5 @@ public class Building : MonoBehaviour
     public Turn owner;
     public Buildings buildingType;
     public bool used = false;
+    public Vector2[] neighbors;
 }
