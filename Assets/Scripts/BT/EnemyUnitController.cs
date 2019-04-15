@@ -9,7 +9,7 @@ public class EnemyUnitController : MonoBehaviour
     private GameManager gm;
     private UnitController unit;
 
-    public bool attackMode = true;
+    public bool attackMode = false;
     public GameObject target;
     public Tile moveLocation;
 
@@ -53,6 +53,10 @@ public class EnemyUnitController : MonoBehaviour
         {
             Task.current.Succeed();
         }
+        else
+        {
+            Task.current.Fail();
+        }
     }
 
     [Task]
@@ -85,6 +89,7 @@ public class EnemyUnitController : MonoBehaviour
     void Fire()
     {
         target.GetComponent<UnitController>().TakeDamage(unit.attackPower);
+        unit.turnUsed = true;
         Task.current.Succeed();
     }
 
@@ -129,14 +134,30 @@ public class EnemyUnitController : MonoBehaviour
     void SetTravelLocation()
     {
         unit.FindSelectableTiles();
-        foreach (Tile t in unit.selectableTiles)
+        if (attackMode)
         {
-            if (Vector2.Distance(t.transform.position, gs.playerBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.playerBase.transform.position))
+            foreach (Tile t in unit.selectableTiles)
             {
+                if (Vector2.Distance(t.transform.position, gs.playerBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.playerBase.transform.position))
+                {
 
-                moveLocation = t;
-                Task.current.Succeed();
-                break;
+                    moveLocation = t;
+                    Task.current.Succeed();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            foreach (Tile t in unit.selectableTiles)
+            {
+                if (Vector2.Distance(t.transform.position, gs.enemyBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.enemyBase.transform.position))
+                {
+
+                    moveLocation = t;
+                    Task.current.Succeed();
+                    break;
+                }
             }
         }
     }
@@ -210,13 +231,27 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void BaseInSight()
     {
+        bool insight = false;
+        gs.selectedUnit = gameObject;
         unit.FindSelectableTiles();
         foreach (Tile t in unit.selectableTiles)
         {
-            if (gs.enemyBase.transform.position == t.transform.position)
+            if (t.occupant)
             {
-                Task.current.Succeed();
+                if (t.occupant.GetComponent<Building>() && t.occupant.GetComponent<Building>().owner == Turn.Enemy && t.occupant.GetComponent<Building>().buildingType == Buildings.Base)
+                {
+                    insight = true;
+                    break;
+                }
             }
+        }
+        if (insight)
+        {
+            Task.current.Succeed();
+        }
+        else
+        {
+            Task.current.Fail();
         }
     }
 
