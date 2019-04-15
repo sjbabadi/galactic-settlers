@@ -124,7 +124,7 @@ public class SoldierGen : MonoBehaviour
         selected = true;
 
         Tile tile;
-        if (!building.used)
+        if (!building.used && player.inputEnabled)
         {
             foreach (Vector2 t in buildTiles)
             {
