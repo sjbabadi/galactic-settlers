@@ -122,13 +122,16 @@ public class SoldierGen : MonoBehaviour
         selected = true;
 
         Tile tile;
-        foreach (Vector2 t in buildTiles)
+        if (!building.used)
         {
-            tile = GetTileAt(t);
-           // Debug.Log(tile);
-            if(tile.empty)
+            foreach (Vector2 t in buildTiles)
             {
-            tile.unitGen = true;
+                tile = GetTileAt(t);
+                // Debug.Log(tile);
+                if (tile.empty)
+                {
+                    tile.unitGen = true;
+                }
             }
         }
     }

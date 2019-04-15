@@ -2277,6 +2277,8 @@ MonoBehaviour:
   enemyBuildings: []
   playerBase: {fileID: 6236292817003705542}
   enemyBase: {fileID: 2994300991327555099}
+  playerBuildingLocations: []
+  enemyBuildingLocations: []
   selectedUnit: {fileID: 0}
 --- !u!114 &851336225
 MonoBehaviour:
@@ -2724,7 +2726,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "To attack:\n\tHowever we decide this works\n\t-\n\t-"
+  m_Text: "To attack:\n\tLeft click on soldier\n\tRight click on enemy unit to attack\n\tA
+    soldier moved directly next to an enemy will auto-attack"
 --- !u!222 &1119696376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3390,8 +3393,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Hotkeys for quicker building:\n\t'f' = farm\t\t\t'm' = mine\t\t\t'b' =
-    barracks"
+  m_Text: "Hotkeys:\n\t'p' = pause\t  'f' = farm  \t'm' = mine   \t'b' = barracks"
 --- !u!222 &1301153530
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6252,6 +6254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad1f65cefd77e44fb141d8e40e798a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!20 &552498097112633749
 Camera:
   m_ObjectHideFlags: 0
@@ -6361,7 +6364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: Enemy
+  owner: 0
   buildingType: 3
   used: 0
 --- !u!4 &2994300991327555100
@@ -6458,6 +6461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimation: {fileID: 0}
+  radius: 2
 --- !u!1 &6236292817003705539
 GameObject:
   m_ObjectHideFlags: 0
@@ -6554,7 +6559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: Player
+  owner: 0
   buildingType: 3
   used: 0
 --- !u!61 &6236292817003705543
@@ -6595,3 +6600,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimation: {fileID: 0}
+  radius: 2
