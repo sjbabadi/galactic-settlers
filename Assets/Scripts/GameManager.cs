@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public enum Turn
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     PlayerManager player;
     EnemyManager enemy;
     GameState gs;
+
+    public Button endTurnButton;
 
     Turn currentTurn = Turn.Player;
     public Turn CurrentTurn { get { return currentTurn; } }
@@ -94,6 +97,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(currentTurn);
         player.isTurnComplete = false;
         player.inputEnabled = true;
+        endTurnButton.interactable = true;
     }
 
     void PlayEnemyTurn()
@@ -101,6 +105,7 @@ public class GameManager : MonoBehaviour
         currentTurn = Turn.Enemy;
         Debug.Log(currentTurn);
         enemy.isTurnComplete = false;
+        endTurnButton.interactable = false;
         enemy.PlayTurn();
     }
 
