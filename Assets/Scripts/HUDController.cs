@@ -35,7 +35,7 @@ public class HUDController : MonoBehaviour
 
         pc = playerControls.GetComponent<RectTransform>();
         controlsClose = pc.transform.localPosition;
-        controlsOpen = pc.transform.localPosition + new Vector3(0, +460, 0);
+        controlsOpen = pc.transform.localPosition + new Vector3(0, +520, 0);
 
     }
 
