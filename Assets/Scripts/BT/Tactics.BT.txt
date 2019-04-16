@@ -8,7 +8,12 @@ tree("Root")
 tree("conquer")
     while AtLeastOneOfEachBuilding
         while NoUnits
-            SpawnUnits
+            sequence
+                SpawnUnits
+                SendAttackers
+                SpawnUnits
+            
+    
 
 
 tree("build")
@@ -16,5 +21,6 @@ tree("build")
         sequence
             BuildFarm
             BuildMine
+            BuildBarracks
             BuildBarracks
             BuildBarracks

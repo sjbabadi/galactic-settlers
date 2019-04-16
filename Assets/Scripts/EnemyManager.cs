@@ -188,5 +188,4 @@ public class EnemyManager : TurnManager
             unit.GetComponent<EnemyUnitController>().attackMode = true;
         }
     }
-
 }
