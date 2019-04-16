@@ -380,9 +380,10 @@ public class UnitController : Unit
             {
                 currentTile.Reset();
             }
-            Destroy(gameObject);
             //remove from Pop cap
-            gs.Population[(int)gm.CurrentTurn]--;
+            gs.Population[(int)owner]--;
+            gs.Units[(int)owner]--;
+            Destroy(gameObject);
         }
         else if (health <= 25)
         {
