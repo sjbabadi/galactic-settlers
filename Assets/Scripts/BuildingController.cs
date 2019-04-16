@@ -12,7 +12,7 @@ public class BuildingController : MonoBehaviour
     private GameState gs;
     private GameManager gm;
     private Building building;
-    private Tile location;
+    public Tile location;
 
     [SerializeField] float radius = 2f;
 
@@ -21,9 +21,11 @@ public class BuildingController : MonoBehaviour
         gs = FindObjectOfType<GameState>();
         gm = FindObjectOfType<GameManager>();
         building = gameObject.GetComponent<Building>();
-        location = GetTargetTile(gameObject);
 
+        location = GetTargetTile(gameObject);
         location.empty = false;
+        location.occupant = gameObject;
+        //Debug.Log(location.occupant.name);
 
         if (building.buildingType != Buildings.Base)
         {
@@ -34,7 +36,6 @@ public class BuildingController : MonoBehaviour
         AddToBuildingLists();
 
         building.neighbors = FindNeighborLocations();
-        location.occupant = gameObject;
     }
 
     private Vector2[] FindNeighborLocations()
@@ -79,6 +80,7 @@ public class BuildingController : MonoBehaviour
         {
             if (hit.collider.tag == "Tile")
             {
+                //Debug.Log(hit.collider.name);
                 tile = hit.collider.GetComponent<Tile>();
             }
         }
