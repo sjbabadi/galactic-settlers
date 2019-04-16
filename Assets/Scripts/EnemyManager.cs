@@ -180,4 +180,13 @@ public class EnemyManager : TurnManager
         return false;
     }
 
+    [Task]
+    public void SendAttackers()
+    {
+        foreach(Unit unit in gs.enemyUnits)
+        {
+            unit.GetComponent<EnemyUnitController>().attackMode = true;
+        }
+    }
+
 }
