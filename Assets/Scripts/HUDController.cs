@@ -27,6 +27,9 @@ public class HUDController : MonoBehaviour
     private bool controlsDisplayed = false;
     private Vector3 controlsOpen, controlsClose;
 
+    //to count turns
+    //int playerTurn = 1;
+
     private void Start()
     {
         rt = statsPanel.GetComponent<RectTransform>();
@@ -71,11 +74,12 @@ public class HUDController : MonoBehaviour
 
     // Updates all text based on the values recoreded in the GameState Object
     public void UpdateStatText() {
-        turnText.text = string.Format("Turn: {0}", gs.gameTurn);
+        turnText.text = string.Format("Turns used: {0}", gs.gameTurn);
         baseHealthText.text = string.Format("Base Health: {0}", gs.BaseHealth[(int)Turn.Player]);
         moneyText.text = string.Format("Money: {0}", gs.Money[(int)Turn.Player]);
         unitsText.text = string.Format("Units: {0}/{1}", gs.Units[(int)Turn.Player], gs.UnitMax[(int)Turn.Player]);
         foodText.text = string.Format("Food: {0}", gs.Food[(int)Turn.Player]);
-        maxPopText.text = string.Format("Pop: {0}/{1}", gs.Population[(int)Turn.Player], gs.MaxPop[(int)Turn.Player]);
+        //playerTurn++;
+        //maxPopText.text = string.Format("Pop: {0}/{1}", gs.Population[(int)Turn.Player], gs.MaxPop[(int)Turn.Player]);
     }
 }
