@@ -162,7 +162,7 @@ public class SoldierGen : MonoBehaviour
         return buildTiles;
     }
 
-    public void SpawnSolider()
+    public void SpawnSoldier()
     {
         Vector3 buildPosition = buildTiles[Random.Range(0,buildTiles.Length)];
         SpawnSoldierAt(soldier, buildPosition);

@@ -123,9 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: 0
+  owner: 1
   buildingType: 2
   used: 0
+  neighbors: []
 --- !u!114 &1011190789898828934
 MonoBehaviour:
   m_ObjectHideFlags: 0
