@@ -1,0 +1,26 @@
+tree("Root")
+    while IsMyTurn
+        parallel
+            mute tree("build")
+            mute tree("conquer")
+
+    
+tree("conquer")
+    while AtLeastOneOfEachBuilding
+        while NoUnits
+            sequence
+                SpawnUnits
+                SendAttackers
+                SpawnUnits
+            
+    
+
+
+tree("build")
+    while not AtLeastOneOfEachBuilding
+        sequence
+            BuildFarm
+            BuildMine
+            BuildBarracks
+            BuildBarracks
+            BuildBarracks

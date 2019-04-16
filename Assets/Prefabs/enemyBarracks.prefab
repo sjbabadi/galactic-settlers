@@ -123,9 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: 0
+  owner: 1
   buildingType: 2
   used: 0
+  neighbors: []
 --- !u!114 &1011190789898828934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
+  location: {fileID: 0}
   radius: 1
 --- !u!114 &6569137882781798501
 MonoBehaviour:
@@ -156,4 +158,6 @@ MonoBehaviour:
   gs: {fileID: 0}
   map: {fileID: 0}
   soldier: {fileID: 705924160454313970, guid: 54565beda8ab3444396b256a6f019738, type: 3}
+  enemyUnit: {fileID: 2912716381576232821, guid: 8786d6829b7cf4979b1b888240b4c8a0,
+    type: 3}
   soldierGenerate: 0

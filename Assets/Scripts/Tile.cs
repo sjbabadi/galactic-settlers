@@ -115,4 +115,19 @@ public class Tile : MonoBehaviour
             }
         }
     }
+
+    public Tile GetTileAt(Vector2 position)
+    {
+        Tile tile = null;
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, new Vector3(0, 0, 1));
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.tag == "Tile")
+            {
+                tile = hit.collider.GetComponent<Tile>();
+            }
+        }
+        return tile;
+    }
 }

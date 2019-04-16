@@ -13,6 +13,7 @@ public class SoldierGen : MonoBehaviour
     public Tile_map map;
     private Building building;
     public GameObject soldier;
+    public GameObject enemyUnit;
 
     //check for soldier creation intenion
     public bool soldierGenerate = false;
@@ -163,10 +164,17 @@ public class SoldierGen : MonoBehaviour
         return buildTiles;
     }
 
-    public void SpawnSolider()
+    public void SpawnSoldier()
     {
         Vector3 buildPosition = buildTiles[Random.Range(0,buildTiles.Length)];
-        SpawnSoldierAt(soldier, buildPosition);
+        if(gm.CurrentTurn == Turn.Enemy)
+        {
+            SpawnSoldierAt(enemyUnit, buildPosition);
+        }
+        else
+        {
+            SpawnSoldierAt(soldier, buildPosition);
+        }
         UpdateStats();
     }
 

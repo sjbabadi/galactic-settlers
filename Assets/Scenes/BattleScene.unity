@@ -1086,6 +1086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599072862}
   - component: {fileID: 599072861}
+  - component: {fileID: 599072863}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -1129,6 +1130,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &599072863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599072860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: 1eb4439b18a414b6ba7c8367eaefcdbc, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
 --- !u!1 &617250512
 GameObject:
   m_ObjectHideFlags: 0
@@ -6467,6 +6490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
+  location: {fileID: 0}
   radius: 2
 --- !u!1 &6236292817003705539
 GameObject:
@@ -6608,4 +6632,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
+  location: {fileID: 0}
   radius: 2
