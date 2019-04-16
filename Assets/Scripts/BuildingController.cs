@@ -25,7 +25,7 @@ public class BuildingController : MonoBehaviour
         location = GetTargetTile(gameObject);
         location.empty = false;
         location.occupant = gameObject;
-        Debug.Log(location.occupant.name);
+        //Debug.Log(location.occupant.name);
 
         if (building.buildingType != Buildings.Base)
         {

@@ -41,12 +41,12 @@ public class EnemyUnitController : MonoBehaviour
         if (unit.turnUsed)
         {
             Task.current.Succeed();
-            Debug.Log("TurnUsed Succeed");
+            //Debug.Log("TurnUsed Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("TurnUsed Fail");
+            //Debug.Log("TurnUsed Fail");
         }
     }
 
@@ -56,12 +56,12 @@ public class EnemyUnitController : MonoBehaviour
         if (attackMode)
         {
             Task.current.Succeed();
-            Debug.Log("AttackMode Succeed");
+            //Debug.Log("AttackMode Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("AttackMode Fail");
+            //Debug.Log("AttackMode Fail");
         }
     }
 
@@ -71,12 +71,12 @@ public class EnemyUnitController : MonoBehaviour
         if (target)
         {
             Task.current.Succeed();
-            Debug.Log("HasTarget Succeed");
+            //Debug.Log("HasTarget Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("HasTarget Fail");
+            //Debug.Log("HasTarget Fail");
         }
     }
     
@@ -86,12 +86,12 @@ public class EnemyUnitController : MonoBehaviour
         if (Vector2.Distance(transform.position, target.transform.position) <= unit.strikingDistance)
         {
             Task.current.Succeed();
-            Debug.Log("TargetInRange Succeed");
+            //Debug.Log("TargetInRange Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("TargetInRange Fail");
+            //Debug.Log("TargetInRange Fail");
         }
     }
 
@@ -112,20 +112,19 @@ public class EnemyUnitController : MonoBehaviour
                 unit.turnUsed = true;
                 Task.current.Succeed();
             }
-            
-            Debug.Log("Fire Succeed");
+            //Debug.Log("Fire Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("Fire Fail");
+            //Debug.Log("Fire Fail");
         }
     }
 
     [Task]
     void TargetInSight()
     {
-        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, 3f);
+        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, unit.move);
         List<Tile> tiles = new List<Tile>();
 
         target = null;
@@ -160,19 +159,19 @@ public class EnemyUnitController : MonoBehaviour
         if (target)
         {
             Task.current.Succeed();
-            Debug.Log("TargetInSight Succeed");
+            //Debug.Log("TargetInSight Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("TargetInSight Fail");
+            //Debug.Log("TargetInSight Fail");
         }
     }
 
     [Task]
     void SetTravelLocation()
     {
-        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, 3f);
+        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, unit.move);
         List<Tile> tiles = new List<Tile>();
         List<Tile> moveTiles = new List<Tile>();
 
@@ -203,12 +202,12 @@ public class EnemyUnitController : MonoBehaviour
         if (moveLocation)
         {
             Task.current.Succeed();
-            Debug.Log("SetTravelLocation Succeed");
+            //Debug.Log("SetTravelLocation Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("SetTravelLocation Fail");
+            //Debug.Log("SetTravelLocation Fail");
         }
     }
 
@@ -235,12 +234,12 @@ public class EnemyUnitController : MonoBehaviour
         if (moveLocation)
         {
             Task.current.Succeed();
-            Debug.Log("SetMoveLocation Succeed");
+            //Debug.Log("SetMoveLocation Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("SetMoveLocation Fail");
+            //Debug.Log("SetMoveLocation Fail");
         }
     }
 
@@ -250,12 +249,12 @@ public class EnemyUnitController : MonoBehaviour
         if (unit.moving)
         {
             Task.current.Succeed();
-            Debug.Log("Moving Succeed");
+            //Debug.Log("Moving Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("Moving Fail");
+            //Debug.Log("Moving Fail");
         }
     }
 
@@ -265,7 +264,7 @@ public class EnemyUnitController : MonoBehaviour
         unit.FindSelectableTiles();
         unit.SetTargetLocation(moveLocation);
         Task.current.Succeed();
-        Debug.Log("MoveToLocation Succeed");
+        //Debug.Log("MoveToLocation Succeed");
     }
 
     [Task]
@@ -274,12 +273,12 @@ public class EnemyUnitController : MonoBehaviour
         if (Vector2.Distance(transform.position, gs.enemyBase.transform.position) < 10f)
         {
             Task.current.Succeed();
-            Debug.Log("BaseInSight Succeed");
+            //Debug.Log("BaseInSight Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("BaseInSight Fail");
+            //Debug.Log("BaseInSight Fail");
         }
     }
 
@@ -289,7 +288,7 @@ public class EnemyUnitController : MonoBehaviour
         unit.FindSelectableTiles();
         unit.SetTargetLocation(unit.selectableTiles[Random.Range(0,unit.selectableTiles.Count)]);
         Task.current.Succeed();
-        Debug.Log("Patrol Succeed");
+        //Debug.Log("Patrol Succeed");
     }
 
     [Task]
@@ -299,12 +298,12 @@ public class EnemyUnitController : MonoBehaviour
         {
             target = null;
             Task.current.Succeed();
-            Debug.Log("RemoveTarget Succeed");
+            //Debug.Log("RemoveTarget Succeed");
         }
         else
         {
             Task.current.Fail();
-            Debug.Log("RemoveTarget Fail");
+            //Debug.Log("RemoveTarget Fail");
         }
     }
 }
