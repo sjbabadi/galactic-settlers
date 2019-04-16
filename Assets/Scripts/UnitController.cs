@@ -78,6 +78,8 @@ public class UnitController : Unit
                 
                 moving = false;
                 currentTile = GetTargetTile(gameObject);
+                currentTile.occupant = gameObject;
+                currentTile.empty = false;
                 neighbors = FindNeighborLocations();
 
                 foreach (Vector2 neighbor in neighbors)
@@ -205,7 +207,8 @@ public class UnitController : Unit
 
     public void GetCurrentTile()
     {
-        currentTile = GetTargetTile(gs.selectedUnit);
+        //currentTile = GetTargetTile(gs.selectedUnit);
+        currentTile = GetTargetTile(gameObject);
         currentTile.current = true;
     }
 
@@ -234,8 +237,8 @@ public class UnitController : Unit
     {
         foreach (Tile tile in tiles)
         {
-            Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors();
+            //Tile t = tile.GetComponent<Tile>();
+            tile.FindNeighbors();
         }
     }
 
@@ -373,7 +376,10 @@ public class UnitController : Unit
 
         if (health <= 0)
         {
-            currentTile.Reset();
+            if (currentTile)
+            {
+                currentTile.Reset();
+            }
             Destroy(gameObject);
         }
         else if (health <= 25)

@@ -6447,7 +6447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   cost: 100
-  owner: 0
+  owner: 1
   buildingType: 3
   used: 0
   neighbors: []
@@ -6545,7 +6545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimation: {fileID: 0}
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
   radius: 2
 --- !u!1 &6236292817003705539
 GameObject:
@@ -6685,5 +6686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51e35168edd31b499c4782671fdef15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimation: {fileID: 0}
+  attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
+    type: 3}
   radius: 2
