@@ -91,7 +91,8 @@ public class SoldierGen : MonoBehaviour
     private void UpdateStats()
     {
         //add to player's units
-        gs.Units[(int)gm.CurrentTurn]++;
+        //these get added elsewhere, so don't need to increment here
+        //gs.Units[(int)gm.CurrentTurn]++;
 
         //take away food used
         gs.Food[(int)gm.CurrentTurn] -= foodCost;

@@ -7,14 +7,14 @@ tree "Root"
 tree "Attack"
 	while AttackMode
 		fallback
+			while HasTarget
+				while TargetInRange
+					Fire
 			while TargetInSight
 				sequence
 					SetMoveLocation
 					while not Moving
 						MoveToLocation
-			while HasTarget
-				while TargetInRange
-					Fire
 			while not Moving
 				sequence
 					SetTravelLocation
@@ -22,17 +22,17 @@ tree "Attack"
 tree "Defend"
 	while not AttackMode
 		fallback
-			sequence
-				fallback
-					while HasTarget
-						while TargetInRange
-							Fire
+			fallback
+				while HasTarget
+					while TargetInRange
+						Fire
+				sequence
 					RemoveTarget
-				while not BaseInSight
-					while not Moving
-						sequence
-							SetTravelLocation
-							MoveToLocation
+					while not BaseInSight
+						while not Moving
+							sequence
+								SetTravelLocation
+								MoveToLocation
 			while TargetInSight
 				sequence
 					SetMoveLocation
