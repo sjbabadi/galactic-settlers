@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scripts:
-  - {fileID: 0}
+  - {fileID: 4900000, guid: 1eb4439b18a414b6ba7c8367eaefcdbc, type: 3}
   autoReset: 1
   tickOn: 0
   sourceInfos:
@@ -6490,6 +6490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
+  location: {fileID: 0}
   radius: 2
 --- !u!1 &6236292817003705539
 GameObject:
@@ -6631,4 +6632,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAnimation: {fileID: 3780303472994806028, guid: c9eb65085088c7742976b808c57fea35,
     type: 3}
+  location: {fileID: 0}
   radius: 2

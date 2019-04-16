@@ -126,6 +126,7 @@ public class EnemyManager : TurnManager
             GameObject g = (GameObject)Instantiate(enemyFarm, nextBuildSpot, Quaternion.identity);
             nextBuildSpot = GenerateBuildSpot();
         }
+        gs.buildingCounts[1, (int)Buildings.Farm]++;
         Task.current.Succeed();
     }
 
@@ -137,6 +138,7 @@ public class EnemyManager : TurnManager
             GameObject g = (GameObject)Instantiate(enemyBarracks, nextBuildSpot, Quaternion.identity);
             nextBuildSpot = GenerateBuildSpot();
         }
+        gs.buildingCounts[1, (int)Buildings.Barracks]++;
         Task.current.Succeed();
     }
 
@@ -148,6 +150,7 @@ public class EnemyManager : TurnManager
             GameObject g = (GameObject)Instantiate(enemyMine, nextBuildSpot, Quaternion.identity);
             nextBuildSpot = GenerateBuildSpot();
         }
+        gs.buildingCounts[1, (int)Buildings.Mine]++;
         Task.current.Succeed();
     }
 
@@ -176,4 +179,5 @@ public class EnemyManager : TurnManager
         }
         return false;
     }
+
 }

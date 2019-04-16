@@ -1,8 +1,8 @@
 tree("Root")
     while IsMyTurn
         parallel
-            tree("build")
-            tree("conquer")
+            mute tree("build")
+            mute tree("conquer")
 
     
 tree("conquer")
