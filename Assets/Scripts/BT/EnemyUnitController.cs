@@ -100,9 +100,19 @@ public class EnemyUnitController : MonoBehaviour
     {
         if (target)
         {
-            target.GetComponent<UnitController>().TakeDamage(unit.attackPower);
-            unit.turnUsed = true;
-            Task.current.Succeed();
+            if (target.GetComponent<UnitController>())
+            {
+                target.GetComponent<UnitController>().TakeDamage(unit.attackPower);
+                unit.turnUsed = true;
+                Task.current.Succeed();
+            }
+            else
+            {
+                target.GetComponent<BuildingController>().TakeDamage(unit.attackPower);
+                unit.turnUsed = true;
+                Task.current.Succeed();
+            }
+            
             Debug.Log("Fire Succeed");
         }
         else
@@ -115,9 +125,10 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void TargetInSight()
     {
-        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, 6f);
+        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, 3f);
         List<Tile> tiles = new List<Tile>();
 
+        target = null;
         foreach (Collider2D hit in nearTiles)
         {
             if (hit.GetComponent<Tile>())
@@ -161,31 +172,34 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void SetTravelLocation()
     {
-        unit.FindSelectableTiles();
-        if (attackMode)
-        {
-            foreach (Tile t in unit.selectableTiles)
-            {
-                if (Vector2.Distance(t.transform.position, gs.playerBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.playerBase.transform.position))
-                {
+        Collider2D[] nearTiles = Physics2D.OverlapCircleAll(transform.position, 3f);
+        List<Tile> tiles = new List<Tile>();
+        List<Tile> moveTiles = new List<Tile>();
 
-                    moveLocation = t;
-                    break;
+        moveLocation = null;
+        foreach (Collider2D hit in nearTiles)
+        {
+            if (hit.GetComponent<Tile>() && hit.GetComponent<Tile>().empty && hit.GetComponent<Tile>().walkable)
+            {
+                if (attackMode)
+                {
+                    if (Vector2.Distance(hit.GetComponent<Tile>().transform.position, gs.playerBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.playerBase.transform.position))
+                    {
+                        moveTiles.Add(hit.GetComponent<Tile>());
+                    }
+                }
+                else
+                {
+                    if (Vector2.Distance(hit.GetComponent<Tile>().transform.position, gs.enemyBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.enemyBase.transform.position))
+                    {
+                        moveTiles.Add(hit.GetComponent<Tile>());
+                    }
                 }
             }
         }
-        else
-        {
-            foreach (Tile t in unit.selectableTiles)
-            {
-                if (Vector2.Distance(t.transform.position, gs.enemyBase.transform.position) + 1 <= Vector2.Distance(transform.position, gs.enemyBase.transform.position))
-                {
 
-                    moveLocation = t;
-                    break;
-                }
-            }
-        }
+        moveLocation = moveTiles[Random.Range(0,moveTiles.Count)];
+
         if (moveLocation)
         {
             Task.current.Succeed();
@@ -210,14 +224,15 @@ public class EnemyUnitController : MonoBehaviour
 
         foreach (Vector2 location in locations)
         {
-            if (unit.GetTileAt(location).empty)
+            if (unit.GetTileAt(location).empty && unit.GetTileAt(location).walkable)
             {
                 moveLocation = unit.GetTileAt(location);
+                moveLocation.empty = false;
                 break;
             }
         }
 
-        if (!moveLocation)
+        if (moveLocation)
         {
             Task.current.Succeed();
             Debug.Log("SetMoveLocation Succeed");
@@ -247,6 +262,7 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void MoveToLocation()
     {
+        unit.FindSelectableTiles();
         unit.SetTargetLocation(moveLocation);
         Task.current.Succeed();
         Debug.Log("MoveToLocation Succeed");
@@ -255,20 +271,6 @@ public class EnemyUnitController : MonoBehaviour
     [Task]
     void BaseInSight()
     {
-        //bool insight = false;
-        //gs.selectedUnit = gameObject;
-        //unit.FindSelectableTiles();
-        //foreach (Tile t in unit.selectableTiles)
-        //{
-        //    if (t.occupant)
-        //    {
-        //        if (t.occupant.GetComponent<Building>() && t.occupant.GetComponent<Building>().owner == un && t.occupant.GetComponent<Building>().buildingType == Buildings.Base)
-        //        {
-        //            insight = true;
-        //            break;
-        //        }
-        //    }
-        //}
         if (Vector2.Distance(transform.position, gs.enemyBase.transform.position) < 10f)
         {
             Task.current.Succeed();
