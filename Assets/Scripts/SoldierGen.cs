@@ -42,7 +42,7 @@ public class SoldierGen : MonoBehaviour
                 Vector2 spawnPos = GetPos();
                 Tile tile;
                 tile = GetTileAt(spawnPos);
-                if (tile && tile.empty)
+                if (tile && tile.empty && tile.unitGen)
                 {
                     PlayerSoldierGenerate(spawnPos);
                 }
